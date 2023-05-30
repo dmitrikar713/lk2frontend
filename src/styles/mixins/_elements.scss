@@ -1,0 +1,20 @@
+@mixin card {
+  padding: $card-padding;
+  background-color: $color-background-primary;
+  border-radius: $card-radius;
+
+  @include mobile {
+    padding: $card-padding calc($card-padding * 0.5);
+  }
+}
+
+@mixin logout {
+  color: $color-accent-primary;
+
+  &Select {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+}

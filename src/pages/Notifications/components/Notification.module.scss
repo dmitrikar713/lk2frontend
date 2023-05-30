@@ -1,0 +1,73 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Notification {
+  &Wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &ForwardLink {
+      text-align: center;
+    }
+  }
+
+  &Header {
+    flex: 1;
+    color: rgba($color-text-primary, 0.5);
+    @include desktop {
+      display: none;
+    }
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &Main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &Icon {
+    @include desktop {
+      display: none;
+    }
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &Name {
+    @include p2-medium;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @include mobile {
+      gap: 0;
+    }
+  }
+
+  &Date {
+    @include p3-regular;
+    margin-top: 0.5rem;
+    color: rgba($color-text-primary, 0.5);
+  }
+
+  &Status {
+    @include p2-medium;
+    flex: 1;
+    color: $color-accent-primary;
+  }
+
+  &ForwardLink {
+    margin-top: 1rem;
+    text-align: right;
+  }
+}

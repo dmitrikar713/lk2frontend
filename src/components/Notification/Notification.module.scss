@@ -1,0 +1,43 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Notification {
+  @include p3-regular;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  color: $color-text-notification;
+  background-color: $color-notification-default;
+
+  &.SizeL {
+    max-width: 1320px;
+  }
+
+  &.SizeM {
+    max-width: 1220px;
+  }
+
+  &.SizeS {
+    max-width: 650px;
+  }
+
+  &.SizeXS {
+    padding: 0.625rem;
+    max-width: 300px;
+  }
+
+  & .CloseIcon {
+    margin-left: 1.25rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    background-image: url("data:image/svg+xml,%0A%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 6L18 18M18 6L6 18' stroke='%23C4C4C4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+    cursor: pointer;
+  }
+
+  & .ShowMore {
+    margin-left: 0.25rem;
+    color: $color-text-inversion;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

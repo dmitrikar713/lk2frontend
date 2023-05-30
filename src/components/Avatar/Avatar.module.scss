@@ -1,0 +1,46 @@
+@import 'styles/variables';
+
+.Avatar {
+  max-width: 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+
+  &Placeholder {
+    max-width: 100px;
+    min-width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-background-surface;
+    border-radius: 50%;
+    text-align: center;
+    white-space: pre-line;
+  }
+}
+
+.Avatar,
+.AvatarPlaceholder {
+  transition: box-shadow 0.75s, transform 0.75s;
+}
+
+.Avatar:hover,
+.AvatarPlaceholder:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  transition: box-shadow 0.5s, transform 0.5s;
+  cursor: pointer;
+}
+
+.Disabled:hover {
+
+  .Avatar:hover,
+  .AvatarPlaceholder:hover {
+    box-shadow: none;
+    transform: none;
+    transition: none;
+    cursor: default;
+  }
+}

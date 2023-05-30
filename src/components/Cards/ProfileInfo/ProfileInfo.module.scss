@@ -1,0 +1,212 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &Wrapper {
+    @include card;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Body {
+    width: 100%;
+    display: flex;
+    padding-right: $card-padding;
+    justify-content: space-between;
+
+    @include mobile {
+      width: auto;
+      flex-direction: column;
+    }
+  }
+
+  .Delimeter {
+    margin-top: 1rem;
+  }
+
+  &Row {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &Col {
+    width: 30%;
+  }
+
+  &Col2 {
+    width: 45%;
+  }
+
+  &Avatar,
+  &Chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &Wrapper {
+      display: flex;
+    }
+  }
+
+  &Avatar {
+    flex: 4;
+
+    &Wrapper {
+      width: fit-content;
+    }
+    
+    &Container {
+      max-width: 100px;
+    }
+
+    &Name {
+      @include h3-medium;
+      margin-left: 2rem;
+    }
+  }
+
+  &Chart {
+    flex: 3;
+
+    &Wrapper {
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &Legend {
+      @include p3-medium;
+      margin-left: 1rem;
+      color: rgba($color-text-primary, 0.5);
+      align-self: flex-end;
+      white-space: pre-line;
+    }
+  }
+
+  &Icons {
+    display: flex;
+
+    &Settings {
+      padding-right: 0.5rem;
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &Notifications {
+      height: fit-content;
+      margin-left: 0.5rem;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s;
+
+      .ItemNotificationIcon {
+        z-index: 1;
+        position: relative;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+        transition: transform 0.1s;
+
+        .ItemNotificationIcon {
+          animation: 0.1s ringing infinite alternate;
+        }
+      }
+    }
+
+    &Counter {
+      @include p3-regular;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: $color-text-inversion;
+      position: absolute;
+      right: -0.625rem;
+      top: -0.5rem;
+      background-color: #e61610;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: inherit;
+      z-index: 0;
+      cursor: pointer;
+    }
+  }
+
+  &WrapIcon {
+    position: absolute;
+    right: calc($card-padding / 1.6);
+    bottom: calc($card-padding / 2);
+    cursor: pointer;
+    z-index: 1;
+
+    @include mobile {
+      bottom: calc($card-padding / 8);
+    }
+  }
+
+  &SectionAnchors {
+    margin: -0.5rem 2rem -1rem;
+    display: flex;
+    gap: 1rem;
+
+    @include mobile {
+      margin: 0;
+      justify-content: space-around;
+      gap: 0;
+      overflow-x: scroll;
+      padding-bottom: 5px;
+
+      & > div:first-child {
+        margin-left: 50px;
+      }
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #dee0e8;
+        border-radius: 20px;
+        border: 3px solid #f6f6f6;
+      }
+    }
+  }
+
+  &Main,
+  &Organization,
+  &IndividualEntrepreneur {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: $card-padding;
+    padding-bottom: 3rem;
+    background-color: $color-background-primary;
+    border-radius: $card-padding;
+    &Title {
+      @include h3-medium;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &Documents {
+    &Row {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+
+      @include mobile {
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@include ringing(5deg, -5deg);

@@ -1,0 +1,91 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Input {
+  padding: 0.6rem 0 0.2rem 0;
+  color: $color-text-primary;
+  background-color: unset;
+  font-size: 1.0rem;
+  border: 0;
+  caret-color: $color-accent-primary;
+
+  &[type='password'] {
+    font-size: 1.6rem;
+    color: $color-accent-primary;
+    letter-spacing: 0.25rem;
+  }
+
+  &:disabled {
+    color: $color-text-secondary;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &Wrapper {
+    position: relative;
+    padding: 1.375rem 0 1.375rem 0;
+    width: 100%;
+    max-height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $color-text-quaternary;
+    box-sizing: border-box;
+
+    &.Focused {
+      border-color: $color-info;
+    }
+
+    &.Error {
+      background-color: rgba($color-accent-primary, 0.05);
+      border-color: $color-accent-primary;
+
+      .Input {
+        &Label {
+          color: $color-accent-primary;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  &Content {
+    flex: 0.95;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &Label {
+    color: $color-text-secondary;
+    font-size: 0.875rem;
+    @include mobile {
+      width: calc(100vw - $card-padding - 1rem);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+  }
+
+  &Suffix {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,137 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+$arrow-size: 70px;
+
+@mixin highlightStep1 {
+  margin-top: -1rem;
+  min-height: 27rem;
+}
+
+@mixin tooltipStep1 {
+  top: -14rem;
+}
+
+@mixin arrowStep1 {
+  left: -8rem;
+  top: 15rem;
+  transform: rotate(180deg);
+}
+
+@mixin arrowStep2 {
+  left: -8rem;
+  top: -7rem;
+  transform: rotate(180deg);
+}
+
+.Onboarding {
+  &Step {
+    &Wrapper {
+      color: $color-text-inversion;
+    }
+
+    &Header {
+      @include h3-medium;
+      font-family: CeraProMedium !important;
+    }
+
+    &Arrow {
+      position: absolute;
+      width: $arrow-size;
+      height: 2px;
+      background-color: $color-background-primary;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0.5rem;
+        height: 2px;
+        background-color: $color-background-primary;
+      }
+
+      &::after {
+        bottom: -3px;
+        left: -4px;
+        transform: rotate(45deg);
+      }
+      &::before {
+        bottom: 3px;
+        left: -4px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &Body {
+      @include p2-regular;
+      margin-top: 1rem;
+      font-family: CeraProRegular !important;
+    }
+  }
+}
+
+.Tooltip {
+  &Step0,
+  &Step1,
+  &Step2 {
+    left: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    min-width: 465px !important;
+
+    a[class~='introjs-nextbutton'] {
+      @include p2-regular;
+      float: left;
+      padding: 0.675rem 1.75rem;
+      background-color: $color-accent-primary;
+      color: $color-text-inversion;
+      border: none;
+      border-radius: 1.5rem;
+      box-shadow: none;
+      font-family: CeraProRegular !important;
+      text-shadow: none;
+    }
+
+    // a[class~='introjs-skipbutton'],
+    div[class~='introjs-arrow'],
+    a[class~='introjs-prevbutton'] {
+      display: none !important;
+    }
+
+    div[class~='introjs-tooltip-header'] {
+      padding: 0;
+      height: 0;
+    }
+
+    div[class~='introjs-tooltipbuttons'] {
+      border-top: none;
+    }
+  }
+
+  &Step1 {
+    @include tooltipStep1();
+
+    .OnboardingStepArrow {
+      @include arrowStep1();
+    }
+  }
+
+  &Step2 {
+    .OnboardingStepArrow {
+      @include arrowStep2();
+    }
+  }
+}
+
+.Highlight {
+  &Step0,
+  &Step1,
+  &Step2 {
+    border-radius: 1.25rem !important;
+    box-shadow: rgb(33 33 33 / 90%) 0px 0px 0px 5000px !important;
+  }
+
+  &Step1 {
+    @include highlightStep1();
+  }
+}

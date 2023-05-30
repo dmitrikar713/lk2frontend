@@ -1,0 +1,39 @@
+{
+  "onboarding": false,
+  "logo": "data:image/png;base64,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",
+  "user": {
+    "user_id": "1",
+    "user_last_name": "Иванов",
+    "user_first_name": "Иван",
+    "user_middle_name": "Иванович",
+    "user_phone": "+7 (900) 000-00-00",
+    "user_email": "ivanov@gmail.com",
+    "user_post": "Сотрудник"
+  },
+  "organization": {
+    "org_id": "1",
+    "org_type": "company",
+    "org_name": "Автономная неккомерческая организация 'МЭЦ'",
+    "org_name_short": "МЭЦ",
+    "org_organization_form": "Автономные некоммерческие организации",
+    "org_OGRN": 1037739000530,
+    "org_CPP": 770301001,
+    "org_address": "Москва, пер. Большой Гнездниковский, д. 3",
+    "org_address_legal": "Москва, пер. Большой Гнездниковский, д. 3",
+    "org_email": "info@moscow-export.com",
+    "org_phone": "74992888501",
+    "org_site": "moscow-export.com",
+    "org_OKVED": "Консультирование по вопросам коммерческой деятельности и управления (70.22)",
+    "org_OCPO": 35895462,
+    "org_exports_market": "РФ, СНГ",
+    "org_exports_amount": "12000000 руб."
+  },
+  "documents": {
+    "documents_charter": { "file": null, "uploadedAt": "", "status": "empty" },
+    "documents_financial_statement": {
+      "file": null,
+      "uploadedAt": "",
+      "status": "empty"
+    }
+  }
+}

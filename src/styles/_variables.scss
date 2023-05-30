@@ -1,0 +1,205 @@
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/mixins/';
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`  // 0.875rem
+$min-contrast-ratio: 1.9;
+$line-height-base: 1.5 !default;
+$spacer: 1rem !default;
+
+//Colors
+$white: #fff;
+$black: #000;
+
+$color-background-primary: $white;
+$color-background-secondary: #ebebf1;
+$color-background-tertiary: #f5f5fa;
+$color-background-quaternary: #fafafa;
+
+$color-background-surface: #f2f2f2;
+
+// $color-background-initial: var(--color-background-initial);
+// $color-background-tertiaryHover: var(--color-background-tertiaryHover);
+// $color-background-card: var(--color-background-card);
+// $color-background-cardHover: var(--color-background-cardHover);
+// $color-background-surfaceDanger: var(--color-background-surfaceDanger);
+// $color-background-surfaceWarn: var(--color-background-surfaceWarn);
+// $color-background-surfaceSuccess: var(--color-background-surfaceSuccess);
+// $color-background-inversion: var(--color-background-inversion);
+// $color-background-shadow: var(--color-background-shadow);
+
+$color-accent-primary: #ff4361;
+$color-accent-secondary: #fbdce7;
+$color-accent-tertiary: #f08ba1;
+$color-accent-quaternary: #c7133e;
+
+$color-text-primary: #202020;
+$color-text-secondary: #717a86;
+$color-text-tertiary: #bac2cd;
+$color-text-quaternary: #e4e9ef;
+$color-text-inversion: #ffffff;
+$color-text-label: #1a1a1a;
+$color-text-notification: #c4c4c4;
+$color-text-disabled: rgba($color-text-primary, 0.75);
+// $color-text-staticWhite: var(--color-text-staticWhite);
+// $color-text-staticBlack: var(--color-text-staticBlack);
+
+$color-stroke-tertiary: var(--color-stroke-tertiary);
+// Special Colors
+
+$color-info: #009fd6;
+$color-info-light: #cbfef8;
+$color-success: #4fc153;
+$color-success-light: #e7fbde;
+$color-attention: #ffb800;
+$color-attention-light: #fff6cc;
+
+$color-label-default: #ff4261;
+$color-label-hover: #f13553;
+
+$color-notification-default: #434343;
+
+$color-button-primary: $color-accent-primary;
+$color-button-hover: #ff717b;
+$color-button-pressed: #db305c;
+$color-button-disabled: #e4e9ef;
+
+$color-header: #ff4361;
+$color-footer: #191919;
+
+// $color-special-soft-gray: var(--color-special-soft-gray);
+// $color-special-green: var(--color-special-green);
+// $color-special-soft-green: var(--color-special-soft-green);
+// $color-special-yellow: var(--color-special-yellow);
+// $color-special-soft-yellow: var(--color-special-soft-yellow);
+// $color-special-blue: var(--color-special-blue);
+// $color-special-soft-blue: var(--color-special-soft-blue);
+// $color-special-soft-light-blue: var(--color-special-soft-light-blue);
+// $color-special-red: var(--color-special-red);
+// $color-special-soft-red: var(--color-special-soft-red);
+// $color-special-soft-turquoise: var(--color-special-soft-turquoise);
+
+// $primary: #00c3ff;
+// $hover: #00c3ff;
+// $success: #5ecf70;
+// $warning: #ffaf37;
+$danger: $color-accent-primary;
+
+// $color-background-surface-danger: #fef0f1;
+// $color-status-danger: #da0b20;
+// $color-background-surface-warn: #fff7f0;
+// $color-status-warn: #ff8c19;
+// $color-background-surface-success: #f2fcf5;
+// $color-status-success: #2abb5b;
+
+// $color-hover: $color-special-soft-gray;
+
+// scss-docs-start border-radius-variables
+$border-radius: 0.25rem !default;
+$border-radius-sm: 0.2rem !default;
+$border-radius-lg: 0.3rem !default;
+$border-radius-pill: 50rem !default;
+$border-width: 1px !default;
+// scss-docs-end border-radius-variables
+
+// scss-docs-start box-shadow-variables
+$box-shadow: 0 0.5rem 1rem rgba($black, 0.15) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
+// scss-docs-end box-shadow-variables
+
+// Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+$zindex-dropdown: 1000 !default;
+$zindex-sticky: 1020 !default;
+$zindex-fixed: 1030 !default;
+$zindex-modal-backdrop: 1040 !default;
+$zindex-modal: 1050 !default;
+$zindex-sidebar: 1052 !default;
+$zindex-popover: 1060 !default;
+$zindex-tooltip: 1070 !default;
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns: 12 !default;
+$grid-gutter-width: 2rem !default;
+
+// Cards
+
+$card-padding: 2.1rem;
+$card-radius: 1rem;
+$card-spacer-y: 0.75rem !default;
+$card-spacer-x: 1.25rem !default;
+
+
+// Toasts
+
+$toast-width: 25rem !default;
+$toast-padding-x: $card-spacer-x !default;
+$toast-padding-y: $card-spacer-y !default;
+$toast-font-size: $font-size-base !default;
+$toast-color: null !default;
+$toast-background-color: rgba($color-background-primary, 0.85) !default;
+$toast-border-width: 1px !default;
+$toast-border-color: rgba(0, 0, 0, 0.1) !default;
+$toast-border-radius: 1rem !default;
+$toast-box-shadow: var(--non-clickable-box-shadow);
+
+$toast-header-color: #47494f; // todo $gray-600 !default;
+$toast-header-background-color: rgba($color-background-primary, 0.85) !default;
+$toast-header-border-color: rgba(0, 0, 0, 0.05) !default;
+
+// Links
+$link-decoration: none;
+
+// Dropdowns
+$dropdown-border-color: rgba($black, 0.15) !default;
+$dropdown-border-radius: 4px;
+$dropdown-border-width: 0;
+$dropdown-box-shadow: var(--non-clickable-box-shadow);
+$box-shadow: var(--non-clickable-box-shadow);
+
+$dropdown-item-padding-y: 0.625rem;
+
+// Progress bars
+$progress-border-radius: 0.5rem;
+$progress-bg: $color-background-primary !default;
+
+// Buttons
+$btn-focus-width: 0;
+
+// Form validation
+
+// $form-feedback-valid-color: $success;
+// $form-feedback-invalid-color: $danger;
+
+// Header
+$header-height: 4rem;
+$header-nav-link-padding-y: 1.25rem !default;
+$header-nav-link-padding-x: 0.5rem !default;
+
+$list-acitons-height: 5rem;
+
+$transition-base: all 0.2s ease-in-out !default;
+$transition-fade: opacity 0.15s linear !default;
+$transition-collapse: height 0.35s ease !default;
+
+// Form
+$input-border-color: #fff;
+$input-color: $color-text-primary;
+$input-placeholder-color: $color-text-secondary;
+
+// Modal
+$modal-padding: 2.5rem;
+$modal-md: 34.375rem;
+$table-cell-padding-y: 0.375rem;
+
+// Screen sizes
+$breakpoint-small-mobile-max: 367px;
+$breakpoint-mobile-max: 767px;
+$breakpoint-tablet-max: 1023px;

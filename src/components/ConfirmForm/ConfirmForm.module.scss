@@ -1,0 +1,19 @@
+.ConfirmForm {
+  width: 100%;
+  height: 55vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: relative;
+  margin-bottom: 30px;
+  
+  &Document {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+.FormSubmit {
+  margin: 0 auto;
+  display: block;
+}

@@ -1,0 +1,54 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Open {
+  transition: max-height 0.5s ease-in-out;
+}
+
+.Close {
+  opacity: 0.2;
+  margin: 0 !important;
+  max-height: 0px !important;
+  transition: max-height 0.5s ease-in-out, margin 0.675s ease-out, opacity 0.5s;
+}
+
+.Card {
+  @include card;
+  position: relative;
+
+  &Title {
+    @include h3-medium;
+    @include mobile {
+      white-space: pre-line;
+    }
+    &WithBorder {
+      @include h4-medium;
+      border-bottom: 1px solid #ff4361;
+      padding-bottom: 3px;
+    }
+  }
+
+  &Body {
+    overflow: hidden;
+    margin: 1rem 0 1.5rem;
+  }
+
+  &WrapIcon {
+    position: absolute;
+    right: calc($card-padding / 1.6);
+    bottom: calc($card-padding / 2);
+    cursor: pointer;
+
+    &WithBorder {
+      position: absolute;
+      right: calc($card-padding / 0.95);
+      top: calc($card-padding / 0.85);
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+
+    @include mobile {
+      bottom: calc($card-padding / 8);
+    }
+  }
+}

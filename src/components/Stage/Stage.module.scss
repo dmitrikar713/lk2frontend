@@ -1,0 +1,78 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Stage {
+  &Wrapper {
+    &SubstageHeader {
+      cursor: pointer;
+      width: 78%;
+      display: flex;
+    }
+
+    &SubstageBody {
+      padding: 0.8rem;
+      margin: 0.8rem 0 0 0.8rem;
+      text-align: justify;
+    }
+  }
+
+  &Status {
+    &Number,
+    &NumberProcessing {
+      margin-right: 0.5rem;
+      display: flex;
+      width: 1rem;
+      height: 1rem;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba($color-text-primary, 0.25);
+      color: $color-text-inversion;
+      border-radius: 50%;
+      font-size: 0.8rem;
+
+      &Processing {
+        background-color: rgba($color-accent-primary, 1);
+      }
+    }
+
+    &Date {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+    }
+
+    &Completed,
+    &Processing,
+    &Pending {
+      @include p3-regular;
+      margin-top: 0.7rem;
+      margin-bottom: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      background-color: rgba($color-accent-primary, 0.25);
+      color: rgba($color-text-primary, 0.5);
+    }
+
+    &Pending {
+      background-color: transparent;
+      color: $color-text-primary;
+
+      .RequestStatusNumber {
+        background-color: $color-accent-primary;
+      }
+    }
+
+    &Processing {
+      color: $color-text-primary;
+      background-color: transparent;
+      font-weight: bold;
+
+      .RequestStatusNumber {
+        background-color: $color-accent-primary;
+      }
+    }
+
+    
+  }
+}

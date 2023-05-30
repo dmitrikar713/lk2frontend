@@ -1,0 +1,102 @@
+@import 'variables';
+@import '../../node_modules/react-toastify/dist/ReactToastify.css';
+
+:root {
+  --toastify-icon-color-success: #{$success};
+  --toastify-icon-color-error: #{$danger};
+  --toastify-icon-color-warning: #{$warning};
+  --toastify-toast-width: 24rem;
+}
+
+$toast-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$toast-colors: map-merge(
+  (
+    'default': $white,
+    'success': #f2fcf5,
+    // $color-background-surface-success,
+    'warning': #fff7f0,
+    //$color-background-surface-warn,
+    'error': #fef0f1,
+    // $color-background-surface-danger,
+    'info': #e6f8ff,
+    //$color-special-soft-light-blue,
+  ),
+  $toast-colors
+);
+
+$toast-border-colors: (
+  'default': $white,
+  'success': $success,
+  'warning': $warning,
+  'error': $danger,
+  'info': #0abbfb,
+);
+
+@function toast-colors($key: 'default') {
+  @return map-get($toast-colors, $key);
+}
+
+@function toast-border-colors($key: 'default') {
+  @return map-get($toast-border-colors, $key);
+}
+
+.Toastify--animate {
+  animation-duration: 0.3s;
+}
+
+.Toastify {
+  /** Used to define container behavior: width, position: fixed etc... **/
+  .Toastify__toast-container {
+    position: fixed;
+    z-index: 999999;
+
+    /** Classes for the displayed toast **/
+    .Toastify__toast {
+      $toast-theme-color: toast-colors('default');
+      @include alert-variant(
+        $toast-theme-color,
+        darken($toast-theme-color, 10%),
+        color-contrast($toast-theme-color)
+      );
+      @include border-radius($toast-border-radius);
+      @include p2-regular;
+      font-size: $toast-font-size;
+      width: $toast-width;
+      max-width: 100%;
+      padding: $toast-padding-y $toast-padding-x;
+      border: $border-width solid transparent;
+      box-shadow: $toast-box-shadow;
+      background-color: $color-background-primary;
+
+      &:not(:last-child) {
+        margin-bottom: $toast-padding-x * 0.5;
+      }
+    }
+
+    @each $color, $value in $toast-colors {
+      .Toastify__toast--#{$color} {
+        @include alert-variant(
+          $value,
+          toast-border-colors($color),
+          color-contrast($value)
+        );
+      }
+    }
+  }
+}
+
+@include mobile {
+  .Toastify {
+    .Toastify__toast-container {
+      width: 100%;
+      padding: 0 1rem;
+      right: auto;
+      top: 5rem;
+
+      .Toastify__toast {
+        width: 100%;
+      }
+    }
+  }
+}

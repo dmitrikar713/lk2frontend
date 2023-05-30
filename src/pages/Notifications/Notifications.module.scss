@@ -1,0 +1,110 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Notifications {
+  @include card;
+  width: 100%;
+  height: fit-content;
+
+  &Row {
+    display: flex;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  &Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &Title {
+    @include h3-medium;
+    margin: 1rem 0 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &Clear {
+    @include p3-regular;
+    display: flex;
+    align-items: flex-end;
+    color: $color-text-disabled;
+    font-size: 0.625rem;
+    line-height: 100%;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-text-primary;
+    }
+
+    &Label {
+      padding-left: 0.25rem;
+    }
+  }
+
+  &Placeholder {
+    @include p2-regular;
+    margin-top: 1.5rem;
+    text-align: center;
+    color: $color-text-disabled;
+  }
+
+  &Header {
+    @include p3-regular;
+    display: flex;
+    gap: 2rem;
+    color: rgba($color-text-primary, 0.5);
+
+    @include mobile {
+      display: none;
+    }
+
+    &Item {
+      flex: 1;
+    }
+  }
+
+  &Wrapper {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba($color-text-primary, 0.125);
+
+    @include mobile {
+      @include card();
+      flex-direction: column;
+      background-color: rgba($color-accent-primary, 0.05);
+      border-top: none;
+      align-items: flex-start;
+    }
+  }
+
+  &Main {
+    display: flex;
+    align-items: center;
+  }
+
+  &Icon {
+    @include p2-medium;
+    margin-right: 1rem;
+  }
+
+  &Name {
+    @include p2-medium;
+  }
+
+  &Date {
+    @include p3-regular;
+    color: rgba($color-text-primary, 0.5);
+  }
+
+  &Status {
+    @include p2-medium;
+    color: $color-accent-primary;
+  }
+}

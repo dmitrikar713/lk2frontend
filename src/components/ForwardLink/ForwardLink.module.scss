@@ -1,0 +1,16 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.ForwardLink {
+  @include p3-regular;
+  color: $color-accent-primary;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-accent-primary;
+  }
+
+  &Title {
+    border-bottom: 1px dashed $color-accent-primary;
+  }
+}

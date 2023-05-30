@@ -1,0 +1,45 @@
+@import 'styles/variables';
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &Submit {
+    align-self: left;
+    margin-top: 1.0rem;
+    margin-bottom: 1.3rem;
+  }
+}
+
+.Step {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: rgba($color-text-primary, 0.5);
+  border-radius: 50%;
+
+  &Wrapper {
+    margin-left: 2rem;
+    position: relative;
+  }
+
+  &Title {
+    margin-left: 1rem;
+    align-self: center;
+  }
+
+  &Body {
+    display: flex;
+
+    &:after {
+      content: '';
+      width: 1px;
+      height: calc(100% - 1.5rem);
+      display: block;
+      position: absolute;
+      top: 2rem;
+      left: 0.75rem;
+      background-color: rgba($color-text-primary, 0.5);
+    }
+  }
+}

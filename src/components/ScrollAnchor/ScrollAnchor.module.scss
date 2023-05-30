@@ -1,0 +1,28 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.ScrollAnchor {
+  @include p3-regular;
+  width: fit-content;
+  color: $color-text-primary;
+  cursor: pointer;
+  white-space: nowrap;
+  
+  &Title {
+    display: inline-block;
+    line-height: 1.5rem;
+    border-bottom: 1px dashed;
+  }
+
+  &Arrow {
+    margin-left: 0.25rem;
+    font-size: 1rem;
+    font-family: serif;
+    font-weight: bold;
+    color: $color-accent-primary;
+  }
+
+  @include small-mobile {
+    font-size: smaller;
+  }
+}

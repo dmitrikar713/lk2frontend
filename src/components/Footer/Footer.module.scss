@@ -1,0 +1,41 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Footer {
+  padding: 1rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+
+  &Wrapper {
+    color: $color-text-inversion;
+    background-color: $color-footer;
+    border-radius: 2.5rem 2.5rem 0 0;
+    @include p2-regular;
+  }
+
+  & .Title {
+    @include h3-medium;
+
+    &Wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &Delimeter {
+      margin: 0 1.5rem;
+      width: 2px;
+      height: 40px;
+      background-color: $color-text-inversion;
+    }
+  }
+
+  &Social {
+    align-items: center;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  &.Mobile {
+    border-radius: 1rem 1rem 0 0;
+  }
+}

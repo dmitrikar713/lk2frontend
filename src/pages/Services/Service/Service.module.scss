@@ -1,0 +1,96 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Service {
+  @include card;
+  height: fit-content;
+
+  &Name {
+    @include p2-medium;
+    color: $color-accent-primary;
+  }
+
+  &Row {
+    margin-top: 1rem;
+    display: flex;
+  }
+
+  &Info,
+  &Stepper {
+    margin: 0;
+  }
+
+  &Info {
+    @include p3-regular;
+    padding-left: 1rem;
+    width: 50%;
+    margin-right: 2rem;
+
+    &Item {
+      margin-bottom: 1rem;
+      list-style-type: none;
+      position: relative;
+      &::before {
+        content: '.';
+        position: absolute;
+        top: -0.75rem;
+        left: -1.125rem;
+        color: $color-accent-primary;
+        font-size: 3rem;
+      }
+    }
+  }
+
+  &Stepper {
+    --size: 1.5rem;
+    --spacing: 0.125rem;
+    margin-top: 1rem;
+    padding-left: 0;
+    counter-reset: myCounter;
+
+    &Header {
+      @include p2-regular;
+      color: $color-accent-primary;
+    }
+
+    &Item {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1rem;
+
+      &::before {
+        @include p3-regular;
+        counter-increment: myCounter;
+        content: counter(myCounter);
+        position: relative;
+        flex: 0 0 var(--size);
+        height: var(--size);
+        color: $color-accent-primary;
+        text-align: center;
+        line-height: calc(var(--size) - 0.25rem);
+        border: 1px solid $color-accent-primary;
+        border-radius: 50%;
+      }
+
+      &:not(:last-child):after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: calc(var(--size) + var(--spacing));
+        transform: translateX(calc(var(--size) / 2));
+        bottom: var(--spacing);
+        width: 1px;
+        background-color: $color-accent-primary;
+      }
+    }
+
+    &Title {
+      @include p3-regular;
+    }
+  }
+
+  &GetButton {
+    margin-top: 2rem;
+  }
+}

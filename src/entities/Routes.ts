@@ -1,0 +1,17 @@
+export enum RoutePaths {
+  ALL = '*',
+  PROFILE = '/',
+  REPRESENTATIVE_PROFILE = '/profile/representative',
+  REQUEST_DETAILS = '/request/details',
+  REQUEST_DETAIL = '/request/details/:requestId',
+  REQUESTS = '/requests',
+  REQUEST = '/requests/:requestId',
+  SERVICES = '/services',
+  SERVICE = '/services/:serviceId',
+  EXPORTS = '/exports',
+  EVENTS = '/events',
+  NOTIFICATIONS = '/notifications',
+  CALLBACK = '/callback',
+  EXIT = '/exit',
+  LOGOUT = '/logout',
+}

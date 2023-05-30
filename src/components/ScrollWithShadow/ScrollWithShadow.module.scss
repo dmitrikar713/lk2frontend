@@ -1,0 +1,27 @@
+@import "/src/styles/variables";
+@import "/src/styles/mixins";
+
+@mixin shadow() {
+  content: "";
+  position: absolute;
+  height: 100%;
+  pointer-events: none;
+}
+
+.RightShadow::before {
+  @mixin tablet {
+    @include shadow;
+    left: 0px;
+    width: 60px;
+    background: linear-gradient(92deg, #f2f2f2, transparent);
+  }
+}
+
+.LeftShadow::after {
+  @mixin tablet {
+    @include shadow;
+    right: 0px;
+    width: 83px;
+    background: linear-gradient(270deg, #f2f2f2, transparent);
+  }
+}

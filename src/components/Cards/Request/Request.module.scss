@@ -1,0 +1,66 @@
+@import '/src/styles/variables';
+
+.Request {
+  width: 504px;
+  background-color: $color-background-primary;
+
+  &Header {
+    padding: 1rem;
+    color: $color-accent-primary;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: 1px solid $color-background-secondary;
+  }
+
+  &Body {
+    display: flex;
+
+    &Info {
+      padding: 2.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .Request {
+        &Title {
+          color: $color-text-primary;
+          font-size: 1.25rem;
+          line-height: 1.5rem;
+          font-weight: 700;
+        }
+        &Number {
+          margin-top: 0.5rem;
+          color: $color-text-tertiary;
+          font-size: 0.875rem;
+          line-height: 1.125rem;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .RequestTitle {
+        color: $color-accent-primary;
+      }
+    }
+  }
+
+  &.Large {
+    .RequestBodyLogo > svg {
+      min-width: 176px;
+      min-height: 176px;
+    }
+  }
+
+  &.Normal {
+    .RequestBodyLogo > svg {
+      width: 128px;
+      height: 128px;
+    }
+
+    .RequestBodyInfo {
+      padding: 0 1rem;
+    }
+  }
+}

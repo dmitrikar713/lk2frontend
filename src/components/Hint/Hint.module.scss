@@ -1,0 +1,14 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Hint {
+  @include p3-regular;
+  position: relative;
+  color: $color-text-disabled;
+
+  & svg {
+    position: absolute;
+    left: -2rem;
+    top: -0.25rem;
+  }
+}

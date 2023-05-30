@@ -1,0 +1,129 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.DocumentCard {
+  @include card;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba($color-text-primary, 0.15);
+
+  &Wrap {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &Delete {
+    position: absolute;
+    right: 0.25rem;
+    top: 0.25rem;
+    width: 1.25rem;
+    height: auto;
+    cursor: pointer;
+  }
+
+  &ExtraActions {
+    position: absolute;
+    right: 0.6rem;
+    top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    &.Bottom {
+      top: auto;
+      bottom: 0.5rem;
+    }
+  }
+
+  &ThreeDots {
+    right: 0.6rem;
+    top: 0.5rem;
+    &WithOthers {
+      right: 0.6rem;
+    }
+  }
+
+  &Name {
+    margin-top: 0.5rem;
+    color: rgba($color-text-primary, 0.25);
+    font-style: italic;
+  }
+
+  &FileName {
+    display: flex;
+    gap: 0.5rem;
+    color: $color-text-primary;
+  }
+
+  &Docs {
+    min-width: 2.5rem;
+  }
+
+  &Verified, &NotSigned {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &Verified {
+    color: $color-success;
+  }
+
+  &NotSigned {
+    color: $color-attention;
+  }
+
+  &NotVerified {
+    color: $color-label-default;
+  }
+
+  &Date {
+    @include p3-regular;
+    margin-top: 1rem;
+    color: $color-text-primary;
+  }
+
+  &Content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &Wrapper {
+    height: 100%;
+  }
+
+  &Button {
+    width: 1.25rem;
+    color: $color-text-inversion;
+    background-color: $color-accent-primary;
+    border-radius: 50%;
+    text-align: center;
+
+    &Wrapper {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    &Label {
+      @include p3-regular;
+      font-size: 0.75rem;
+      color: $color-text-primary;
+      border-bottom: 1px dashed $color-text-primary;
+    }
+  }
+}

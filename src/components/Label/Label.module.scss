@@ -1,0 +1,15 @@
+@import '/src/styles/variables';
+
+.Label {
+  padding: 0.375rem 1.5rem;
+  color: $color-text-label;
+  border: 1px solid $color-label-default;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &:hover {
+    color: $color-label-hover;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,55 @@
+@import '/src/styles/variables';
+
+.Verification {
+  padding: 0.75rem 1rem 1rem;
+  width: 384px;
+  background-color: $color-background-primary;
+  line-height: 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+
+  &Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $color-accent-primary;
+
+    &Icon {
+      margin-right: 1rem;
+      width: 1.25rem;
+      height: 1.75rem;
+      background-image: url("data:image/svg+xml,%3Csvg width='21' height='28' viewBox='0 0 21 28' fill='none' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath d='M18 27H3C1.89543 27 1 26.1046 1 25V3C1 1.89543 1.89543 1 3 1H11M19 14V9M19 9V8L12 1H11M19 9H13C11.8954 9 11 8.10457 11 7V1' stroke='%23FF4261' strokeWidth='2' strokeLinejoin='round' /%3E%3Cpath d='M6.45376 17H4V24H5.33572V21.5288H6.45376C7.82905 21.5288 8.80858 20.6061 8.80858 19.2591C8.80858 17.8909 7.82905 17 6.45376 17ZM6.45376 18.2621C7.07709 18.2621 7.44318 18.6758 7.44318 19.2591C7.44318 19.8636 7.07709 20.2773 6.45376 20.2773H5.33572V18.2621H6.45376Z' fill='%23FF4261' /%3E%3Cpath d='M12.0118 17H9.87468V24H12.0118C14.1094 24 15.5737 22.547 15.5737 20.4788C15.5737 18.3788 14.1094 17 12.0118 17ZM12.0019 18.2939C13.3179 18.2939 14.1984 19.1 14.1984 20.4788C14.1984 21.8258 13.3179 22.7061 12.0019 22.7061H11.2104V18.2939H12.0019Z' fill='%23FF4261' /%3E%3Cpath d='M21 17H16.7059V24H18.0416V21.3379H20.4657V20.0439H18.0416V18.2939H21V17Z' fill='%23FF4261' /%3E%3C/svg%3E");
+    }
+
+    &More {
+      width: 1rem;
+      height: 1rem;
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='3' r='2' transform='rotate(90 8 3)' fill='%23BAC2CD'/%3E%3Ccircle cx='8' cy='8' r='2' transform='rotate(90 8 8)' fill='%23BAC2CD'/%3E%3Ccircle cx='8' cy='13' r='2' transform='rotate(90 8 13)' fill='%23BAC2CD'/%3E%3C/svg%3E%0A");
+      cursor: pointer;
+    }
+  }
+
+  &Document {
+    display: flex;
+    align-items: center;
+  }
+
+  &Status {
+    margin-top: 1.125rem;
+  }
+
+  &Body {
+    padding: 1rem 0;
+    color: $color-text-primary;
+
+    &:hover {
+      color: $color-accent-primary;
+      cursor: pointer;
+    }
+  }
+
+  &Date {
+    color: $color-text-secondary;
+    font-weight: 400;
+  }
+}

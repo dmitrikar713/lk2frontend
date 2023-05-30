@@ -1,0 +1,14 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Rating {
+  &Star {
+    @include h2-medium;
+    color: rgba($color-text-primary, 0.25);
+    cursor: pointer;
+
+    &Active {
+      color: $color-accent-primary;
+    }
+  }
+}

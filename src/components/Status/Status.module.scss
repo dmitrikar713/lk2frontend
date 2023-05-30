@@ -1,0 +1,91 @@
+@import '/src/styles/variables';
+.Status {
+  display: flex;
+  align-items: center;
+
+  &Text {
+    padding-left: 0.625rem;
+    font-weight: 700;
+  }
+
+  &Icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.Pending {
+    color: $color-text-tertiary;
+
+    &.Filled {
+      background-color: $color-background-tertiary;
+    }
+
+    .StatusIcon {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' %3E%3Crect x='11' y='2' width='2' height='5' fill='%23BAC2CD' /%3E%3Crect x='18.3633' y='4.22168' width='2' height='5' transform='rotate(45 18.3633 4.22168)' fill='%23BAC2CD' /%3E%3Crect x='22' y='11' width='2' height='5' transform='rotate(90 22 11)' fill='%23BAC2CD' /%3E%3Crect x='19.7773' y='18.3643' width='2' height='5' transform='rotate(135 19.7773 18.3643)' fill='%23BAC2CD' /%3E%3Crect x='13' y='22' width='2' height='5' transform='rotate(-180 13 22)' fill='%23BAC2CD' /%3E%3Crect x='5.63672' y='19.7783' width='2' height='5' transform='rotate(-135 5.63672 19.7783)' fill='%23BAC2CD' /%3E%3Crect x='2' y='13' width='2' height='5' transform='rotate(-90 2 13)' fill='%23BAC2CD' /%3E%3Crect x='4.22266' y='5.63574' width='2' height='5' transform='rotate(-45 4.22266 5.63574)' fill='%23BAC2CD' /%3E%3C/svg%3E");
+    }
+  }
+
+  &.Attention {
+    color: $color-attention;
+
+    &.Filled {
+      background-color: $color-attention-light;
+    }
+
+    .StatusIcon {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath d='M13.0746 3.13404C12.5997 2.28865 11.4003 2.28866 10.9254 3.13404L1.664 19.6182C1.20429 20.4365 1.7655 21.5 2.73863 21.5H21.2614C22.2345 21.5 22.7957 20.4365 22.336 19.6182L13.0746 3.13404Z' stroke='%23FFB800' /%3E%3Cpath d='M12.7762 7.78H11.1952L11.4502 15.447H12.5382L12.7762 7.78ZM11.9942 17.045C11.4162 17.045 10.9232 17.487 10.9232 18.116C10.9232 18.745 11.4162 19.187 11.9942 19.187C12.5892 19.187 13.0652 18.745 13.0652 18.116C13.0652 17.487 12.5892 17.045 11.9942 17.045Z' fill='%23FFB800' /%3E%3C/svg%3E");
+    }
+  }
+
+  &.Reject {
+    color: $color-accent-primary;
+
+    &.Filled {
+      background-color: $color-accent-secondary;
+    }
+
+    .StatusIcon {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' %3E%3Ccircle cx='12' cy='12' r='9' stroke='%23FF4261' strokeWidth='2' /%3E%3Cpath d='M8 8L16 16M16 8L8 16' stroke='%23FF4261' strokeWidth='2' strokeLinejoin='round' /%3E%3C/svg%3E");
+    }
+  }
+
+  &.Success {
+    color: $color-success;
+
+    &.Filled {
+      background-color: $color-success-light;
+    }
+
+    .StatusIcon {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath d='M2.39453 13.7418L7.13753 17.3618L14.7535 8.6578L13.2475 7.3418L6.86353 14.6378L3.60653 12.1518L2.39453 13.7418ZM21.7535 8.6578L20.2475 7.3418L13.8785 14.6208L13.1255 14.0188L11.8755 15.5808L14.1225 17.3788L21.7535 8.6578Z' fill='%234FC153' /%3E%3C/svg%3E");
+    }
+  }
+
+  &.Draft {
+    color: $color-info;
+
+    &.Filled {
+      background-color: $color-info-light;
+    }
+
+    .StatusIcon {
+      background-image: url("data:image/svg+xml,%0A%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.7522 12.1652L20.9816 10.9358C22.3395 9.57793 22.3395 7.37633 20.9816 6.01843C19.6237 4.66052 17.4221 4.66052 16.0642 6.01843L14.8348 7.24778M19.7522 12.1652L11.1468 20.7706L5 22L6.22935 15.8532L14.8348 7.24778M19.7522 12.1652L14.8348 7.24778' stroke='%23009FD6' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M2 4H12' stroke='%23009FD6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 8H8' stroke='%23009FD6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 12H4' stroke='%23009FD6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    }
+  }
+
+  &.Large {
+    font-size: 1rem;
+
+    &.Filled {
+      padding: 1.5625rem;
+    }
+  }
+
+  &.Normal {
+    font-size: 0.875rem;
+
+    &.Filled {
+      padding: 1rem;
+    }
+  }
+}

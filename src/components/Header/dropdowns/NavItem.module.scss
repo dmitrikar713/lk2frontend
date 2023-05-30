@@ -1,0 +1,37 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.NavItem {
+  transition: filter 300ms;
+
+  &Wrapper {
+    position: relative;
+  }
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+
+  &DropdownList {
+    position: absolute;
+    top: 10%;
+    left: 96%;
+    z-index: 4;
+    border-radius: $card-radius / 2;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    background-color: $color-background-primary;
+    max-height: 48 * 0.375rem;
+    cursor: pointer;
+    padding: 0.5rem 0.5rem;
+    outline: none;
+    transform: translate(-50%, 20px);
+    transition: 0.3s;
+
+    &Links {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}

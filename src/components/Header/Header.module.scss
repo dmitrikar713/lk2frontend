@@ -1,0 +1,132 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Header {
+  position: relative;
+  padding: 1rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  @include mobile {
+    padding: 0.8rem 1.5rem;
+  }
+
+  &Wrapper {
+    color: $color-text-inversion;
+    background-color: $color-header;
+    border-radius: 0 0 2.5rem 2.5rem;
+    @include p2-regular;
+  }
+
+  & .Title {
+    @include h3-medium;
+
+    &Wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &Delimeter {
+      display: none;
+      margin: 0 1.5rem;
+      width: 2px;
+      height: 40px;
+      background-color: $color-text-inversion;
+
+      @include desktop {
+        display: block;
+      }
+    }
+
+    &Extra {
+      @include p3-regular;
+      display: none;
+
+      @include desktop {
+        display: block;
+      }
+    }
+  }
+
+  &Refs {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  &Links {
+    display: none;
+    cursor: pointer;
+    gap: 1rem;
+
+    @include desktop {
+      display: flex;
+    }
+
+    &Item {
+      color: $color-text-inversion;
+
+      &:hover {
+        color: $color-accent-secondary;
+      }
+
+      &Active {
+        color: $color-text-inversion;
+        border-bottom: 2px solid $color-accent-secondary;
+      }
+    }
+  }
+
+  &Icons {
+    display: none;
+    cursor: pointer;
+    gap: 1rem;
+
+    @include desktop {
+      display: flex;
+    }
+
+    &Mobile {
+      cursor: pointer;
+
+      & svg {
+        fill: $color-text-inversion;
+        width: 2.5rem;
+        height: auto;
+      }
+
+      @include desktop {
+        display: none;
+      }
+    }
+
+    &Item {
+      display: inline-block;
+      transition: filter 300ms;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
+  }
+
+  &DropdownItem {
+    text-align: center;
+    color: $color-text-secondary;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    border-bottom: 1px dashed;
+    padding-bottom: 0.3rem;
+    transition: 0.3s;
+
+    &:hover {
+      color: $color-label-default;
+    }
+  }
+  
+  &ModalLogout {
+    @include logout;
+  }
+}

@@ -1,0 +1,19 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.PageStatus {
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &Title {
+    @include h1-medium;
+    margin: 1rem 0 0;
+    text-align: center;
+  }
+
+  &HomeButton {
+    margin-top: 2.5rem;
+  }
+}

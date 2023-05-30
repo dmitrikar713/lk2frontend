@@ -1,0 +1,134 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.Button {
+  @include p2-regular;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+    padding-right: 0.625rem;
+  }
+
+  &.Primary {
+    color: $color-text-inversion;
+    background-color: $color-button-primary;
+    border: 0;
+
+    &:hover {
+      background-color: $color-button-hover;
+    }
+
+    &:disabled {
+      // color: $color-text-tertiary;
+      // background-color: $color-background-quaternary;
+      // border: 1px solid $color-button-disabled;
+      opacity: 0.4;
+    }
+
+    &:active {
+      background-color: $color-button-pressed;
+    }
+  }
+
+  &.Secondary {
+    background-color: $color-background-primary;
+    border: 1px solid $color-button-primary;
+
+    &:hover {
+      color: $color-button-hover;
+      background-color: rgba(255, 113, 123, 0.05);
+      border: 1px solid $color-button-hover;
+    }
+
+    &:disabled {
+      color: $color-text-tertiary;
+      background-color: $color-background-primary;
+      border: 1px solid $color-button-disabled;
+    }
+
+    &:active {
+      color: $color-button-pressed;
+      background-color: rgba(219, 48, 92, 0.05);
+      border: 1px solid $color-button-pressed;
+    }
+  }
+
+  &.Text {
+    color: $color-button-primary;
+    background-color: $color-background-primary;
+    border: 0;
+
+    &:hover {
+      color: $color-button-hover;
+      background-color: rgba(255, 113, 123, 0.05);
+    }
+
+    &:disabled {
+      color: $color-text-tertiary;
+    }
+
+    &:active {
+      color: $color-button-pressed;
+      background-color: rgba(219, 48, 92, 0.05);
+    }
+  }
+
+  &.ExtraLarge {
+    @include p2-regular;
+    padding: 1.125rem 2.5rem 1.375rem;
+  }
+
+  &.Large {
+    padding: 1.125rem 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+
+    .ButtonIcon > svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  &.Medium {
+    padding: 0.75rem 0;
+    width: 12rem;
+    font-size: 1rem;
+    line-height: 1rem;
+
+    @include mobile {
+      width: 10rem;
+      align-self: center;
+    }
+
+    .ButtonIcon > svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+
+  &.Small {
+    padding: 0.5625rem 1rem;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+
+    .ButtonIcon > svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+  }
+}

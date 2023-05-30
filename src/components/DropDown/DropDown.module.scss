@@ -1,0 +1,30 @@
+@import 'styles/variables';
+
+.MenuList {
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.15);
+  border-radius: $card-radius / 2;
+  background-color: $color-background-primary;
+  max-height: 48 * 0.375rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: pointer;
+  position: absolute;
+  padding: 0.5rem 0;
+  outline: none;
+  border: 1px solid $color-text-quaternary;
+  border-top: 1px solid $color-info;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+
+  &.SizeL {
+    max-height: 48 * 0.375rem;
+  }
+
+  &.SizeM {
+    max-height: 40 * 0.375rem;
+  }
+
+  &.SizeS {
+    max-height: 32 * 0.375rem;
+  }
+}

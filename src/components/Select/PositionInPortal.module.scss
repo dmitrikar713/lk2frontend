@@ -1,0 +1,27 @@
+.DropDownContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+
+  .DropDownWrapper {
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.TopDropDownPosition {
+    top: 0;
+  }
+
+  &.BottomDropDownPosition {
+    bottom: 0;
+  }
+}
+
+.PositionedPortalContainer {
+  position: fixed;
+  overflow: visible;
+  z-index: 10110;
+}

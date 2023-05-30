@@ -1,0 +1,63 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Feedback {
+  &Rating {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba($color-text-primary, 0.125);
+    &Measure {
+      @include p3-regular;
+      padding-right: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  &Wrapper {
+    max-height: 90vh;
+    overflow-y: scroll;
+    background-color: $white;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      height: 0.1rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+      border-radius: 0.5rem;
+    }
+  }
+  &Input {
+    width: 100%;
+    margin: 9px 0;
+    padding: 4px 9px;
+    border-radius: 10px;
+    border: 1.5px solid $color-background-secondary;
+    outline: none;
+    &::-webkit-input-placeholder {
+      color: $color-text-secondary;
+    }
+    &:-moz-placeholder {
+      color: $color-text-secondary;
+    }
+  }
+  &WrapChekbox{
+    position: relative;
+  }
+  &Button {
+    margin-top: $spacer;
+    color: $color-text-tertiary;
+  }
+  &ChekboxSubtitle {
+    color: $color-text-secondary;
+    position: absolute;
+    top: 16px;
+    left: 28px;
+    font-size: 0.63rem;
+  }
+  &OtherFields {
+    width: 90%;
+    margin-top: 1.7rem;
+  }
+}

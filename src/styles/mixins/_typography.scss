@@ -1,0 +1,132 @@
+@mixin h0-bold {
+  font-family: CeraProBold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 80px;
+  line-height: 80px;
+  letter-spacing: -0.04em;
+}
+
+@mixin h1-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+}
+
+@mixin h2-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+}
+
+@mixin h3-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+@mixin h4-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+@mixin p1-regular {
+  font-family: CeraProRegular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+
+@mixin p2-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+@mixin p2-regular {
+  font-family: CeraProRegular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+@mixin p3-medium {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+}
+
+@mixin p3-regular {
+  font-family: CeraProRegular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+}
+
+@mixin p4-regular {
+  font-family: CeraProRegular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+}
+
+@mixin h0-bold-mobile {
+  font-family: CeraProBold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 80px;
+  line-height: 80px;
+  letter-spacing: -0.04em;
+}
+
+@mixin h1-medium-mobile {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+}
+
+@mixin h2-medium-mobile {
+  font-family: CeraProMedium;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+
+@mixin card-header {
+  @include h3-medium;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.75rem;
+}

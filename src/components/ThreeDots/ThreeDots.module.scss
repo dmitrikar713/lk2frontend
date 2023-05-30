@@ -1,0 +1,26 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.ExtraActions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  &.Bottom {
+    top: auto;
+    bottom: 0.5rem;
+  }
+
+  .Dot {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background-color: rgba($color-text-primary, 0.25);
+  }
+}

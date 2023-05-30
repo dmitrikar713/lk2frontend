@@ -1,0 +1,28 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.NotificationModal {
+  &Header {
+    @include p3-regular;
+    margin: 2rem 0 1rem;
+    display: flex;
+    gap: 2rem;
+
+    &Item {
+      flex: 1;
+      color: rgba($color-text-primary, 0.5);
+      @include mobile {
+        display: none;
+      }
+
+      &Mobile {
+        color: rgba($color-text-primary, 0.5);
+        display: none;
+
+        @include mobile {
+          display: block;
+        }
+      }
+    }
+  }
+}

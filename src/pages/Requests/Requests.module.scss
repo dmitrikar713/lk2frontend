@@ -1,0 +1,313 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Requests {
+  &Wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  &DeleteAll {
+    @include mobile {
+      margin-top: 1rem;
+      font-size: 0.75rem !important;
+    }
+  }
+
+  &Filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile {
+      margin: -1.5rem -1rem;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: thin;
+      flex-direction: column;
+
+      &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        height: 0.1rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 0.5rem;
+      }
+    }
+
+    &Item {
+      @include p3-regular;
+      position: relative;
+      margin-right: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid $color-accent-primary;
+      border-radius: 1.5rem;
+      box-sizing: border-box;
+      user-select: none;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      @include mobile {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.7rem;
+      }
+
+      // &:before {
+      //   content: '';
+      //   position: absolute;
+      //   width: 100%;
+      //   height: 100%;
+      //   top: 0;
+      //   left: 0;
+      //   background-color: inherit;
+      //   border-radius: inherit;
+      //   z-index: -1;
+      // }
+
+      &.Active {
+        color: $color-background-primary;
+        background-color: $color-text-primary;
+        border: 0;
+
+        &:before {
+          animation: ripple 0.5s ease-out;
+        }
+      }
+    }
+  }
+  &Placeholder {
+    padding: 0 !important;
+
+    &Button {
+      width: auto !important;
+      padding: 0.75rem !important;
+    }
+  }
+
+  &Header {
+    @include p3-regular;
+    padding-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    color: rgba($color-text-primary, 0.5);
+
+    @include mobile {
+      font-size: 0.75rem;
+    }
+  }
+
+  &Title {
+    @include p1-regular;
+    margin: 0 0 1rem;
+
+    &Draft {
+      margin-right: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &Item {
+    border-top: 1px solid rgba($color-text-primary, 0.125);
+    padding-bottom: 0.3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &TopPart {
+      cursor: pointer;
+      border-top: 1px solid rgba($color-text-primary, 0.125);
+      padding-bottom: 0.3rem;
+
+      &:first-child {
+        border-top: none;
+      }
+
+      &Draft {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+
+        &Button {
+          &:hover {
+            cursor: pointer;
+            color: $color-header;
+          }
+          &Title {
+            @include p3-regular;
+            border-bottom: 1px dashed $color-header;
+          }
+        }
+      }
+
+      &Info {
+        @include p3-regular;
+        display: flex;
+        gap: 1rem;
+        color: rgba($color-text-primary, 0.5);
+
+        @include mobile {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    &Wrapper {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+      @include mobile {
+        gap: 0.5rem;
+      }
+    }
+
+    &Notification {
+      position: absolute;
+      right: -1.7rem;
+      top: -0.1rem;
+      transition: transform 0.25s;
+
+      @include mobile {
+        right: -0.75rem;
+        top: -1rem;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+        transition: transform 0.1s;
+        cursor: pointer;
+
+        .ItemNotificationIcon {
+          animation: 0.1s ringing infinite alternate;
+        }
+      }
+    }
+
+    &Main {
+      flex: 6;
+      display: flex;
+      align-items: center;
+
+      @include mobile {
+        flex: 3;
+      }
+    }
+
+    &Icon {
+      @include p2-medium;
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &Name {
+      @include p2-medium;
+
+      @include mobile {
+        @include mobile {
+          font-size: 1rem;
+          line-height: 1rem;
+        }
+      }
+
+      &Draft {
+        @include p2-medium;
+        margin-top: 0.3rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    &Date {
+      @include p3-regular;
+      padding-top: 0.5rem;
+      color: rgba($color-text-primary, 0.5);
+
+      @include mobile {
+        font-size: 0.75rem;
+      }
+    }
+
+    &Status {
+      &Default,
+      &Draft,
+      &Closed,
+      &ServiceProvided,
+      &WithNotification {
+        @include p3-regular;
+        flex: 2;
+        position: relative;
+        padding: 0.75rem 1rem;
+        align-self: center;
+        background-color: $color-background-surface;
+        border-radius: 1.5rem;
+        text-align: center;
+
+        @include mobile {
+          font-size: 0.75rem;
+          padding: 0.5rem;
+          flex: 1;
+        }
+      }
+
+      &Draft {
+        background-color: rgba($color-text-primary, 0.5);
+        color: $color-text-inversion;
+      }
+
+      &Closed {
+        background-color: $color-accent-primary;
+        color: $color-text-inversion;
+      }
+
+      &ServiceProvided {
+        background-color: $color-success;
+        color: $color-text-inversion;
+      }
+
+      &WithNotification {
+        background-color: $color-attention;
+        color: $color-text-inversion;
+      }
+    }
+  }
+
+  &ShowMore {
+    @include p3-regular;
+    border-bottom: 1px dashed $color-text-primary;
+    cursor: pointer;
+
+    &Wrapper {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &ExternalLink {
+    color: $color-text-inversion;
+
+    &:hover {
+      color: $color-text-inversion;
+    }
+  }
+}
+
+@include ringing(5deg, -5deg);
+
+@include ripple();

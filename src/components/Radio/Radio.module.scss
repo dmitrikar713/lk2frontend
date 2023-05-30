@@ -1,0 +1,65 @@
+@import '/src/styles/variables';
+
+.Radio {
+  background-color: $color-background-primary;
+  border: 1px solid $color-accent-primary;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &Wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &Label {
+    padding-left: 0.5rem;
+    line-height: 1.125rem;
+    font-size: 0.875rem;
+  }
+
+  &.Selected {
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 67.5%;
+      height: 67.5%;
+      position: absolute;
+      left: 16.25%;
+      top: 16.25%;
+      background-color: $color-accent-primary;
+      border-radius: 50%;
+    }
+  }
+
+  &.Disabled {
+    background-color: $color-background-primary;
+    border: 1px solid $color-text-tertiary;
+    pointer-events: none;
+
+    &::before {
+      background-color: $color-text-tertiary;
+    }
+
+    & + .RadioLabel {
+      color: $color-text-tertiary;
+    }
+  }
+
+  &.Large {
+    min-width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.Medium {
+    min-width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &.Small {
+    min-width: 1rem;
+    height: 1rem;
+  }
+}

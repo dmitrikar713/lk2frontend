@@ -1,0 +1,40 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Services {
+  @include card;
+  margin-top: 1.5rem;
+
+  &Wrapper {
+    width: 100%;
+  }
+
+  &Title {
+    @include p2-medium;
+  }
+
+  &Row {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &Item {
+    @include p3-regular;
+    @include mobile {
+      width: 100%;
+    }
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    width: calc(50% - 0.5rem);
+    border: 1px solid $color-accent-primary;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    &:active {
+      color: $color-text-inversion;
+      background-color: $color-accent-primary;
+    }
+  }
+}

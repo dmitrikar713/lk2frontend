@@ -1,0 +1,203 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+
+  & > div:nth-last-child(2n + 1):first-child {
+    grid-column: 1 / span 2;
+  }
+
+  &DocumentUploader {
+    &Even {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 15px;
+    }
+    &Odd {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 15px;
+
+      & > div:first-child {
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+    }
+  }
+}
+
+.Select {
+  &Wrapper {
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &Placeholder {
+    width: calc(100vw - $card-padding - 2rem);
+    color: $color-text-tertiary;
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &Label {
+    color: $color-text-secondary;
+    font-size: 0.875rem;
+  }
+
+  &Value {
+    font-size: 1.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.Request {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &TopPanel {
+    &Section {
+      display: flex;
+      justify-content: space-between;
+    }
+    &Date {
+      @include p4-regular;
+      margin-top: 1.13rem;
+      margin-right: -0.65rem;
+    }
+    &Title {
+      @include p2-medium;
+      margin-top: 1rem;
+    }
+    &Buttons {
+      @include p4-regular;
+      display: flex;
+      margin-top: auto;
+      margin-left: 0.4rem;
+      column-gap: 2rem;
+    }
+    &Button {
+      cursor: pointer;
+
+      &Text {
+        margin-left: 0.4rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px dashed;
+        vertical-align: top;
+      }
+    }
+  }
+
+  &Modal {
+    &Draft {
+      &Text {
+        @include p3-regular;
+        text-align: center;
+      }
+      &WrapperButtons {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
+
+  &Section {
+    &Anchors {
+      margin: 0 2rem -1rem;
+      display: flex;
+      gap: 1rem;
+
+      @include mobile {
+        margin: 0;
+        gap: 1.5rem;
+        justify-content: space-around;
+        overflow-x: scroll;
+        padding-bottom: 5px;
+
+        & > div:first-child {
+          margin-left: 25px;
+        }
+        & > div:last-child {
+          margin-right: 15px;
+        }
+        &::-webkit-scrollbar {
+          width: 0px;
+          height: 0px;
+        }
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: transparent;
+          border-radius: 20px;
+          border: 3px solid transparent;
+        }
+      }
+    }
+
+    &Card {
+      &Row {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+
+        @include mobile {
+          flex-direction: column;
+        }
+      }
+
+      &ProfileRef {
+        @include p4-regular;
+        color: $color-text-primary;
+        position: absolute;
+        top: 2.6rem;
+        right: 5.1rem;
+        cursor: pointer;
+
+        &:hover {
+          color: $color-accent-primary;
+        }
+      }
+    }
+  }
+
+  &CheckboxLabel {
+    align-items: center;
+  }
+
+  &Controls {
+    display: flex;
+    gap: 1rem;
+
+    @include mobile {
+      justify-content: space-around;
+    }
+  }
+
+  &Confirming {
+    &ExtraActions {
+      right: 2.1rem;
+      top: 2.3rem;
+      position: absolute;
+    }
+    &Body {
+      line-height: 1.8rem;
+      font-size: 16px;
+    }
+    &ThreeDots {
+      position: relative;
+    }
+  }
+}
+
+.DropDown {
+  margin: 8px 0 0 4px;
+}

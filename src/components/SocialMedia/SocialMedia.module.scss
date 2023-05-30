@@ -1,0 +1,11 @@
+@import '/src/styles/variables';
+
+.SocialMedia {
+  &:hover {
+    cursor: pointer;
+
+    path {
+      fill: $color-text-inversion;
+    }
+  }
+}

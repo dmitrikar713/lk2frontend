@@ -1,0 +1,150 @@
+@import 'styles/variables';
+@import 'styles/mixins';
+
+.Select {
+  white-space: nowrap;
+  position: relative;
+  color: $color-text-primary;
+  display: flex;
+  user-select: none;
+  flex-flow: nowrap;
+  border: 0;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: inherit;
+
+  @include mobile {
+    display: block;
+  }
+
+  .SelectValue {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .Placeholder {
+    color: $color-text-secondary;
+    pointer-events: none;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.Disabled {
+  .SelectWrapper {
+    cursor: default;
+    background: $color-background-tertiary;
+    border-color: transparent;
+    &:hover {
+      border-color: transparent;
+    }
+  }
+
+  .WrapperIcon {
+    color: $color-text-tertiary;
+
+    // &:hover {
+    //   cursor: default;
+    //   color: $color-basic-tertiary;
+    // }
+  }
+
+  .Select {
+    color: $color-text-tertiary;
+    cursor: default;
+
+    .Placeholder {
+      color: $color-text-tertiary;
+    }
+  }
+}
+
+.Focused {
+  .Placeholder {
+    // color: $color-basic-disabled;
+    color: green;
+  }
+
+  .SelectWrapper {
+    // border-color: $color-basic-press;
+    border-color: yellow;
+  }
+
+  .WrapperIcon {
+    // color: $color-basic-press;
+    color: orange;
+  }
+}
+
+.WrapperIcon {
+  padding-right: 1rem;
+  margin-left: 0.5rem;
+  // color: $color-basic-tertiary;
+  // color: brown;
+
+  > i {
+    display: flex;
+  }
+
+  // &:hover {
+  //   cursor: pointer;
+  //   color: $color-basic-hover;
+  // }
+}
+
+.SelectWrapper {
+  background: $color-background-primary;
+  position: relative;
+  border-bottom: 1px solid $color-text-quaternary;
+  &:focus {
+    outline: 0;
+    border-bottom: 1px solid $color-info;
+  }
+  &:active {
+    outline: 0;
+  }
+}
+
+.DropDown {
+  width: 100% !important;
+  position: relative;
+}
+
+.SizeS {
+  .Select {
+    font-size: 14px;
+    line-height: 20px;
+
+    .WrapperIcon {
+      padding-right: 1rem;
+    }
+
+    .Placeholder {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  &.SelectWrapper {
+    height: 1.875rem;
+  }
+}
+
+.SizeXL {
+  &.SelectWrapper {
+    height: 3.375rem;
+  }
+}
+.SizeM {
+  &.SelectWrapper {
+    padding: 0;
+  }
+}
+
+@include mobile {
+  .WrapperIcon {
+    pointer-events: none;
+  }
+}
