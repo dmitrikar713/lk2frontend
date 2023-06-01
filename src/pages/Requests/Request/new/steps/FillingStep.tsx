@@ -18,6 +18,7 @@ import { DropDownItem } from 'src/components/DropDownItem/DropDownItem';
 import { Link } from 'react-router-dom';
 import { RoutePaths } from 'src/entities/Routes';
 import { setDocumentProfile } from 'src/common/utils/setDocumentProfile';
+import { DocumentPayload } from 'src/pages/Requests/Request/RequestSlice'
 import {
   DefaultOptions,
   FieldType,
@@ -359,7 +360,7 @@ export const FillingStep: FC<FillingStepProps> = ({
                       size={CheckboxSize.Small}
                     />
                   )}
-                  {section.fields.map((field: any) => (
+                  {section.fields.map((field) => (
                     <React.Fragment key={field.parameterInApi}>
                       {section.name === FillingFormSections.Confirmations ? (
                         <Checkbox

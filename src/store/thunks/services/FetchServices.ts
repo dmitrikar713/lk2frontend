@@ -2,7 +2,7 @@ import { apiClient } from 'src/api/client/ApiClient';
 import { Services, servicesSlice } from 'src/pages/Services/ServicesSlice';
 import { AppThunk } from '../../store';
 
-export const fetchServices = (): AppThunk => async (dispatch) => {
+export const fetchServices = (): AppThunk => async (dispatch: any) => {
   try {
     dispatch(servicesSlice.actions.servicesLoad());
     const response = await apiClient.get<Services>('/services');

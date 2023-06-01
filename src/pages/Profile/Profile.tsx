@@ -88,6 +88,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
 
   useEffect(() => {
     const usedNotifications = getUsedNotification();
+    console.log('useeffect1')
 
     setTimeout(() => {
       if (notifications.length) {
@@ -142,6 +143,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
   };
 
   useEffect(() => {
+    console.log('useeffect2')
     const NotSignedDoc = profile.documents.filter(
       (field) => field.file.status === DocumentStatuses.NotSigned
     );

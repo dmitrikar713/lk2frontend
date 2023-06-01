@@ -63,6 +63,12 @@ const result = mergeWithRules({
     ],
   },
   devServer: {
+    host: '185.22.234.143',
+
+    // Добавил это чтобы запускать под доменом
+    allowedHosts: "all",
+
+
     port: 4200,
     historyApiFallback: true,
     hot: true,
@@ -72,8 +78,8 @@ const result = mergeWithRules({
       '/api': {
         target:
           process.env.APP_MOCK_API === 'ON'
-            ? 'http://localhost:9000'
-            : 'http://mecn.cvbs.jet.msk.su:3005',
+            ? 'http://185.22.234.143:3005/'
+            : 'https://dev-lk.moscow.business:3005',
         changeOrigin: true,
         secure: false,
         pathRewrite: { '^/api/*': '' },

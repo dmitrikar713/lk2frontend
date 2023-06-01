@@ -13,7 +13,7 @@ const Services: FC<ServicesProps> = ({ profileCard }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const services = useAppSelector((state) => state.servicesReducer.services);
+  const services : any = useAppSelector((state) => state.servicesReducer.services);
 
   useEffect(() => {
     dispatch(fetchServices());

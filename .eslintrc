@@ -29,10 +29,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "prettier/prettier": [
-      "error",
-      { "endOfLine": "auto", "singleQuote": true, "tabWidth": 2 }
-    ],
+    "prettier/prettier": "off",
     // "@typescript-eslint/explicit-function-return-type": 1,
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -45,17 +42,11 @@
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "args": "none",
-        "vars": "all"
-      }
-    ],
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-var-requires": "off",
 
-    "semi": "warn",
+    "semi": "off",
     "import/no-cycle": "error",
     "import/no-self-import": "error",
     "import/named": "off",
@@ -74,12 +65,7 @@
     ],
     "import/no-duplicates": "error",
     "import/no-unresolved": "off",
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        "noUselessIndex": true
-      }
-    ],
+    "import/no-useless-path-segments": "off",
     //    "import/order": ["error", {
     //      "newlines-between": "always"
     //    }],
@@ -102,44 +88,20 @@
       }
     ],
 
-    "react/jsx-boolean-value": ["error", "never"],
+    "react/jsx-boolean-value": "off",
     "react/jsx-key": "error",
     "react/jsx-no-lambda": "off",
-    "react/jsx-tag-spacing": [
-      "error",
-      {
-        "afterOpening": "allow-multiline",
-        "beforeSelfClosing": "always",
-        "closingSlash": "never"
-      }
-    ],
-    "react/jsx-wrap-multilines": [
-      "error",
-      {
-        "arrow": "parens-new-line",
-        "assignment": "parens-new-line",
-        "condition": "parens-new-line",
-        "declaration": "parens-new-line",
-        "logical": "parens-new-line",
-        "prop": "ignore",
-        "return": "parens-new-line"
-      }
-    ],
+    "react/jsx-tag-spacing": "off",
+    "react/jsx-wrap-multilines": "off",
     "react/prop-types": "off",
-    "react/self-closing-comp": [
-      "error",
-      {
-        "component": true,
-        "html": true
-      }
-    ],
+    "react/self-closing-comp": "off",
 
     "react-hooks/exhaustive-deps": "off",
     "react-hooks/rules-of-hooks": "off",
 
     "member-access": "off",
     "member-ordering": "off",
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-console": "off",
     "no-case-declarations": "off",
     "no-restricted-imports": "off",
     "no-empty-interface": "off",
@@ -150,21 +112,10 @@
     "no-var-requires": "off",
     "sort-imports": "off",
     "sort-keys": "off",
-    "spaced-comment": [
-      "error",
-      "always",
-      {
-        "block": {
-          "balanced": true
-        },
-        "line": {
-          "markers": ["/"]
-        }
-      }
-    ],
-    "react/no-unused-state": "warn",
-    "react/no-unused-prop-types": "warn",
-    "react/no-array-index-key": "warn"
+    "spaced-comment": "off",
+    "react/no-unused-state": "off",
+    "react/no-unused-prop-types": "off",
+    "react/no-array-index-key": "off"
   },
   "overrides": [
     {

@@ -199,6 +199,7 @@ export const Layout: FC = () => {
   }, [loadingError]);
 
   useEffect(() => {
+    console.log('useffect4')
     dispatch(callbackSlice.actions.setToken(false));
 
     if (window.location.pathname !== RoutePaths.LOGOUT) {
@@ -207,7 +208,9 @@ export const Layout: FC = () => {
   }, []);
 
   useEffect(() => {
-    correntToken && dispatch(fetchProfile());
+    console.log('useffect3')
+    // correntToken && 
+    dispatch(fetchProfile());
   }, [correntToken]);
 
   return (

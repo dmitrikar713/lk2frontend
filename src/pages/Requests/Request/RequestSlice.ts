@@ -5,6 +5,7 @@ import { DocumentStatuses } from 'src/entities/Statuses';
 import { RequestStages } from 'src/entities/Subjects';
 
 export interface UploadedDocument {
+  // File возможно должен быть способен быть типом Файл
   file: string | null;
   status: DocumentStatuses;
   uploadedAt: string;
@@ -20,7 +21,7 @@ export interface UploadedDocuments {
   [name: string]: UploadedDocument;
 }
 
-interface DocumentPayload {
+export interface DocumentPayload {
   key: keyof UploadedDocuments;
   document: UploadedDocument;
 }
