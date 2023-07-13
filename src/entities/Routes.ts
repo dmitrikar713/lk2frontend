@@ -7,6 +7,7 @@ export enum RoutePaths {
   REQUESTS = '/requests',
   REQUEST = '/requests/:requestId',
   SERVICES = '/services',
+  SERVICESNEW = '/servicesnew',
   SERVICE = '/services/:serviceId',
   EXPORTS = '/exports',
   EVENTS = '/events',

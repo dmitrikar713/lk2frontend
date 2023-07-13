@@ -14,6 +14,7 @@ const Services: FC<ServicesProps> = ({ profileCard }) => {
   const dispatch = useAppDispatch();
 
   const services : any = useAppSelector((state) => state.servicesReducer.services);
+ 
 
   useEffect(() => {
     dispatch(fetchServices());

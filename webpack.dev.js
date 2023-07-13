@@ -63,7 +63,7 @@ const result = mergeWithRules({
     ],
   },
   devServer: {
-    host: '185.22.234.143',
+    host: 'localhost',
 
     // Добавил это чтобы запускать под доменом
     allowedHosts: "all",
@@ -78,8 +78,10 @@ const result = mergeWithRules({
       '/api': {
         target:
           process.env.APP_MOCK_API === 'ON'
-            ? 'http://185.22.234.143:3005/'
-            : 'https://dev-lk.moscow.business:3005',
+            ? 'http://localhost:3005/'
+            : 'dev-lk.moscow.business',
+            // 185.22.234.143
+            // dev-lk.moscow.business
         changeOrigin: true,
         secure: false,
         pathRewrite: { '^/api/*': '' },

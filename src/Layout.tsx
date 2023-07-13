@@ -25,6 +25,7 @@ import { FooterMobile } from './components/FooterMobile/FooterMobile';
 import { checkToken } from './store/thunks/profile/CheckToken';
 import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
+import ServicesNew from './pages/ServicesNew/ServicesNew';
 // TODO: Onboarding incorrect work while trying navigate to Profile page component
 
 // const Profile = lazy(() => import('./pages/Profile/Profile'));
@@ -139,6 +140,18 @@ export const Layout: FC = () => {
       ),
     },
     {
+      name: 'servicesnew',
+      path: RoutePaths.SERVICESNEW,
+      title: 'Услуги',
+      component: (
+        <ServicesNew
+          profileCard={
+            <ProfileInfo segmentsIncluded={[ProfileSegments.Notifications]} />
+          }
+        />
+      ),
+    },
+    {
       name: 'service',
       path: RoutePaths.SERVICE,
       title: 'Услуга',
@@ -208,10 +221,12 @@ export const Layout: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('useffect3')
+    console.log('useffect3 - fetchprofile')
     // correntToken && 
     dispatch(fetchProfile());
-  }, [correntToken]);
+  }, [
+    // correntToken
+  ]);
 
   return (
     <>
