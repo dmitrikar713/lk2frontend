@@ -6,6 +6,7 @@ import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { fetchService } from 'src/store/thunks/services/FetchService';
 
 import styles from './Service.module.scss';
+// import { Service } from './ServiceSlice';
 
 const Service: FC = () => {
   const { serviceId } = useParams();
@@ -13,7 +14,29 @@ const Service: FC = () => {
   const navigate = useNavigate();
 
   const request = useAppSelector((state) => state.requestReducer.request);
+  // const request : Service = {
 
+  //   id: 'idddd',
+  //   name: 'nameee',
+  //   infoList: ['asdasd', 'qweqwe', 'rthety'],
+  //   stages: [
+  //     {
+  //       id: 'string',
+  //       name: 'string'
+  //     },
+  //     {
+  //       id: 'string',
+  //       name: 'string'
+  //     },
+  //   ]
+  // }
+
+  // {
+  //   id: string | null;
+  //   name: string;
+  //   infoList: Array<string>;
+  //   stages: Array<ServiceStage>;
+  // }
   const { name, infoList, stages } = useAppSelector(
     (state) => state.serviceReducer.service
   );

@@ -17,6 +17,8 @@ import notificationsReducer from '../pages/Notifications/NotificationsSlice';
 import callbackReducer from 'src/pages/Callback/CallbackSlice';
 import feedbackReducer from '../pages/Requests/Request/new/modals/Feedback/FeedbackSlice';
 import detailsReducer from 'src/pages/Requests/Request/details/DetailsSlice';
+import conductorReducer from '../pages/Conductor/ConductorSlice';
+
 export const history = createBrowserHistory();
 
 const persistConfig = {
@@ -35,6 +37,7 @@ const rootReducer = combineReducers({
   notificationsReducer,
   callbackReducer,
   uploadProfileFileReducer,
+  conductorReducer,
   feedbackReducer,
   detailsReducer,
   router: connectRouter(history),

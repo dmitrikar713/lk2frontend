@@ -26,6 +26,7 @@ import { checkToken } from './store/thunks/profile/CheckToken';
 import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
 import ServicesNew from './pages/ServicesNew/ServicesNew';
+import Conductor from './pages/Conductor/Conductor';
 // TODO: Onboarding incorrect work while trying navigate to Profile page component
 
 // const Profile = lazy(() => import('./pages/Profile/Profile'));
@@ -77,6 +78,13 @@ export const Layout: FC = () => {
   }
 
   const routesConfig: Array<RouteConfig> = [
+    {
+      name: 'conductor',
+      isIndex: true,
+      path: RoutePaths.CONDUCTOR,
+      title: 'Маршрутизатор',
+      component: <Conductor />,
+    },
     {
       name: 'profile',
       isIndex: true,
@@ -212,7 +220,7 @@ export const Layout: FC = () => {
   }, [loadingError]);
 
   useEffect(() => {
-    console.log('useffect4')
+    // console.log('useffect4')
     dispatch(callbackSlice.actions.setToken(false));
 
     if (window.location.pathname !== RoutePaths.LOGOUT) {
@@ -220,13 +228,16 @@ export const Layout: FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log('useffect3 - fetchprofile')
-    // correntToken && 
-    dispatch(fetchProfile());
-  }, [
-    // correntToken
-  ]);
+  useEffect(
+    () => {
+      // console.log('useffect3 - fetchprofile');
+      // correntToken &&
+      dispatch(fetchProfile());
+    },
+    [
+      // correntToken
+    ]
+  );
 
   return (
     <>

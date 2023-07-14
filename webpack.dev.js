@@ -64,8 +64,6 @@ const result = mergeWithRules({
   },
   devServer: {
     host: 'localhost',
-
-    // Добавил это чтобы запускать под доменом
     allowedHosts: "all",
 
 
