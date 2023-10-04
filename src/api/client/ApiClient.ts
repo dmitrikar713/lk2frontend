@@ -28,9 +28,9 @@ apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: any) => {
     if (error.response.status === StatusCode.Unauthorized) {
+      console.log('status = 401');
       Auth.authorize();
     }
-
     return Promise.reject(error);
   }
 );

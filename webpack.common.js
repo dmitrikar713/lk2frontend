@@ -84,9 +84,9 @@ module.exports = {
           'style-loader',
           CSSModuleLoader,
           PostCSSLoader,
-          {
-            loader: 'resolve-url-loader',
-          },
+          // {
+          //   loader: 'resolve-url-loader',
+          // },
           {
             loader: 'sass-loader',
           },

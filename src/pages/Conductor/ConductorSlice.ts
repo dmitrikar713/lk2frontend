@@ -30,7 +30,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // }
 
 const initialState: any = {
-  stage: 'form',
+  stage: 'survey',
   form: {
     email: '',
     region: '',
@@ -83,15 +83,48 @@ const initialState: any = {
   activeGroup: 1,
 };
 
-const conductorSlice = createSlice({
-  name: 'conductorSlice',
+// export const conductorSlice = createSlice({
+//   name: 'conductorSlice',
+//   initialState,
+//   reducers: {
+//     setAnswer(state, action: any) {
+//       console.log('asd');
+//       // state[action.questGrpId].questions[action.questId].answer =
+//       //   action.payload;
+//     },
+//   },
+// });
+
+// export default conductorSlice.reducer;
+
+export const conductorSlice = createSlice({
+  name: 'conductor',
   initialState,
   reducers: {
-    setAnswer(state, action: any) {
-      console.log('asd');
-      // state[action.questGrpId].questions[action.questId].answer =
-      //   action.payload;
-    },
+    // profileLoad(state) {
+    //   state.isLoading = true;
+    // },
+    // profileLoadSuccess(state, action: PayloadAction<Profile>) {
+    //   state.isLoading = false;
+    //   state.error = '';
+    //   state.profile = {
+    //     ...action.payload,
+    //     onboarding:
+    //       state.profile.onboarding === null
+    //         ? action.payload.onboarding
+    //         : state.profile.onboarding,
+    //   };
+    // },
+    // profileLoadError(state, action: PayloadAction<string>) {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
+    // setProfile(state, action: PayloadAction<Profile>) {
+    //   state.profile = action.payload;
+    // },
+    // setDocuments(state, action: PayloadAction<DocumentsProfile[]>) {
+    //   state.profile.documents = action.payload;
+    // },
   },
 });
 

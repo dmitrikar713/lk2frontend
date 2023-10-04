@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 const ConductorForm: FC = () => {
-  return <div>Form</div>;
+  return <div>ConductorForm</div>;
 };
 
 export default ConductorForm;

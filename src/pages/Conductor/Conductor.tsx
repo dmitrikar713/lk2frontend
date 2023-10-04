@@ -85,9 +85,12 @@ const Conductor: FC = () => {
   const qwe: any = useAppSelector((state) => state.profileReducer.profile);
 
   const stage: any = useAppSelector((state) => state.conductorReducer.stage);
-  const survey: any = useAppSelector((state) => state.conductorReducer.survey);
+  const { survey } = useAppSelector((state) => state.conductorReducer);
   const activeGroup: any = useAppSelector(
     (state) => state.conductorReducer.activeGroup
+  );
+  const { requests, isLoading } = useAppSelector(
+    (state) => state.requestsReducer
   );
   const form = useAppSelector((state) => state.conductorReducer);
 
@@ -109,6 +112,8 @@ const Conductor: FC = () => {
     console.log(stage);
     console.log(survey);
     console.log(activeGroup);
+    console.log(requests);
+    console.log(isLoading);
   });
   // useEffect(() => {
   //   if (answers == null) {
@@ -145,9 +150,9 @@ const Conductor: FC = () => {
         <div className={styles.ExportsCardWrapper}>
           <div className={styles.ExportsCardTest}>
             <div className={styles.ExportsCardTitle}>Маршрутизатор</div>
-            <p>{String(stage)}</p>
-            {String(stage) == 'form' ? <ConductorForm /> : String(stage)}
-            {stage == 'survey' && (
+            <p>Stage: {String(stage)}</p>
+            {/* {String(stage) == 'form' ? <ConductorForm /> : String(stage)} */}
+            {stage == 'survey' ? (
               <>
                 <ProgressBar
                   currentStep={currentGroup}
@@ -176,6 +181,8 @@ const Conductor: FC = () => {
                   );
                 })}
               </>
+            ) : (
+              ''
             )}
             {stage == 'end' && (
               <div className={styles.ExportsCardSuccess}>Тест пройден 🎉</div>
