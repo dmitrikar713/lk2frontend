@@ -25,11 +25,8 @@ import { FooterMobile } from './components/FooterMobile/FooterMobile';
 import { checkToken } from './store/thunks/profile/CheckToken';
 import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
-import ServicesNew from './pages/ServicesNew/ServicesNew';
-import Conductor from './pages/Conductor/Conductor';
-// TODO: Onboarding incorrect work while trying navigate to Profile page component
+import Testrouter from './pages/Testrouter/Testrouter';
 
-// const Profile = lazy(() => import('./pages/Profile/Profile'));
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
@@ -79,13 +76,6 @@ export const Layout: FC = () => {
 
   const routesConfig: Array<RouteConfig> = [
     {
-      name: 'conductor',
-      isIndex: true,
-      path: RoutePaths.CONDUCTOR,
-      title: 'Маршрутизатор',
-      component: <Conductor />,
-    },
-    {
       name: 'profile',
       isIndex: true,
       path: RoutePaths.PROFILE,
@@ -98,6 +88,7 @@ export const Layout: FC = () => {
               segmentsIncluded={[
                 ProfileSegments.Notifications,
                 ProfileSegments.Settings,
+                ProfileSegments.Exports,
               ]}
             />
           }
@@ -110,6 +101,13 @@ export const Layout: FC = () => {
       path: RoutePaths.REPRESENTATIVE_PROFILE,
       title: 'Профиль представителя',
       component: <RepresentativeProfile />,
+    },
+    {
+      name: 'Testrouter',
+      isIndex: true,
+      path: RoutePaths.TESTROUTER,
+      title: 'Профиль представителя',
+      component: <Testrouter />,
     },
     {
       name: 'requests',
@@ -139,25 +137,7 @@ export const Layout: FC = () => {
       name: 'services',
       path: RoutePaths.SERVICES,
       title: 'Услуги',
-      component: (
-        <Services
-          profileCard={
-            <ProfileInfo segmentsIncluded={[ProfileSegments.Notifications]} />
-          }
-        />
-      ),
-    },
-    {
-      name: 'servicesnew',
-      path: RoutePaths.SERVICESNEW,
-      title: 'Услуги',
-      component: (
-        <ServicesNew
-          profileCard={
-            <ProfileInfo segmentsIncluded={[ProfileSegments.Notifications]} />
-          }
-        />
-      ),
+      component: <Services />,
     },
     {
       name: 'service',
@@ -220,7 +200,6 @@ export const Layout: FC = () => {
   }, [loadingError]);
 
   useEffect(() => {
-    // console.log('useffect4')
     dispatch(callbackSlice.actions.setToken(false));
 
     if (window.location.pathname !== RoutePaths.LOGOUT) {
@@ -228,16 +207,9 @@ export const Layout: FC = () => {
     }
   }, []);
 
-  useEffect(
-    () => {
-      // console.log('useffect3 - fetchprofile');
-      // correntToken &&
-      dispatch(fetchProfile());
-    },
-    [
-      // correntToken
-    ]
-  );
+  useEffect(() => {
+    correntToken && dispatch(fetchProfile());
+  }, [correntToken]);
 
   return (
     <>

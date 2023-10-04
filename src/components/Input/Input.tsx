@@ -32,6 +32,7 @@ export interface InputProps {
   control?: any;
   required?: boolean;
   readOnly?: boolean;
+  className?: string;
 }
 
 export const Input: FC<InputProps> = ({
@@ -45,6 +46,7 @@ export const Input: FC<InputProps> = ({
   control,
   required = true,
   readOnly,
+  className,
 }) => {
   const [visible, setVisible] = useState(() => type !== InputType.Password);
 
@@ -85,7 +87,7 @@ export const Input: FC<InputProps> = ({
 
   return (
     <span
-      className={cx(styles.InputWrapper, {
+      className={cx(styles.InputWrapper, className, {
         [styles.Focused]: focused,
         [styles.Error]: errors[name],
       })}

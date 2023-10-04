@@ -8,6 +8,7 @@ export interface Profile {
   user: User;
   organization: Organization;
   documents: DocumentsProfile[];
+  exportTestResult: number | null;
 }
 
 export interface Signature {
@@ -52,6 +53,7 @@ const initialState: ProfileState = {
       org_inn: '',
     },
     documents: [],
+    exportTestResult: 75,
   },
   isLoading: false,
   error: '',

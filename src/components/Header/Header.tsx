@@ -30,7 +30,17 @@ export const Header: FC = () => {
         <div className={styles.HeaderRefs}>
           <span className={styles.HeaderLinks}>
             <span className={styles.HeaderLinksItem}>медиа</span>
-            <span className={styles.HeaderLinksItem}>бизнесмаркет</span>
+            <Link to={RoutePaths.SERVICES}>
+              <span
+                className={
+                  window.location.pathname === RoutePaths.SERVICES
+                    ? styles.HeaderLinksItemActive
+                    : styles.HeaderLinksItem
+                }
+              >
+                бизнесмаркет
+              </span>
+            </Link>
             <span className={styles.HeaderLinksItem}>инструкции</span>
             <Link to={RoutePaths.REQUESTS}>
               <span

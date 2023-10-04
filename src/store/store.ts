@@ -17,8 +17,8 @@ import notificationsReducer from '../pages/Notifications/NotificationsSlice';
 import callbackReducer from 'src/pages/Callback/CallbackSlice';
 import feedbackReducer from '../pages/Requests/Request/new/modals/Feedback/FeedbackSlice';
 import detailsReducer from 'src/pages/Requests/Request/details/DetailsSlice';
-import conductorReducer from '../pages/Conductor/ConductorSlice';
-
+import TestrouterReducer from '../pages/Testrouter/TestrouterSlice';
+import exportsReducer from '../pages/Exports/ExportsSlice';
 export const history = createBrowserHistory();
 
 const persistConfig = {
@@ -30,6 +30,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   profileReducer,
+  TestrouterReducer,
   requestsReducer,
   requestReducer,
   servicesReducer,
@@ -37,9 +38,10 @@ const rootReducer = combineReducers({
   notificationsReducer,
   callbackReducer,
   uploadProfileFileReducer,
-  conductorReducer,
   feedbackReducer,
   detailsReducer,
+  exportsReducer,
+
   router: connectRouter(history),
 });
 

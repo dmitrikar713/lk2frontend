@@ -2,24 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RequestStatuses } from 'src/entities/Statuses';
 import { RequestStages } from 'src/entities/Subjects';
 import { Notification } from '../Notifications/NotificationsSlice';
+
 export interface RequestFilter {
   title: RequestFilterTitle;
   value: string;
 }
-
 export enum RequestFilterTitle {
   All = 'Все',
   Processing = 'В обработке',
   Completed = 'Завершенные',
   Draft = 'Черновики',
 }
-
 export enum RequestStatusTitle {
   Processing = 'В работе',
   Completed = 'Завершено',
   Draft = 'Черновик',
 }
-
 export interface Request {
   id: string;
   serviceName: string;
@@ -31,7 +29,6 @@ export interface Request {
   stages: RequestStages[];
   serviceId: string;
 }
-
 interface RequestsState {
   requests: Array<Request>;
   isLoading: boolean;
@@ -43,7 +40,6 @@ const initialState: RequestsState = {
   isLoading: false,
   error: '',
 };
-
 export const requestsSlice = createSlice({
   name: 'requests',
   initialState,

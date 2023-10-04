@@ -4,7 +4,7 @@ import { Service } from './Service/ServiceSlice';
 export type Services = Array<Pick<Service, 'id' | 'name'>>;
 
 interface ServicesState {
-  services: Services;
+  services: any[];
   isLoading: boolean;
   error: string;
 }
@@ -22,10 +22,12 @@ export const servicesSlice = createSlice({
     servicesLoad(state) {
       state.isLoading = true;
     },
-    servicesLoadSuccess(state, action: PayloadAction<Services>) {
+    servicesLoadSuccess(state, action: PayloadAction<any>) {
+      console.log('servicesLoadSuccess pay.act');
+      console.log(action.payload);
       state.isLoading = false;
       state.error = '';
-      state.services = action.payload;
+      state.services = action.payload.result.Product;
     },
     servicesLoadError(state, action: PayloadAction<string>) {
       state.isLoading = false;

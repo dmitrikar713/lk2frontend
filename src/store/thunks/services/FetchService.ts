@@ -4,7 +4,7 @@ import { AppThunk } from '../../store';
 
 export const fetchService =
   (serviceId: string | undefined): AppThunk =>
-  async (dispatch: any) => {
+  async (dispatch) => {
     try {
       dispatch(serviceSlice.actions.serviceLoad());
       const response = await apiClient.get<Service>(`/services/${serviceId}`);

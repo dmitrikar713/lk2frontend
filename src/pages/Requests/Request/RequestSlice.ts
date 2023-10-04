@@ -76,7 +76,6 @@ interface DocTypeForm {
   parameterInApi: string;
   file: FormFile;
 }
-
 interface FormFile {
   name: string;
   type: string;
@@ -85,8 +84,11 @@ interface FormFile {
 const initialState: RequestState = {
   request: {
     id: '',
-    serviceId: '094d5ad7669c41e19a03b103684cff74',
-    serviceName: 'Продвижение в сфере международной электронной торговли',
+    // эл торг
+    // serviceId: '094d5ad7669c41e19a03b103684cff74',
+    serviceId: 'bb198aa6c22340679afff9ee5b67deef',
+    // serviceId: 'bb198aa6c22340679afff9ee5b67deef',
+    serviceName: 'фыв',
     formConfig: { fields: [], dictionary: {} },
     formData: {},
     statusId: 0,
@@ -106,6 +108,12 @@ export const requestSlice = createSlice({
   name: 'request',
   initialState,
   reducers: {
+    setServiceName(state, action: PayloadAction<string>) {
+      state.request.serviceName = action.payload;
+    },
+    setServiceId(state, action: PayloadAction<string>) {
+      state.request.serviceId = action.payload;
+    },
     requestLoad(state) {
       state.isLoading = true;
     },

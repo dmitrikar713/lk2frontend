@@ -12,14 +12,14 @@ const persistor = persistStore(store);
 
 export function App(): ReactElement {
   return (
-    <StrictMode>
-      <Router>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Layout />
-          </PersistGate>
-        </Provider>
-      </Router>
-    </StrictMode>
+    // <StrictMode>
+    <Router>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout />
+        </PersistGate>
+      </Provider>
+    </Router>
+    // </StrictMode>
   );
 }

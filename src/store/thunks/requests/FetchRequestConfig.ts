@@ -11,6 +11,8 @@ export const fetchRequestConfig =
       const response = await apiClient.get<any>(
         `/requests/params?guid=${serviceId}`
       );
+      console.log('/requests/params?guid=... response:');
+      console.log(response);
       const fields = response.data.records;
       const dictionary = fields.reduce(
         (acc: { [name: string]: any }, next: FormFieldParameters) => ({

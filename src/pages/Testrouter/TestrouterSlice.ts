@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// type ConductorQuestion = {
+// type TestrouterQuestion = {
 //   qType: 'bullet' | 'select' | 'text';
 //   title: string;
 //   options?: string[];
@@ -9,10 +9,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // type CondQuestionGroup = {
 //   title: string;
-//   questions: ConductorQuestion[];
+//   questions: TestrouterQuestion[];
 // };
 
-// interface ConductorState {
+// interface TestrouterState {
 //   stage: 'form' | 'survey' | 'end';
 //   form: {
 //     email: string;
@@ -30,32 +30,34 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // }
 
 const initialState: any = {
-  stage: 'survey',
+  stage: 'form',
   form: {
     email: '',
-    region: '',
+    region: 'Москва',
+    regionOptions: ['Москва', 'Питер'],
     fullOrgName: '',
     ogrn: '',
     inn: '',
-    representativeFullName: '',
-    representativePosition: '',
+    representativeFullName: 'asdasd',
+    representativePosition: 'qweqwe',
     representativeEmail: '',
     representativePhone: '',
   },
 
   survey: [
     {
-      title: 'Group title 1',
+      title: 'Согласны ли Вы с утверждением? (выберите да или нет)',
       questions: [
         {
           qType: 'bullet',
-          title: 'questTitle1',
+          title:
+            'Компания готова вывозить товар за территорию страны до момента сделки',
           options: ['asd', 'qwe', 'rwther', 'dg5g'],
           answer: 'asd',
         },
         {
           qType: 'select',
-          title: 'questTitle2',
+          title: 'Select question',
           options: ['asd', 'qwe', 'rwther', 'dg5g'],
           answer: 'asd',
         },
@@ -80,11 +82,11 @@ const initialState: any = {
       ],
     },
   ],
-  activeGroup: 1,
+  activeGroup: 0,
 };
 
-// export const conductorSlice = createSlice({
-//   name: 'conductorSlice',
+// export const TestrouterSlice = createSlice({
+//   name: 'TestrouterSlice',
 //   initialState,
 //   reducers: {
 //     setAnswer(state, action: any) {
@@ -95,12 +97,32 @@ const initialState: any = {
 //   },
 // });
 
-// export default conductorSlice.reducer;
+// export default TestrouterSlice.reducer;
 
-export const conductorSlice = createSlice({
-  name: 'conductor',
+export const TestrouterSlice = createSlice({
+  name: 'Testrouter',
   initialState,
   reducers: {
+    setAnswer: (state, action) => {
+      state.survey[action.payload.questionGroupId].questions[
+        action.payload.questionId
+      ].answer = action.payload.answer;
+    },
+    setActiveGroup: (state, action) => {
+      state.activeGroup = action.payload;
+    },
+    setStage: (state, action) => {
+      state.stage = action.payload;
+    },
+    setFormFieldValue: (state, action) => {
+      console.log('setFormFieldValue');
+      state.form[action.payload.fieldName] = action.payload.valuee;
+      console.log('action.payload');
+      console.log(action.payload);
+    },
+    fetchQuestions: (state, action) => {
+      console.log('fetchQuestions');
+    },
     // profileLoad(state) {
     //   state.isLoading = true;
     // },
@@ -128,4 +150,4 @@ export const conductorSlice = createSlice({
   },
 });
 
-export default conductorSlice.reducer;
+export default TestrouterSlice.reducer;

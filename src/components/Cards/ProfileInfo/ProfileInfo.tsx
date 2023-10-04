@@ -26,7 +26,7 @@ interface ProfileInfoProps {
 
 export const ProfileInfo: FC<ProfileInfoProps> = ({
   withLogoUploading,
-  segmentsIncluded = [],
+  segmentsIncluded = [ProfileSegments.Exports],
 }) => {
   const navigate = useNavigate();
 
@@ -74,24 +74,6 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({
             </div>
           </div>
         </div>
-        {segmentsIncluded.includes(ProfileSegments.Exports) && !profileWrapped && (
-          <div className={styles.ProfileChart}>
-            <div className={styles.ProfileChartWrapper}>
-              <PieChart
-                size={100}
-                lineWidth={25}
-                colors={['#ff4361', '#c4c4c4']}
-                data={[75, 25]}
-              />
-              <div className={styles.ProfileChartLegend}>
-                {`Результаты теста
-          экспортной
-          готовности`}
-              </div>
-            </div>
-            <ForwardLink title="Тест экспортной готовности" path="/exports" />
-          </div>
-        )}
       </div>
       {
         <div className={styles.ProfileIcons}>
@@ -123,3 +105,21 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({
     </div>
   );
 };
+
+// Убрал результат теста Экспорта, в связи с изменениями в дизайне
+// {segmentsIncluded.includes(ProfileSegments.Exports) && !profileWrapped && (
+//   <div className={styles.ProfileChart}>
+//     <div className={styles.ProfileChartWrapper}>
+//       <PieChart
+//         size={100}
+//         lineWidth={25}
+//         colors={['#ff4361', '#c4c4c4']}
+//         data={[75, 25]}
+//       />
+//       <div className={styles.ProfileChartLegend}>
+//         Результаты теста экспортной готовности
+//       </div>
+//     </div>
+//     <ForwardLink title="Тест экспортной готовности" path="/exports" />
+//   </div>
+// )}

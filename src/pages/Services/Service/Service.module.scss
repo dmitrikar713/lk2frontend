@@ -2,95 +2,247 @@
 @import 'styles/mixins';
 
 .Service {
-  @include card;
-  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-  &Name {
-    @include p2-medium;
+  gap: 1.5rem;
+}
+
+.Hero {
+  @include card;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  &Text {
+    flex: 1 0;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+  }
+  &Buttons {
+    flex: 1 0;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.6rem;
+    button {
+      width: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+  &Image {
+    width: 250px;
+    height: 250px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.Whocanget {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Title {
+    margin-block-end: 0;
+  }
+  &Subtitle {
+    margin-block-end: 0;
+  }
+  &Text {
+    color: #00000099;
+    margin-block-end: 0;
+  }
+}
+
+.Whatiscompensated {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Content {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    &Left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    svg {
+      width: 8rem;
+      min-width: 8rem;
+    }
+  }
+
+  &Title {
+    margin-block-end: 0;
+  }
+  &Subtitle {
+    margin-block-end: 0;
     color: $color-accent-primary;
   }
+  &Text {
+    color: #00000099;
+    margin-block-end: 0;
+  }
+}
 
-  &Row {
-    margin-top: 1rem;
+.Result {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Title {
+    margin-block-end: 0;
+  }
+  &Subtitle {
+    margin-block-end: 0;
+  }
+  &Text {
+    color: #00000099;
+    margin-block-end: 0;
+  }
+}
+
+.Compensationsize {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Content {
     display: flex;
-  }
+    gap: 2.5rem;
+    align-items: flex-start;
+    justify-content: space-between;
 
-  &Info,
-  &Stepper {
-    margin: 0;
-  }
-
-  &Info {
-    @include p3-regular;
-    padding-left: 1rem;
-    width: 50%;
-    margin-right: 2rem;
-
-    &Item {
-      margin-bottom: 1rem;
-      list-style-type: none;
-      position: relative;
-      &::before {
-        content: '.';
-        position: absolute;
-        top: -0.75rem;
-        left: -1.125rem;
-        color: $color-accent-primary;
-        font-size: 3rem;
-      }
+    &Left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    svg {
+      width: 8rem;
+      min-width: 8rem;
     }
   }
 
-  &Stepper {
-    --size: 1.5rem;
-    --spacing: 0.125rem;
-    margin-top: 1rem;
-    padding-left: 0;
-    counter-reset: myCounter;
+  &Title {
+    margin-block-end: 0;
+  }
+  &Subtitle {
+    margin-block-end: 0;
+    font-size: 20px;
+    color: $color-accent-primary;
+  }
+  &Text {
+    color: #00000099;
+    margin-block-end: 0;
+  }
+}
 
-    &Header {
-      @include p2-regular;
+.Compensationperiod {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Content {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    &Left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    svg {
+      width: 8rem;
+      min-width: 8rem;
+    }
+  }
+
+  &Title {
+    margin-block-end: 0;
+  }
+  &Subtitle {
+    margin-block-end: 0;
+    font-size: 20px;
+    color: $color-accent-primary;
+  }
+  &Text {
+    color: #00000099;
+    margin-block-end: 0;
+  }
+}
+
+.Documents {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+
+  &Title {
+    margin-block-end: 0;
+  }
+
+  &List {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+  }
+  &Group {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    &Title {
+      margin-block-end: 0;
+    }
+  }
+  &Item {
+    margin-block-end: 0;
+    color: $color-accent-primary;
+    &:active,
+    &:visited,
+    &:hover {
       color: $color-accent-primary;
     }
-
-    &Item {
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      padding-bottom: 1rem;
-
-      &::before {
-        @include p3-regular;
-        counter-increment: myCounter;
-        content: counter(myCounter);
-        position: relative;
-        flex: 0 0 var(--size);
-        height: var(--size);
-        color: $color-accent-primary;
-        text-align: center;
-        line-height: calc(var(--size) - 0.25rem);
-        border: 1px solid $color-accent-primary;
-        border-radius: 50%;
-      }
-
-      &:not(:last-child):after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: calc(var(--size) + var(--spacing));
-        transform: translateX(calc(var(--size) / 2));
-        bottom: var(--spacing);
-        width: 1px;
-        background-color: $color-accent-primary;
-      }
-    }
-
-    &Title {
-      @include p3-regular;
-    }
   }
+}
 
-  &GetButton {
-    margin-top: 2rem;
+.Actions {
+  @include card;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+
+  button {
+    width: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }

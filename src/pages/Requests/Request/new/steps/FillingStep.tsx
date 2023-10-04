@@ -18,7 +18,6 @@ import { DropDownItem } from 'src/components/DropDownItem/DropDownItem';
 import { Link } from 'react-router-dom';
 import { RoutePaths } from 'src/entities/Routes';
 import { setDocumentProfile } from 'src/common/utils/setDocumentProfile';
-import { DocumentPayload } from 'src/pages/Requests/Request/RequestSlice'
 import {
   DefaultOptions,
   FieldType,
@@ -146,6 +145,7 @@ export const FillingStep: FC<FillingStepProps> = ({
     if (!Object.keys(uploadedDocuments).includes('p7348801')) {
       Toast(
         'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года',
+        // 'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года'
         {
           type: 'error',
         }
@@ -289,7 +289,6 @@ export const FillingStep: FC<FillingStepProps> = ({
   };
 
   // Add default values to checkboxes
-
   request.formConfig.fields.forEach((field) => {
     if (field.fieldType.id === 2418) {
       defaultValues[field.parameterInApi as string] = false;
@@ -360,7 +359,7 @@ export const FillingStep: FC<FillingStepProps> = ({
                       size={CheckboxSize.Small}
                     />
                   )}
-                  {section.fields.map((field) => (
+                  {section.fields.map((field: any) => (
                     <React.Fragment key={field.parameterInApi}>
                       {section.name === FillingFormSections.Confirmations ? (
                         <Checkbox

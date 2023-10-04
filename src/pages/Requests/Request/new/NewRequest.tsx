@@ -26,6 +26,7 @@ import { getCerts, getSigner } from 'src/common/utils/blitz';
 import { printFile } from 'src/common/utils/printFile';
 import { fetchPrintedVersionWithStamp } from 'src/store/thunks/printed-version/FetchPrintedVersionWithStamp';
 import { signError, SignError } from 'src/common/utils/signError';
+import { fetchServices } from 'src/store/thunks/services/FetchServices';
 
 enum StepButton {
   Fill = 'Далее',
@@ -45,9 +46,11 @@ export const NewRequest: FC = () => {
     (state) => state.notificationsReducer.notifications
   );
   const { profile } = useAppSelector((state) => state.profileReducer);
+  const { services } = useAppSelector((state) => state.servicesReducer);
 
   const { formData, serviceId, uploadedDocuments, serviceName } = request;
   const { user, organization } = profile;
+  console.log(uploadedDocuments);
 
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,32 +58,10 @@ export const NewRequest: FC = () => {
   const [certsShown, setCertsShown] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-  useEffect(() => {
-    dispatch(fetchRequestConfig(serviceId));
-  }, []);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-
-    currentStep === 3 &&
-      dispatch(
-        fetchPrintedVersionWithStamp({
-          fields: {
-            inn: organization.org_inn,
-            LastName: user.user_last_name,
-            FirstName: user.user_first_name,
-            MiddleName: user.user_middle_name,
-            Phone: user.user_phone,
-            guid: serviceId,
-            ...formData,
-          },
-          certs: { ...certs[0].info },
-        })
-      );
-  }, [currentStep]);
-
-  const handleSign = async () => {
+  async function handleSign() {
     setButtonDisabled(true);
+    console.log('handleSign');
+    console.log(uploadedDocuments);
 
     const allDocumentsUploaded = Object.values(uploadedDocuments).reduce(
       (acc: boolean, next: UploadedDocument) => (!next.file ? false : acc),
@@ -109,9 +90,9 @@ export const NewRequest: FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const signDocumentsByCert = async (cert: any) => {
+  async function signDocumentsByCert(cert: any) {
     const signatures: any = {};
 
     try {
@@ -164,9 +145,9 @@ export const NewRequest: FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const handleSubmit = async (nextStep: number | string) => {
+  async function handleSubmit(nextStep: number | string) {
     setButtonDisabled(false);
 
     if (nextStep !== 'sign docs') {
@@ -193,7 +174,39 @@ export const NewRequest: FC = () => {
       navigate(RoutePaths.REQUESTS);
       setLoading(false);
     }
-  };
+  }
+
+  async function fetchFieldsAndName() {
+    await dispatch(fetchRequestConfig(serviceId));
+    await dispatch(fetchServices());
+    await dispatch(
+      requestSlice.actions.setServiceName(
+        services.find((serv) => serv.IDUslugiIsRpp === serviceId).NAME
+      )
+    );
+  }
+  useEffect(() => {
+    fetchFieldsAndName();
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    currentStep === 3 &&
+      dispatch(
+        fetchPrintedVersionWithStamp({
+          fields: {
+            inn: organization.org_inn,
+            LastName: user.user_last_name,
+            FirstName: user.user_first_name,
+            MiddleName: user.user_middle_name,
+            Phone: user.user_phone,
+            guid: serviceId,
+            ...formData,
+          },
+          certs: { ...certs[0].info },
+        })
+      );
+  }, [currentStep]);
 
   const steps = [
     <FillingStep
@@ -236,7 +249,7 @@ export const NewRequest: FC = () => {
               breadcrumbList={[
                 {
                   title: 'Назад в Бизнесмаркет',
-                  path: 'https://moscow.business/business-market/',
+                  path: '/services/',
                 },
               ]}
             />
@@ -275,6 +288,7 @@ export const NewRequest: FC = () => {
         </>
       </Card>
       {steps[currentStep]}
+      {currentStep}
     </div>
   );
 };

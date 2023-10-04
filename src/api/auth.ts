@@ -20,7 +20,6 @@ export class Auth {
   }
 
   static authorize = (): void => {
-    // window.location.href = `${process.env.APP_AUTH_URL}${process.env.APP_CALLBACK_URL}`;
     window.location.href = `${process.env.APP_AUTH_URL}${process.env.APP_CALLBACK_URL}`;
   };
 

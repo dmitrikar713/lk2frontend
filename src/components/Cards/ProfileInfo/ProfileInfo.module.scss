@@ -51,6 +51,7 @@
 
     &Wrapper {
       display: flex;
+      align-items: center;
     }
   }
 
@@ -60,7 +61,7 @@
     &Wrapper {
       width: fit-content;
     }
-    
+
     &Container {
       max-width: 100px;
     }
@@ -84,7 +85,6 @@
       @include p3-medium;
       margin-left: 1rem;
       color: rgba($color-text-primary, 0.5);
-      align-self: flex-end;
       white-space: pre-line;
     }
   }

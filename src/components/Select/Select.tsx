@@ -30,6 +30,10 @@ export interface SelectProps
   dimension?: SelectDimension;
   /** Значение селекта */
   value: string;
+  // Поля для компонента Form
+  name?: string;
+  label?: string;
+  type?: string;
   /** Функция, которая возвращает реакт-компонент
    *  с контентом для отображения в cелекте */
   renderInputValue: (value: string) => string | ReactNode;
