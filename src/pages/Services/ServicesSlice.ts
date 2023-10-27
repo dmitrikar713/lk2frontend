@@ -25,9 +25,14 @@ export const servicesSlice = createSlice({
     servicesLoadSuccess(state, action: PayloadAction<any>) {
       console.log('servicesLoadSuccess pay.act');
       console.log(action.payload);
-      state.isLoading = false;
       state.error = '';
-      state.services = action.payload.result.Product;
+      const arr = Object.keys(action.payload.result.Product).map((key) => {
+        return action.payload.result.Product[key];
+      });
+      console.log('arr:');
+      console.log(arr);
+      state.services = arr;
+      state.isLoading = false;
     },
     servicesLoadError(state, action: PayloadAction<string>) {
       state.isLoading = false;

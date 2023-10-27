@@ -18,7 +18,7 @@ import { createRequest } from 'src/store/thunks/requests/CreateRequest';
 import { DocumentStatuses } from 'src/entities/Statuses';
 import Toast from 'src/components/Toast';
 import { useNavigate } from 'react-router-dom';
-import { fetchRequestConfig } from 'src/store/thunks/requests/FetchRequestConfig';
+import { fetchServiceConfig } from 'src/store/thunks/requests/FetchRequestConfig';
 import { Card } from 'src/components/Card/Card';
 import { PrinterIcon } from 'src/styles/icons/printer';
 import { ProfileIcons } from 'src/components/ProfileIcons/ProfileIcons';
@@ -177,7 +177,7 @@ export const NewRequest: FC = () => {
   }
 
   async function fetchFieldsAndName() {
-    await dispatch(fetchRequestConfig(serviceId));
+    await dispatch(fetchServiceConfig(serviceId));
     await dispatch(fetchServices());
     await dispatch(
       requestSlice.actions.setServiceName(

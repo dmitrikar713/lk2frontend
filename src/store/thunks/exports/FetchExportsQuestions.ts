@@ -4,6 +4,7 @@ import { exportsSlice } from 'src/pages/Exports/ExportsSlice';
 
 export const fetchExportsQuestions = (): AppThunk => async (dispatch) => {
   try {
+    console.log('fetching TEG questions');
     dispatch(exportsSlice.actions.exportsLoad());
     const response = await apiClient.get('/exports/getQuestions');
     console.log('fetchExportsQuestions:');

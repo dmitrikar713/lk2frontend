@@ -4,8 +4,6 @@ import { DropDownItem } from 'src/components/DropDownItem/DropDownItem';
 import { Input, InputType } from 'src/components/Input/Input';
 import { Radio } from 'src/components/Radio/Radio';
 import { Select } from 'src/components/Select/Select';
-import { Textarea } from 'src/components/Textarea/Textarea';
-import { TestrouterSlice } from './TestrouterSlice';
 
 export const Question: any = (props: {
   order: number;

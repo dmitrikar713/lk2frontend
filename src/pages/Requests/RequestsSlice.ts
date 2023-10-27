@@ -48,9 +48,11 @@ export const requestsSlice = createSlice({
       state.isLoading = true;
     },
     requestsLoadSuccess(state, action: PayloadAction<Array<Request>>) {
-      state.isLoading = false;
       state.error = '';
+      console.log('requestsLoadSuccess action.payload:');
+      console.log(action.payload);
       state.requests = action.payload;
+      state.isLoading = false;
     },
     requestsLoadError(state, action: PayloadAction<string>) {
       state.isLoading = false;

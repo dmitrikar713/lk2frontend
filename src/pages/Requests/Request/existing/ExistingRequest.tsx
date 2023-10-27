@@ -29,29 +29,12 @@ import { invokeRppAction } from 'src/store/thunks/requests/FetchAdditionalFile';
 import { getBase64Url } from 'src/common/utils/base64Url';
 import { RequestSubstages } from 'src/entities/Subjects';
 import { signError, SignError } from 'src/common/utils/signError';
-
-enum Actions {
-  additionalDocs = 'Предоставить дополнительные документы',
-  recallRequest = 'Отозвать заявку',
-  cancelRequest = 'Отказ заявителя от получения услуги',
-  addAct = 'Подписание акта заявителем',
-  recallAdditionalRequest = 'Отзыв заявки заявителем (доп.действие)',
-}
-
-enum CancelRequest {
-  Recall = 'Отозвать заявку',
-  Cancell = 'Отказаться от услуги',
-}
-
-enum CancelButton {
-  Recall = 'Вы действительно хотите отозвать заявку?',
-  Cancell = 'Вы действительно хотите отказаться от получения услуги?',
-}
-
-enum ConfirmationSteps {
-  Sign = 1,
-  Send = 2,
-}
+import {
+  Actions,
+  CancelButton,
+  CancelRequest,
+  ConfirmationSteps,
+} from './enums';
 
 export const ExistingRequest: FC = () => {
   const { requestId } = useParams();
@@ -88,59 +71,7 @@ export const ExistingRequest: FC = () => {
     ConfirmationSteps.Sign
   );
 
-  useEffect(() => dispatch(fetchRequest(requestId)), []);
-
-  useEffect(() => {
-    completedStages === request.stages.length
-      ? setNavBarShow(false)
-      : setNavBarShow(true);
-
-    if (request.actions) {
-      setAdditionalDocs(false);
-      setRecallRequest(false);
-      setCancelRequest(false);
-      setAdditionalRecall(false);
-      setAddAct(false);
-      request.actions.forEach((action) => {
-        if (action.name === Actions.additionalDocs && action.active == true) {
-          setAdditionalDocs(true);
-        } else if (
-          action.name === Actions.recallRequest &&
-          action.active == true
-        ) {
-          setRecallRequest(true);
-        } else if (
-          action.name === Actions.cancelRequest &&
-          action.active === true
-        )
-          setCancelRequest(true);
-        else if (
-          action.name === Actions.recallAdditionalRequest &&
-          action.active === true
-        )
-          setAdditionalRecall(true);
-        else if (action.name === Actions.addAct && action.active === true)
-          setAddAct(true);
-      });
-    }
-
-    Object.keys(request.uploadedDocuments).map((key) => {
-      if (request.uploadedDocuments[key].status !== DocumentStatuses.Signed) {
-        setDocsSigned(false);
-      }
-    });
-
-    if (
-      !request.stages.filter((stage) => stage.status === RequestStatus.inWork)
-        .length
-    ) {
-      setActiveStages(false);
-    } else {
-      setActiveStages(true);
-    }
-  }, [request]);
-
-  const handleRequest = async (type: Actions) => {
+  async function handleRequest(type: Actions) {
     const data = {} as RequestAction;
     data.requestId = String(request.number);
     const action = request.actions.find((action) => action.name === type);
@@ -155,19 +86,20 @@ export const ExistingRequest: FC = () => {
         type: 'error',
       });
     }
-  };
+  }
 
-  const handleClick = (
+  function handleClick(
     title: CancelButton,
     type: Actions,
     name: CancelRequest
-  ) => {
+  ) {
     setRevokeModalShown(true);
     setModalTitle(title);
     setModalType(type);
     setModalName(name);
-  };
-  const handleSendDocs = async (actionType: string) => {
+  }
+
+  async function handleSendDocs(actionType: string) {
     const data = {} as RequestAction;
     let curSubStage: RequestSubstages | undefined;
     data.requestId = String(request.number);
@@ -213,9 +145,9 @@ export const ExistingRequest: FC = () => {
         type: 'success',
       });
     }
-  };
+  }
 
-  const handleSign = async () => {
+  async function handleSign() {
     try {
       setLoading(true);
       const certs = await getCerts();
@@ -231,9 +163,9 @@ export const ExistingRequest: FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const signDocumentsByCert = async (cert: any) => {
+  async function signDocumentsByCert(cert: any) {
     const signatures: any = {};
 
     try {
@@ -319,7 +251,59 @@ export const ExistingRequest: FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  useEffect(() => dispatch(fetchRequest(requestId)), []);
+
+  useEffect(() => {
+    completedStages === request.stages.length
+      ? setNavBarShow(false)
+      : setNavBarShow(true);
+
+    if (request.actions) {
+      setAdditionalDocs(false);
+      setRecallRequest(false);
+      setCancelRequest(false);
+      setAdditionalRecall(false);
+      setAddAct(false);
+      request.actions.forEach((action) => {
+        if (action.name === Actions.additionalDocs && action.active == true) {
+          setAdditionalDocs(true);
+        } else if (
+          action.name === Actions.recallRequest &&
+          action.active == true
+        ) {
+          setRecallRequest(true);
+        } else if (
+          action.name === Actions.cancelRequest &&
+          action.active === true
+        )
+          setCancelRequest(true);
+        else if (
+          action.name === Actions.recallAdditionalRequest &&
+          action.active === true
+        )
+          setAdditionalRecall(true);
+        else if (action.name === Actions.addAct && action.active === true)
+          setAddAct(true);
+      });
+    }
+
+    Object.keys(request.uploadedDocuments).map((key) => {
+      if (request.uploadedDocuments[key].status !== DocumentStatuses.Signed) {
+        setDocsSigned(false);
+      }
+    });
+
+    if (
+      !request.stages.filter((stage) => stage.status === RequestStatus.inWork)
+        .length
+    ) {
+      setActiveStages(false);
+    } else {
+      setActiveStages(true);
+    }
+  }, [request]);
 
   return (
     <>

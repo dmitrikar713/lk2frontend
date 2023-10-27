@@ -3,6 +3,8 @@
 
 .Certs {
   margin: 2rem -2rem 0;
+  overflow-y: scroll;
+  height: 400px;
 
   &Modal {
     padding: 3rem 4rem;

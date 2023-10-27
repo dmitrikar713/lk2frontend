@@ -15,4 +15,5 @@ export enum RoutePaths {
   CALLBACK = '/callback',
   EXIT = '/exit',
   LOGOUT = '/logout',
+  TEST_PAGE = '/test',
 }

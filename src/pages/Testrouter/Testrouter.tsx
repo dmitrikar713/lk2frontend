@@ -7,39 +7,38 @@ import { ProgressBar } from 'src/components/ProgressBar/ProgressBar';
 import { Radio } from 'src/components/Radio/Radio';
 import { RoutePaths } from 'src/entities/Routes';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
-import { TestrouterSlice } from './TestrouterSlice';
+import { testrouterSlice } from './TestrouterSlice';
 import TestrouterForm from './Form';
 import { Question } from './Question';
+import { fetchTestrouterQuestions } from 'src/store/thunks/test-router/FetchTestrouterQuestions';
+import { Skeleton } from 'src/components/Skeleton/Skeleton';
+import { sendTestrouterAnswers } from 'src/store/thunks/test-router/SendTestrouterAnswers';
 
 const Testrouter: FC = () => {
   const dispatch = useAppDispatch();
   const [nextDisabled, setNextDisabled] = useState<boolean>(false);
 
-  const { survey, stage, activeGroup, form } = useAppSelector(
+  const { survey, stage, activeGroup, form, isLoading } = useAppSelector(
     (state) => state.TestrouterReducer
   );
 
   function setAnswer(questionGroupId, questionId, answer) {
-    console.log('setAnswer');
-    console.log(questionGroupId);
-    console.log(questionId);
-    console.log(answer);
     dispatch(
-      TestrouterSlice.actions.setAnswer({ questionGroupId, questionId, answer })
+      testrouterSlice.actions.setAnswer({ questionGroupId, questionId, answer })
     );
   }
   function handlePrev() {
     if (activeGroup == 0) {
-      dispatch(TestrouterSlice.actions.setStage('form'));
-    } else dispatch(TestrouterSlice.actions.setActiveGroup(activeGroup - 1));
+      dispatch(testrouterSlice.actions.setStage('form'));
+    } else dispatch(testrouterSlice.actions.setActiveGroup(activeGroup - 1));
   }
   function handleNext() {
     if (stage == 'form') {
-      dispatch(TestrouterSlice.actions.setStage('survey'));
+      dispatch(testrouterSlice.actions.setStage('survey'));
     } else {
       if (activeGroup == survey.length - 1) {
-        dispatch(TestrouterSlice.actions.setStage('end'));
-      } else dispatch(TestrouterSlice.actions.setActiveGroup(activeGroup + 1));
+        dispatch(testrouterSlice.actions.setStage('end'));
+      } else dispatch(testrouterSlice.actions.setActiveGroup(activeGroup + 1));
     }
   }
 
@@ -52,9 +51,19 @@ const Testrouter: FC = () => {
       });
       setNextDisabled(nd);
     }
+    if (stage == 'end') {
+      dispatch(sendTestrouterAnswers(survey));
+    }
   }, [survey, stage, activeGroup]);
 
-  return (
+  useEffect(() => {
+    dispatch(testrouterSlice.actions.setStage('survey'));
+    dispatch(fetchTestrouterQuestions());
+  }, []);
+
+  return isLoading ? (
+    <Skeleton rows={2} />
+  ) : (
     <div className={styles.Testrouter}>
       <div className={styles.TestrouterCard}>
         <Breadcrumbs

@@ -26,6 +26,7 @@ import { checkToken } from './store/thunks/profile/CheckToken';
 import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
 import Testrouter from './pages/Testrouter/Testrouter';
+import TestPage from './pages/TestPage/TestPage';
 
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
@@ -108,6 +109,13 @@ export const Layout: FC = () => {
       path: RoutePaths.TESTROUTER,
       title: 'Профиль представителя',
       component: <Testrouter />,
+    },
+    {
+      name: 'TestPage',
+      isIndex: true,
+      path: RoutePaths.TEST_PAGE,
+      title: 'Тестовая страница',
+      component: <TestPage />,
     },
     {
       name: 'requests',

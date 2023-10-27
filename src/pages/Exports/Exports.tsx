@@ -14,16 +14,17 @@ import {
   ExportsQuestion,
   exportsSlice,
 } from './ExportsSlice';
+import { Skeleton } from 'src/components/Skeleton/Skeleton';
+import { sendExportsAnswers } from 'src/store/thunks/exports/SendExportsAnswers';
 
 const Exports: FC = () => {
   const dispatch = useDispatch();
 
-  const questions = useAppSelector((state) => state.exportsReducer.questions);
-  const currentQuestionIndex = useAppSelector(
-    (state) => state.exportsReducer.currentQuestionIndex
+  const { questions, isLoading, currentQuestionIndex } = useAppSelector(
+    (state) => state.exportsReducer
   );
-  function setAnswer(index: number) {
-    dispatch(exportsSlice.actions.setAnswerIndex(index));
+  function setAnswer(answerIndex: number) {
+    dispatch(exportsSlice.actions.setAnswerIndex(answerIndex));
   }
   function setCurrentQuestionIndex(index: number) {
     dispatch(exportsSlice.actions.setCurrentQuestionIndex(index));
@@ -32,6 +33,12 @@ const Exports: FC = () => {
   useEffect(() => {
     dispatch(fetchExportsQuestions());
   }, []);
+
+  useEffect(() => {
+    if (currentQuestionIndex === questions.length) {
+      dispatch(sendExportsAnswers(questions));
+    }
+  });
 
   return (
     <div className={styles.Exports}>
@@ -42,52 +49,68 @@ const Exports: FC = () => {
             { title: 'Назад к профилю компании', path: RoutePaths.PROFILE },
           ]}
         />
-        <div className={styles.ExportsCardWrapper}>
-          <div className={styles.ExportsCardTest}>
-            <div className={styles.ExportsCardTitle}>
-              Тест экспортной готовности
+        {isLoading ? (
+          <Skeleton rows={2} />
+        ) : (
+          <div className={styles.ExportsCardWrapper}>
+            <div className={styles.ExportsCardTest}>
+              <div className={styles.ExportsCardTitle}>
+                Тест экспортной готовности
+              </div>
+              {currentQuestionIndex < questions.length ? (
+                <>
+                  <ProgressBar
+                    currentStep={currentQuestionIndex}
+                    steps={questions.length}
+                  />
+                  <div className={styles.ExportsCardQuestion}>
+                    {questions[currentQuestionIndex].title}
+                  </div>
+                  <div className={styles.ExportsCardAnswers}>
+                    {questions[currentQuestionIndex].options.map(
+                      (option: ExportQuestionOption) => (
+                        <Radio
+                          key={option.index}
+                          selected={
+                            option.index ===
+                            questions[currentQuestionIndex].answerIndex
+                          }
+                          value={option.index}
+                          onClick={() => setAnswer(option.index)}
+                        >
+                          {option.name}
+                        </Radio>
+                      )
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className={styles.ExportsCardSuccess}>
+                  <p>Тест пройден 🎉</p>
+                  <p>Резульат на странице профиля</p>
+                  <Button
+                    type={ButtonType.Secondary}
+                    onClick={() =>
+                      setCurrentQuestionIndex(currentQuestionIndex - 1)
+                    }
+                  >
+                    В профиль
+                  </Button>
+                </div>
+              )}
             </div>
-            {currentQuestionIndex < questions.length ? (
-              <>
-                <ProgressBar
-                  currentStep={currentQuestionIndex}
-                  steps={questions.length}
-                />
-                <div className={styles.ExportsCardQuestion}>
-                  {questions[currentQuestionIndex].title}
-                </div>
-                <div className={styles.ExportsCardAnswers}>
-                  {questions[currentQuestionIndex].options.map(
-                    (option: ExportQuestionOption) => (
-                      <Radio
-                        key={option.index}
-                        selected={
-                          option.index ===
-                          questions[currentQuestionIndex].answerIndex
-                        }
-                        value={option.index}
-                        onClick={() => setAnswer(option.index)}
-                      >
-                        {option.name}
-                      </Radio>
-                    )
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className={styles.ExportsCardSuccess}>Тест пройден 🎉</div>
+            {currentQuestionIndex < questions.length && (
+              <Hint>
+                Выберите один из вариантов ответа по каждому вопросу, который
+                наиболее точно отражаетя фактическю ситуацию, характерную для
+                вашей компании
+              </Hint>
             )}
           </div>
-          {currentQuestionIndex < questions.length && (
-            <Hint>
-              Выберите один из вариантов ответа по каждому вопросу, который
-              наиболее точно отражаетя фактическю ситуацию, характерную для
-              вашей компании
-            </Hint>
-          )}
-        </div>
+        )}
       </div>
-      {currentQuestionIndex < questions.length && (
+
+      {!isLoading && currentQuestionIndex < questions.length && (
         <div className={styles.ExportsControls}>
           {currentQuestionIndex !== 0 && (
             <Button

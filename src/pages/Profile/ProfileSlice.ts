@@ -18,6 +18,7 @@ interface ProfileState {
   profile: Profile;
   isLoading: boolean;
   error: string;
+  testResults: any;
 }
 
 const initialState: ProfileState = {
@@ -57,6 +58,7 @@ const initialState: ProfileState = {
   },
   isLoading: false,
   error: '',
+  testResults: null,
 };
 
 export const profileSlice = createSlice({
@@ -86,6 +88,13 @@ export const profileSlice = createSlice({
     },
     setDocuments(state, action: PayloadAction<DocumentsProfile[]>) {
       state.profile.documents = action.payload;
+    },
+    setTestResults(state, action) {
+      console.log('setTestResults action.payload');
+      console.log(action.payload);
+
+      const results = JSON.parse(JSON.stringify(action.payload));
+      state.testResults = results;
     },
   },
 });

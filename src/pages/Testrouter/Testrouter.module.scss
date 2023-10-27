@@ -111,6 +111,7 @@
 
     &Bullets {
       display: flex;
+      flex-flow: column wrap;
       gap: 24px;
       @media screen and (max-width: 480px) {
         gap: 16px !important;
@@ -191,3 +192,6 @@
 //     flex-direction: column !important;
 //   }
 // }
+.QuestionSelect {
+  background-color: yellow !important;
+}

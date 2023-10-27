@@ -2,6 +2,8 @@
   padding: $card-padding;
   background-color: $color-background-primary;
   border-radius: $card-radius;
+  // todo убрать оверфлоу если что-то сломал
+  overflow: hidden;
 
   @include mobile {
     padding: $card-padding calc($card-padding * 0.5);
@@ -10,7 +12,6 @@
 
 @mixin logout {
   color: $color-accent-primary;
-
   &Select {
     margin-top: 2rem;
     display: flex;

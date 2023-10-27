@@ -19,7 +19,8 @@ const Service: FC = () => {
 
   const request = useAppSelector((state) => state.requestReducer.request);
   const services = useAppSelector((state) => state.servicesReducer.services);
-  const service = services.find((serv) => serv.IDUslugiIsRpp === serviceId);
+  // const service = services.find((serv) => serv.IDUslugiIsRpp === serviceId)
+  const service = services.find((serv) => serv.ID === '1460');
   console.log(service);
 
   const { name, infoList, stages } = useAppSelector(
@@ -31,13 +32,12 @@ const Service: FC = () => {
     navigate('/requests/add');
   };
 
-  useEffect(() => {
-    dispatch(fetchService(serviceId));
-
-    if (request.serviceId && request.serviceId != serviceId) {
-      dispatch(requestSlice.actions.setDefaultState());
-    }
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchService(serviceId));
+  //   if (request.serviceId && request.serviceId != serviceId) {
+  //     dispatch(requestSlice.actions.setDefaultState());
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   if (
@@ -98,61 +98,71 @@ const Service: FC = () => {
         </div>
       </div>
 
-      <div className={styles.Whocanget}>
-        <h5 className={styles.WhocangetTitle}>
-          {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok}
-        </h5>
-        <p className={styles.WhocangetSubtitle}>
-          {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok}
-        </p>
-        <p className={styles.WhocangetText}>
-          {parse(service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit)}
-        </p>
-      </div>
+      
+{
+      // <div className={styles.Whocanget}>
+      //   <h5 className={styles.WhocangetTitle}>
+      //     {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok}
+      //   </h5>
+      //   <p className={styles.WhocangetSubtitle}>
+      //     {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok}
+      //   </p>
+      //   <p className={styles.WhocangetText}>
+      //     {parse(service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit)}
+      //   </p>
+      // </div>
+}
+      
+{
+      // <div className={styles.Whatiscompensated}>
+      //   <h5 className={styles.WhatiscompensatedTitle}>
+      //     {
+      //       service.KakiyeZatratyKompensiruMassiv
+      //         .KakiyeZatratyKompensiruyutsyaZagolovok
+      //     }
+      //   </h5>
+      //   <div className={styles.WhatiscompensatedContent}>
+      //     <div className={styles.WhatiscompensatedContentLeft}>
+      //       <p className={styles.WhatiscompensatedSubtitle}>
+      //         {
+      //           service.KakiyeZatratyKompensiruMassiv
+      //             .KakiyeZatratyKompensiruyutsyaPodzagolovok
+      //         }
+      //       </p>
+      //       <p
+      //         className={styles.WhatiscompensatedText}
+      //         ref={KakiyeZatratyKompensiruyutsyaRef}
+      //       >
+      //         {parse(
+      //           service.KakiyeZatratyKompensiruMassiv
+      //             .KakiyeZatratyKompensiruyutsya
+      //         )}
+      //       </p>
+      //     </div>
+      //     <MoneybagIcon />
+      //   </div>
+      // </div>
+}
 
-      <div className={styles.Whatiscompensated}>
-        <h5 className={styles.WhatiscompensatedTitle}>
-          {
-            service.KakiyeZatratyKompensiruMassiv
-              .KakiyeZatratyKompensiruyutsyaZagolovok
-          }
-        </h5>
-        <div className={styles.WhatiscompensatedContent}>
-          <div className={styles.WhatiscompensatedContentLeft}>
-            <p className={styles.WhatiscompensatedSubtitle}>
-              {
-                service.KakiyeZatratyKompensiruMassiv
-                  .KakiyeZatratyKompensiruyutsyaPodzagolovok
-              }
-            </p>
-            <p
-              className={styles.WhatiscompensatedText}
-              ref={KakiyeZatratyKompensiruyutsyaRef}
-            >
-              {parse(
-                service.KakiyeZatratyKompensiruMassiv
-                  .KakiyeZatratyKompensiruyutsya
-              )}
-            </p>
-          </div>
-          <MoneybagIcon />
-        </div>
-      </div>
+{
+      // <div className={styles.Result}>
+      //   <h5 className={styles.ResultTitle}>
+      //     {service.RezultatMassiv.RezultatZagolovok}
+      //   </h5>
+      //   <p className={styles.ResultSubtitle}>
+      //     {service.RezultatMassiv.RezultatPodzagolovok}
+      //   </p>
 
-      <div className={styles.Result}>
-        <h5 className={styles.ResultTitle}>
-          {service.RezultatMassiv.RezultatZagolovok}
-        </h5>
-        <p className={styles.ResultSubtitle}>
-          {service.RezultatMassiv.RezultatPodzagolovok}
-        </p>
+      //   <p className={styles.ResultText}>
+      //     {parse(service.RezultatMassiv.Rezultats)}
+      //     {/* {service.RezultatMassiv.Rezultats} */}
+      //   </p>
+      // </div>
 
-        <p className={styles.ResultText}>
-          {parse(service.RezultatMassiv.Rezultats)}
-          {/* {service.RezultatMassiv.Rezultats} */}
-        </p>
-      </div>
+      }
 
+      
+{/* 
       <div className={styles.Compensationsize}>
         <h5 className={styles.CompensationsizeTitle}>
           {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok}
@@ -168,7 +178,9 @@ const Service: FC = () => {
           </div>
           <RoubleIcon />
         </div>
-      </div>
+      </div> */}
+
+{/*       
       {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok &
       service.PeriodKompensatsiiMassiv.PeriodKompensatsii ? (
         <div className={styles.Compensationperiod}>
@@ -189,8 +201,10 @@ const Service: FC = () => {
         </div>
       ) : (
         ''
-      )}
+      )} */}
 
+      
+{/* 
       {service.Documenty ? (
         <div className={styles.Documents}>
           <h5 className={styles.DocumentsTitle}>{service.DocumentType}</h5>
@@ -211,7 +225,7 @@ const Service: FC = () => {
         </div>
       ) : (
         ''
-      )}
+      )} */}
 
       <div className={styles.Actions}>
         {available ? (

@@ -1,108 +1,61 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { stat } from 'fs';
 
-// type TestrouterQuestion = {
-//   qType: 'bullet' | 'select' | 'text';
-//   title: string;
-//   options?: string[];
-//   answer?: string;
-// };
-
-// type CondQuestionGroup = {
-//   title: string;
-//   questions: TestrouterQuestion[];
-// };
-
-// interface TestrouterState {
-//   stage: 'form' | 'survey' | 'end';
-//   form: {
-//     email: string;
-//     region: string;
-//     fullOrgName: string;
-//     ogrn: string;
-//     inn: string;
-//     representativeFullName: string;
-//     representativePosition: string;
-//     representativeEmail: string;
-//     representativePhone: string;
-//   };
-//   survey: CondQuestionGroup[];
-//   activeGroup: number;
-// }
-
+// stage: survey form end
 const initialState: any = {
-  stage: 'form',
-  form: {
-    email: '',
-    region: 'Москва',
-    regionOptions: ['Москва', 'Питер'],
-    fullOrgName: '',
-    ogrn: '',
-    inn: '',
-    representativeFullName: 'asdasd',
-    representativePosition: 'qweqwe',
-    representativeEmail: '',
-    representativePhone: '',
-  },
-
-  survey: [
-    {
-      title: 'Согласны ли Вы с утверждением? (выберите да или нет)',
-      questions: [
-        {
-          qType: 'bullet',
-          title:
-            'Компания готова вывозить товар за территорию страны до момента сделки',
-          options: ['asd', 'qwe', 'rwther', 'dg5g'],
-          answer: 'asd',
-        },
-        {
-          qType: 'select',
-          title: 'Select question',
-          options: ['asd', 'qwe', 'rwther', 'dg5g'],
-          answer: 'asd',
-        },
-        { qType: 'text', title: 'string' },
-      ],
-    },
-    {
-      title: 'Group title 2',
-      questions: [
-        {
-          qType: 'bullet',
-          title: 'string',
-          options: ['asd', 'qwe', 'rwther', 'dg5g'],
-          answer: 'asd',
-        },
-        {
-          qType: 'bullet',
-          title: 'string',
-          options: ['asd', 'qwe', 'rwther', 'dg5g'],
-          answer: 'asd',
-        },
-      ],
-    },
-  ],
+  stage: 'survey',
+  isLoading: true,
+  error: '',
+  // form: {
+  //   email: '',
+  //   region: 'Москва',
+  //   regionOptions: ['Москва', 'Питер'],
+  //   fullOrgName: '',
+  //   ogrn: '',
+  //   inn: '',
+  //   representativeFullName: 'asdasd',
+  //   representativePosition: 'qweqwe',
+  //   representativeEmail: '',
+  //   representativePhone: '',
+  // },
+  survey: [],
   activeGroup: 0,
 };
 
-// export const TestrouterSlice = createSlice({
-//   name: 'TestrouterSlice',
-//   initialState,
-//   reducers: {
-//     setAnswer(state, action: any) {
-//       console.log('asd');
-//       // state[action.questGrpId].questions[action.questId].answer =
-//       //   action.payload;
-//     },
-//   },
-// });
-
-// export default TestrouterSlice.reducer;
-
-export const TestrouterSlice = createSlice({
+export const testrouterSlice = createSlice({
   name: 'Testrouter',
   initialState,
   reducers: {
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+    setSuccess: (state, action) => {
+      state.error = '';
+      state.activeGroup = 0;
+      const initial = action.payload;
+      const chunkSize = 5;
+      const groups = [];
+      const formattedQuestions = initial.map((q) => ({
+        qType: 'bullet',
+        title: q.title,
+        options: q.options.map((o) => o.name),
+        answer: q.options[0].name,
+      }));
+      for (let i = 0; i < formattedQuestions.length; i += chunkSize) {
+        const chunk = formattedQuestions.slice(i, i + chunkSize);
+        groups.push({
+          title: '',
+          questions: chunk,
+        });
+      }
+
+      state.survey = groups;
+      state.isLoading = false;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
+
     setAnswer: (state, action) => {
       state.survey[action.payload.questionGroupId].questions[
         action.payload.questionId
@@ -115,13 +68,7 @@ export const TestrouterSlice = createSlice({
       state.stage = action.payload;
     },
     setFormFieldValue: (state, action) => {
-      console.log('setFormFieldValue');
       state.form[action.payload.fieldName] = action.payload.valuee;
-      console.log('action.payload');
-      console.log(action.payload);
-    },
-    fetchQuestions: (state, action) => {
-      console.log('fetchQuestions');
     },
     // profileLoad(state) {
     //   state.isLoading = true;
@@ -150,4 +97,4 @@ export const TestrouterSlice = createSlice({
   },
 });
 
-export default TestrouterSlice.reducer;
+export default testrouterSlice.reducer;

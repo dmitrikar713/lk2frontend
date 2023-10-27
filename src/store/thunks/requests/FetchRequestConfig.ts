@@ -3,7 +3,7 @@ import { FormFieldParameters } from 'src/entities/Forms';
 import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { AppThunk } from '../../store';
 
-export const fetchRequestConfig =
+export const fetchServiceConfig =
   (serviceId: string | undefined): AppThunk =>
   async (dispatch) => {
     try {

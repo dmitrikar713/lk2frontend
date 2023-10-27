@@ -93,6 +93,8 @@ export const FillingStep: FC<FillingStepProps> = ({
     (state) => state.requestReducer
   );
   const { formData, uploadedDocuments } = request;
+  console.log('uploadedDocuments:');
+  console.log(uploadedDocuments);
 
   const { user, organization } = useAppSelector(
     (state) => state.profileReducer.profile
@@ -142,16 +144,17 @@ export const FillingStep: FC<FillingStepProps> = ({
 
   const handleSubmitForm = (formData: any) => {
     // Поиск обязательного документа для вложения
-    if (!Object.keys(uploadedDocuments).includes('p7348801')) {
-      Toast(
-        'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года',
-        // 'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года'
-        {
-          type: 'error',
-        }
-      );
-      return;
-    }
+    // todo - была захардкоженная проверка конкретного документа, наверно потом удалить нужно вообще
+    // if (!Object.keys(uploadedDocuments).includes('p7348801')) {
+    //   Toast(
+    //     'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года',
+    //     // 'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года'
+    //     {
+    //       type: 'error',
+    //     }
+    //   );
+    //   return;
+    // }
     const formSelectsCopy = { ...formSelects };
     Object.keys(formSelectsCopy).map((key) => {
       formSelectsCopy[key] = formSelectsCopy[key].name;

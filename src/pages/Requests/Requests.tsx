@@ -48,9 +48,10 @@ const requestFilters = [
 const Requests: FC<RequestsProps> = ({ profileCard }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { requests, isLoading } = useAppSelector(
+  const { isLoading, requests } = useAppSelector(
     (state) => state.requestsReducer
   );
+  // const requests = [];
 
   const [activeFilter, setActiveFilter] = useState<RequestFilter>(
     requestFilters[0]
@@ -137,19 +138,20 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
   }, [notificationShown]);
 
   useEffect(() => {
-    const currentTime = new Date().getTime();
+    dispatch(fetchRequests(requests));
+    // const currentTime = new Date().getTime();
 
-    if (!localStorage.getItem('request-time')) {
-      dispatch(fetchRequests(requests));
-      localStorage.setItem('request-time', String(currentTime));
-    }
+    // if (!localStorage.getItem('request-time')) {
+    //   dispatch(fetchRequests(requests));
+    //   localStorage.setItem('request-time', String(currentTime));
+    // }
 
-    const localStorageTime = localStorage.getItem('request-time');
+    // const localStorageTime = localStorage.getItem('request-time');
 
-    if (currentTime - Number(localStorageTime) >= 10000) {
-      dispatch(fetchRequests(requests));
-      localStorage.setItem('request-time', String(currentTime));
-    }
+    // if (currentTime - Number(localStorageTime) >= 10000) {
+    //   dispatch(fetchRequests(requests));
+    //   localStorage.setItem('request-time', String(currentTime));
+    // }
   }, []);
 
   return (
@@ -172,6 +174,8 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
           <Skeleton rows={2} withTitle />
           <Skeleton rows={2} withTitle />
         </>
+      ) : requests.length === 0 ? (
+        <p> Вы пока не оставляли заявок или их не удалось загрузить </p>
       ) : (
         <>
           {profileCard}
@@ -190,23 +194,24 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
               ))}
             </div>
             <div>
-              {filterRequests(requests).length > 1 &&
-                activeFilter === requestFilters[3] && (
-                  <Button
-                    className={styles.RequestsDeleteAll}
-                    onClick={() => {
-                      setDisabledDeleteAll(true);
-                      dispatch(removeAllDraft());
-                    }}
-                    disabled={disabledDeleteAll}
-                  >
-                    Удалить все черновики
-                  </Button>
-                )}
+              {/* {filterRequests(requests).length > 1 && */}
+              {requests.length > 1 && activeFilter === requestFilters[3] && (
+                <Button
+                  className={styles.RequestsDeleteAll}
+                  onClick={() => {
+                    setDisabledDeleteAll(true);
+                    dispatch(removeAllDraft());
+                  }}
+                  disabled={disabledDeleteAll}
+                >
+                  Удалить все черновики
+                </Button>
+              )}
             </div>
           </div>
           <Card>
-            {filterRequests(requests).length > 0 ? (
+            {/* {filterRequests(requests).length > 0 ? ( */}
+            {requests.length > 0 ? (
               activeFilter !== requestFilters[3] ? (
                 <div className={styles.RequestsHeader}>
                   <div>Наименование, номер и дата заявки</div>
@@ -239,7 +244,8 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
               </Card>
             )}
             <TransitionGroup>
-              {filterRequests(requests)
+              {/* {filterRequests(requests) */}
+              {requests
                 .slice(0, shownRequests)
                 .map(
                   ({
@@ -328,12 +334,14 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                                 `RequestsItemStatus${
                                   notification
                                     ? 'WithNotification'
-                                    : getStatusColor(statusName)
+                                    : // : getStatusColor(statusName) todo раскоментить
+                                      'ServiceProvided'
                                 }`
                               ]
                             }
                           >
-                            {requestsStatusesInfo[statusName].title}
+                            {/* {requestsStatusesInfo[statusName].title} */}
+                            {statusName}
                             {notification && (
                               <div
                                 className={styles.RequestsItemNotification}
@@ -364,7 +372,8 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                   )
                 )}
             </TransitionGroup>
-            {filterRequests(requests).length > shownRequests && (
+            {/* {filterRequests(requests).length > shownRequests && ( */}
+            {requests.length > shownRequests && (
               <div className={styles.RequestsShowMoreWrapper}>
                 <span className={styles.RequestsShowMore} onClick={showMore}>
                   Загрузить ещё

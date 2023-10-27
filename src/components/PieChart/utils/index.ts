@@ -65,15 +65,15 @@ export const draw = (
       (offset + pieRadius / 2) * Math.sin(start_angle + slice_angle / 2) +
       5;
 
-    const labelText = Math.round((100 * val) / total_value);
-    if (Number(categ) === 0) {
-      ctx.fillStyle = 'white';
-    } else {
-      ctx.fillStyle = 'black';
-    }
+    // const labelText = Math.round((100 * val) / total_value);
+    // if (Number(categ) === 0) {
+    //   ctx.fillStyle = 'white';
+    // } else {
+    //   ctx.fillStyle = 'black';
+    // }
 
     ctx.font = '10px Arial';
-    ctx.fillText(labelText.toString(), labelX, labelY);
+    // ctx.fillText(labelText.toString(), labelX, labelY);
     start_angle += slice_angle;
   }
 };

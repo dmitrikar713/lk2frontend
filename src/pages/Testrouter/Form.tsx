@@ -5,7 +5,7 @@ import { UserInfo, OrganizationInfo } from 'src/entities/Forms';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import styles from './Testrouter.module.scss';
 import { Select } from 'src/components/Select/Select';
-import { TestrouterSlice } from './TestrouterSlice';
+import { testrouterSlice } from './TestrouterSlice';
 
 import { DropDownItem } from 'src/components/DropDownItem/DropDownItem';
 
@@ -61,13 +61,13 @@ const TestrouterForm = () => {
     representativePhone,
   } = useAppSelector((state) => state.TestrouterReducer.form);
   function toSurvey() {
-    dispatch(TestrouterSlice.actions.setStage('survey'));
+    dispatch(testrouterSlice.actions.setStage('survey'));
   }
   const formData = useAppSelector((state) => state.TestrouterReducer.form);
 
   const setFormFieldValue = (fieldName, valuee) => {
     dispatch(
-      TestrouterSlice.actions.setFormFieldValue({
+      testrouterSlice.actions.setFormFieldValue({
         fieldName: fieldName,
         valuee: valuee,
       })

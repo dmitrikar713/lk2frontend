@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type ExportsQuestion = {
-  qType: 'bullet' | 'select' | 'text';
+  qType: 'bullet' | 'select' | 'text'; //предполагалось несоклько видов, пока только буллеты
   title: string;
   options?: ExportQuestionOption[];
-  answerIndex: number;
+  answerIndex: number; // в вопросе храним индекс выбранного варианта
 };
 export type ExportQuestionOption = {
   name: string;
@@ -50,8 +50,7 @@ export const exportsSlice = createSlice({
       state.error = action.payload;
     },
     setAnswerIndex: (state, action) => {
-      state.questions[action.payload.questionId].answerIndex =
-        action.payload.answer;
+      state.questions[state.currentQuestionIndex].answerIndex = action.payload;
     },
     setCurrentQuestionIndex: (state, action) => {
       state.currentQuestionIndex = action.payload;
