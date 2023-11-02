@@ -4,9 +4,12 @@ import { testrouterSlice } from 'src/pages/Testrouter/TestrouterSlice';
 
 export const fetchTestrouterQuestions = (): AppThunk => async (dispatch) => {
   try {
+    dispatch(testrouterSlice.actions.setLoading(true));
     const response = await apiClient.get('/testrouter/getQuestions');
-    if (response.data)
+    if (response.data && response.data) {
+      console.log(response.data);
       dispatch(testrouterSlice.actions.setSuccess(response.data));
+    }
   } catch (error: any) {
     dispatch(testrouterSlice.actions.setError(error.message));
   }

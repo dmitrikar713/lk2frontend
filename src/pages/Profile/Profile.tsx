@@ -19,7 +19,12 @@ import { useNavigate } from 'react-router-dom';
 import { RoutePaths } from 'src/entities/Routes';
 import { CertsModal } from '../Requests/Request/new/modals/Certs/CertsModal';
 import { Loader } from 'src/components/Loader/Loader';
-import { Button, Type } from 'src/components/Button/Button';
+import {
+  Button,
+  ButtonSize,
+  ButtonType,
+  Type,
+} from 'src/components/Button/Button';
 import { DocumentStatuses } from 'src/entities/Statuses';
 import { signDocs } from 'src/store/thunks/profile/SignProfileDocument';
 import { verifDocs } from 'src/store/thunks/profile/VerifProfileDocuments';
@@ -33,6 +38,7 @@ import { ProfileSegments } from 'src/components/Cards/ProfileInfo/ProfileInfo';
 import { ForwardLink } from 'src/components/ForwardLink/ForwardLink';
 import { PieChart } from 'src/components/PieChart/PieChart';
 import { fetchTestResults } from 'src/store/thunks/profile/FetchTestResults';
+import { fetchServices } from 'src/store/thunks/services/FetchServices';
 export const disabledFields = ['user_last_name', 'user_first_name'];
 
 export const disabledFieldsOrg = [
@@ -70,6 +76,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
   const { profile, isLoading, testResults } = useAppSelector(
     (state) => state.profileReducer
   );
+  const { services } = useAppSelector((state) => state.servicesReducer);
   const { user, organization } = profile;
 
   const mainSectionRef = useRef<HTMLDivElement | null>(null);
@@ -104,7 +111,6 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
           isInRequest = true;
         }
       });
-
       return isInRequest;
     });
 
@@ -259,6 +265,9 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
   useEffect(() => {
     const usedNotifications = getUsedNotification();
     dispatch(fetchTestResults());
+    if (!services) {
+      dispatch(fetchServices());
+    }
 
     setTimeout(() => {
       if (notifications.length) {
@@ -313,7 +322,9 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
                     Тест экспортной готовности
                   </h3>
                   <ForwardLink title="Пройдите тест" path="/exports" />
-                  {testResults && testResults.exports && (
+                  {testResults &&
+                  testResults.exports &&
+                  testResults.exportsRecommendations.length > 0 ? (
                     <>
                       <p
                         style={{
@@ -324,24 +335,40 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
                       </p>
                       <div className={styles.ExportCardRecoms}>
                         {testResults.exportsRecommendations.map((service) => (
-                          <p
+                          <div
                             key={service.ServID}
                             className={styles.ExportCardRecomsItem}
                             style={{
                               whiteSpace: 'nowrap',
                             }}
+                            onClick={() =>
+                              navigate(
+                                'services/' +
+                                  services.find(
+                                    (serv) => serv.ID == service.ServID
+                                  ).IDUslugiIsRpp[0]
+                              )
+                            }
                           >
                             {service.ServName}
-                          </p>
+                          </div>
                         ))}
                       </div>
                     </>
+                  ) : (
+                    <p>
+                      К сожалению, мы не смогли подобрать вам подходящие услуги
+                    </p>
                   )}
                 </div>
 
                 {testResults && testResults.exports && (
                   <div className={styles.ExportCardChart}>
-                    <p> Результат: {testResults.exports * 100}% </p>
+                    <p>
+                      {' '}
+                      Результат: {String(testResults.exports * 100).slice(0, 5)}
+                      %{' '}
+                    </p>
                     <PieChart
                       size={100}
                       lineWidth={25}
@@ -361,20 +388,18 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
               <div className={styles.CardContent}>
                 <div className={styles.Testrouter}>
                   <h3 className={styles.CardTitle}>Маршрутизатор</h3>
-                  <p>
-                    Пройдите тест и получите рекомендации подходящей для Вас{' '}
-                    <span
-                      style={{
-                        whiteSpace: 'nowrap',
-                      }}
-                    >
-                      e-commerce
-                    </span>{' '}
-                    программы
-                  </p>
+                  {!testResults ||
+                    (!testResults.router && (
+                      <p>
+                        Пройдите тест и получите рекомендации подходящей для Вас
+                        программы
+                      </p>
+                    ))}
                   <ForwardLink title="Пройдите тест" path="/Testrouter" />
 
-                  {anyRouterRecommendations ? (
+                  {testResults &&
+                  testResults.router &&
+                  testResults.router.Services.length > 0 ? (
                     <div className={styles.TestrouterResult}>
                       <p>Рекомендованные услуги:</p>
                       {testResults.router['SubCategory'].length > 0 ? (
@@ -422,23 +447,43 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
                                 </div>
                               </>
                             )}
+
+                            <ForwardLink
+                              title="Подробнее об услуге"
+                              path={
+                                'services/' +
+                                services.find(
+                                  (serv) => serv.ID == service.ServID
+                                ).IDUslugiIsRpp[0]
+                              }
+                            />
                           </div>
                         ))
                       ) : (
                         <div className={styles.TestrouterResultOnlyServs}>
                           {testResults.router.Services.map((service, index) => (
-                            <p
+                            <div
                               key={service.ServID}
                               className={styles.TestrouterResultOnlyServsItem}
+                              onClick={() =>
+                                navigate(
+                                  'services/' +
+                                    services.find(
+                                      (serv) => serv.ID == service.ServID
+                                    ).IDUslugiIsRpp[0]
+                                )
+                              }
                             >
                               {service.ServName}
-                            </p>
+                            </div>
                           ))}
                         </div>
                       )}
                     </div>
                   ) : (
-                    ''
+                    <p>
+                      К сожалению, мы не смогли подобрать вам подходящие услуги
+                    </p>
                   )}
                 </div>
               </div>

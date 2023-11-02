@@ -18,9 +18,6 @@ const Services: FC = () => {
 
   return (
     <div className={styles.Services}>
-      {availableServices.length}
-      {'+'}
-      {services.length}
       {availableServices.length > 0
         ? availableServices.map((item, index) => (
             <ServiceItem
@@ -52,23 +49,28 @@ interface SIProps {
 }
 const ServiceItem = (props: SIProps) => {
   const navigate = useNavigate();
+  function nav() {
+    console.log('nav');
+    navigate(String(props.isrppGuid));
+  }
   return (
     <div
       key={props.index}
       className={styles.ServicesItem}
-      onClick={() => {
-        // navigate(props.isrppGuid)}
+      onClick={
+        nav
         //  "guid": "094d5ad7669c41e19a03b103684cff74",
         // "name": "Продвижение в сфере международной электронной торговли"
 
         //  "guid": "bb198aa6c22340679afff9ee5b67deef",
         // "name": "Ритейл сети"
-        navigate('bb198aa6c22340679afff9ee5b67deef');
-      }}
+      }
     >
       <h3 className={styles.ServicesItemNumber}>{props.index}.</h3>
-      <p className="service_item_name">{props.serviceName}</p>
-      <img src={props.img} alt="" className="service_item_img" />
+      <p>{props.serviceName}</p>
+      <div className={styles.ServicesItemImg}>
+        <img src={props.img} alt="" className={styles.ServicesItemImg} />
+      </div>
     </div>
   );
 };

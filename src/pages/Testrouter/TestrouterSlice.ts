@@ -35,6 +35,8 @@ export const testrouterSlice = createSlice({
       const initial = action.payload;
       const chunkSize = 5;
       const groups = [];
+      console.log('initial:');
+      console.log(initial);
       const formattedQuestions = initial.map((q) => ({
         qType: 'bullet',
         title: q.title,
@@ -48,6 +50,8 @@ export const testrouterSlice = createSlice({
           questions: chunk,
         });
       }
+      console.log('groups:');
+      console.log(groups);
 
       state.survey = groups;
       state.isLoading = false;
@@ -69,6 +73,9 @@ export const testrouterSlice = createSlice({
     },
     setFormFieldValue: (state, action) => {
       state.form[action.payload.fieldName] = action.payload.valuee;
+    },
+    restart: (state) => {
+      state.stage = 'survey';
     },
     // profileLoad(state) {
     //   state.isLoading = true;

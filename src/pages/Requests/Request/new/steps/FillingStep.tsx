@@ -114,12 +114,12 @@ export const FillingStep: FC<FillingStepProps> = ({
   const [dataToChange, setDataToChange] = useState({});
   const [draftFromUrl, setDraftFromUrl] = useState(false);
 
-  const createDraft = (
+  function createDraft(
     serviceId: string,
     formValue: { [x: string]: string },
     formSelectsValue: any[],
     uploadedDocuments: UploadedDocuments
-  ) => {
+  ) {
     dispatch(
       createDraftRequest({
         serviceId: serviceId,
@@ -127,7 +127,7 @@ export const FillingStep: FC<FillingStepProps> = ({
         uploadedDocuments,
       })
     );
-  };
+  }
 
   const previewDocument = (downloadUrl: string | undefined) => {
     if (downloadUrl) {

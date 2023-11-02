@@ -23,13 +23,13 @@ export const ConfirmForm: FC<ConfirmFormProps> = ({ textConfirm, onClick }) => {
   const downloadUrl = window.URL.createObjectURL(blob);
 
   useEffect(() => {
-    setShown(true);
-    dispatch(downloadOffer());
-  }, []);
+    setShown(true)
+    dispatch(downloadOffer())
+  }, [])
 
   useEffect(() => {
-    if (fileConfirm.size !== 0) setShown(false);
-  }, [fileConfirm]);
+    if (fileConfirm.size !== 0) setShown(false)
+  }, [fileConfirm])
 
   return (
     <div>

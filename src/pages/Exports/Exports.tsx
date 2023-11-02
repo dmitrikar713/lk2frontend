@@ -16,9 +16,11 @@ import {
 } from './ExportsSlice';
 import { Skeleton } from 'src/components/Skeleton/Skeleton';
 import { sendExportsAnswers } from 'src/store/thunks/exports/SendExportsAnswers';
+import { useNavigate } from 'react-router-dom';
 
 const Exports: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { questions, isLoading, currentQuestionIndex } = useAppSelector(
     (state) => state.exportsReducer
@@ -90,9 +92,7 @@ const Exports: FC = () => {
                   <p>Резульат на странице профиля</p>
                   <Button
                     type={ButtonType.Secondary}
-                    onClick={() =>
-                      setCurrentQuestionIndex(currentQuestionIndex - 1)
-                    }
+                    onClick={() => navigate('/')}
                   >
                     В профиль
                   </Button>

@@ -21,6 +21,7 @@ import {
 import { Breadcrumbs } from 'src/components/Breadcrumbs/Breadcrumbs';
 import { RoutePaths } from 'src/entities/Routes';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { fetchServices } from 'src/store/thunks/services/FetchServices';
 // import Toast from 'src/components/Toast';
 export interface RequestsProps {
   profileCard: ReactNode;
@@ -48,15 +49,13 @@ const requestFilters = [
 const Requests: FC<RequestsProps> = ({ profileCard }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { services } = useAppSelector((state) => state.servicesReducer);
   const { isLoading, requests } = useAppSelector(
     (state) => state.requestsReducer
   );
-  // const requests = [];
-
   const [activeFilter, setActiveFilter] = useState<RequestFilter>(
     requestFilters[0]
   );
-
   const [notificationShown, setNotificationShown] = useState<boolean>(false);
   const [currentRequest, setCurrentRequest] = useState<Request>({
     id: '',
@@ -139,6 +138,9 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
 
   useEffect(() => {
     dispatch(fetchRequests(requests));
+    if (services.length == 0) {
+      dispatch(fetchServices());
+    }
     // const currentTime = new Date().getTime();
 
     // if (!localStorage.getItem('request-time')) {

@@ -93,7 +93,9 @@ export const profileSlice = createSlice({
       console.log('setTestResults action.payload');
       console.log(action.payload);
 
-      const results = JSON.parse(JSON.stringify(action.payload));
+      const results = action.payload
+        ? JSON.parse(JSON.stringify(action.payload))
+        : null;
       state.testResults = results;
     },
   },

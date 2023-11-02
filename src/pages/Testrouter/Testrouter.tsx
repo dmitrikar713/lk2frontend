@@ -13,9 +13,11 @@ import { Question } from './Question';
 import { fetchTestrouterQuestions } from 'src/store/thunks/test-router/FetchTestrouterQuestions';
 import { Skeleton } from 'src/components/Skeleton/Skeleton';
 import { sendTestrouterAnswers } from 'src/store/thunks/test-router/SendTestrouterAnswers';
+import { useNavigate } from 'react-router-dom';
 
 const Testrouter: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [nextDisabled, setNextDisabled] = useState<boolean>(false);
 
   const { survey, stage, activeGroup, form, isLoading } = useAppSelector(
@@ -33,36 +35,25 @@ const Testrouter: FC = () => {
     } else dispatch(testrouterSlice.actions.setActiveGroup(activeGroup - 1));
   }
   function handleNext() {
-    if (stage == 'form') {
-      dispatch(testrouterSlice.actions.setStage('survey'));
-    } else {
-      if (activeGroup == survey.length - 1) {
-        dispatch(testrouterSlice.actions.setStage('end'));
-      } else dispatch(testrouterSlice.actions.setActiveGroup(activeGroup + 1));
-    }
+    if (activeGroup == survey.length - 1) {
+      dispatch(testrouterSlice.actions.setStage('end'));
+      dispatch(sendTestrouterAnswers(survey));
+    } else dispatch(testrouterSlice.actions.setActiveGroup(activeGroup + 1));
   }
 
-  // Выключаем кнопку Далее
   useEffect(() => {
-    if (stage == 'survey') {
-      let nd = false;
-      survey[activeGroup].questions.forEach((element) => {
-        if ([null, undefined, ''].includes(element.answer)) nd = true;
-      });
-      setNextDisabled(nd);
-    }
-    if (stage == 'end') {
-      dispatch(sendTestrouterAnswers(survey));
-    }
-  }, [survey, stage, activeGroup]);
-
-  useEffect(() => {
-    dispatch(testrouterSlice.actions.setStage('survey'));
+    dispatch(testrouterSlice.actions.restart());
     dispatch(fetchTestrouterQuestions());
   }, []);
 
   return isLoading ? (
-    <Skeleton rows={2} />
+    <div className={styles.Testrouter}>
+      <div className={styles.TestrouterCard}>
+        <Skeleton rows={2} />
+      </div>{' '}
+    </div>
+  ) : survey.length < 1 ? (
+    <p>Не удалось загрузить вопросы для теста</p>
   ) : (
     <div className={styles.Testrouter}>
       <div className={styles.TestrouterCard}>
@@ -78,8 +69,7 @@ const Testrouter: FC = () => {
               Маршрутизатор ({String(stage)})
             </div>
             <p>
-              Пройдите тест и получите рекомендации подходящей для Вас
-              e-commerce программы
+              Пройдите тест и получите рекомендации подходящей для Вас программы
             </p>
             {stage == 'survey' ? (
               <ProgressBar
@@ -96,7 +86,6 @@ const Testrouter: FC = () => {
         <div className={styles.TestrouterCardWrapper}>
           <div className={styles.TestrouterCardTest}>
             {stage == 'form' ? <TestrouterForm /> : ''}
-
             {stage == 'survey' ? (
               <>
                 <h6 className={styles.QuestionGroupTitle}>
@@ -125,7 +114,14 @@ const Testrouter: FC = () => {
             )}
             {stage == 'end' ? (
               <div className={styles.TestrouterCardSuccess}>
-                Тест пройден 🎉
+                <p>Тест пройден 🎉</p>
+                <p>Результаты на странице профиля.</p>
+                <Button
+                  type={ButtonType.Secondary}
+                  onClick={() => navigate('/')}
+                >
+                  В профиль
+                </Button>
               </div>
             ) : (
               ''
@@ -135,9 +131,11 @@ const Testrouter: FC = () => {
         {stage == 'survey' ? (
           <div className={styles.TestrouterControls}>
             <>
-              <Button type={ButtonType.Secondary} onClick={handlePrev}>
-                Назад
-              </Button>
+              {activeGroup != 0 && (
+                <Button type={ButtonType.Secondary} onClick={handlePrev}>
+                  Назад
+                </Button>
+              )}
               <Button disabled={nextDisabled} onClick={handleNext}>
                 Далее
               </Button>

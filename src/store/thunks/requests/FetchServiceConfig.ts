@@ -12,7 +12,7 @@ export const fetchServiceConfig =
         `/requests/params?guid=${serviceId}`
       );
       console.log('/requests/params?guid=... response:');
-      console.log(response);
+      console.log(response.data);
       const fields = response.data.records;
       const dictionary = fields.reduce(
         (acc: { [name: string]: any }, next: FormFieldParameters) => ({

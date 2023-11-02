@@ -18,7 +18,7 @@ import { createRequest } from 'src/store/thunks/requests/CreateRequest';
 import { DocumentStatuses } from 'src/entities/Statuses';
 import Toast from 'src/components/Toast';
 import { useNavigate } from 'react-router-dom';
-import { fetchServiceConfig } from 'src/store/thunks/requests/FetchRequestConfig';
+import { fetchServiceConfig } from 'src/store/thunks/requests/FetchServiceConfig';
 import { Card } from 'src/components/Card/Card';
 import { PrinterIcon } from 'src/styles/icons/printer';
 import { ProfileIcons } from 'src/components/ProfileIcons/ProfileIcons';

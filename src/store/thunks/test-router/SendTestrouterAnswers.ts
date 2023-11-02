@@ -6,8 +6,6 @@ export const sendTestrouterAnswers =
   (questions): AppThunk =>
   async (dispatch) => {
     try {
-      console.log('sendTestrouterAnswers');
-      console.log(questions);
       const spreadQuestions = [];
       questions.forEach((group) => {
         spreadQuestions.push(...group.questions);

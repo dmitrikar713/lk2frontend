@@ -15,9 +15,9 @@ export function App(): ReactElement {
     // <StrictMode>
     <Router>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Layout />
-        </PersistGate>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <Layout />
+        {/* </PersistGate> */}
       </Provider>
     </Router>
     // </StrictMode>
