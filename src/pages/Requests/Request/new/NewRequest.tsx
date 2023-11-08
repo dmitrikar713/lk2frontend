@@ -47,10 +47,8 @@ export const NewRequest: FC = () => {
   );
   const { profile } = useAppSelector((state) => state.profileReducer);
   const { services } = useAppSelector((state) => state.servicesReducer);
-
   const { formData, serviceId, uploadedDocuments, serviceName } = request;
   const { user, organization } = profile;
-  console.log(uploadedDocuments);
 
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -91,7 +89,6 @@ export const NewRequest: FC = () => {
       setLoading(false);
     }
   }
-
   async function signDocumentsByCert(cert: any) {
     const signatures: any = {};
 
@@ -146,7 +143,6 @@ export const NewRequest: FC = () => {
       setLoading(false);
     }
   }
-
   async function handleSubmit(nextStep: number | string) {
     setButtonDisabled(false);
 
@@ -175,9 +171,9 @@ export const NewRequest: FC = () => {
       setLoading(false);
     }
   }
-
   async function fetchFieldsAndName() {
-    await dispatch(fetchServiceConfig(serviceId));
+    console.log('fetchFieldsAndName');
+    await dispatch(fetchServiceConfig(serviceId, services));
     await dispatch(fetchServices());
     await dispatch(
       requestSlice.actions.setServiceName(
@@ -188,7 +184,6 @@ export const NewRequest: FC = () => {
   useEffect(() => {
     fetchFieldsAndName();
   }, []);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     currentStep === 3 &&

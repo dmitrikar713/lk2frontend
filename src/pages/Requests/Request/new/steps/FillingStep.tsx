@@ -93,8 +93,6 @@ export const FillingStep: FC<FillingStepProps> = ({
     (state) => state.requestReducer
   );
   const { formData, uploadedDocuments } = request;
-  console.log('uploadedDocuments:');
-  console.log(uploadedDocuments);
 
   const { user, organization } = useAppSelector(
     (state) => state.profileReducer.profile

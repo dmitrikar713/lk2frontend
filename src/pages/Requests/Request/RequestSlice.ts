@@ -86,9 +86,9 @@ const initialState: RequestState = {
     id: '',
     // эл торг
     // serviceId: '094d5ad7669c41e19a03b103684cff74',
-    serviceId: 'bb198aa6c22340679afff9ee5b67deef',
+    serviceId: null,
     // serviceId: 'bb198aa6c22340679afff9ee5b67deef',
-    serviceName: 'фыв',
+    serviceName: null,
     formConfig: { fields: [], dictionary: {} },
     formData: {},
     statusId: 0,
@@ -109,6 +109,9 @@ export const requestSlice = createSlice({
   initialState,
   reducers: {
     setServiceName(state, action: PayloadAction<string>) {
+      console.log('setServiceName:');
+      console.log(action.payload);
+
       state.request.serviceName = action.payload;
     },
     setServiceId(state, action: PayloadAction<string>) {

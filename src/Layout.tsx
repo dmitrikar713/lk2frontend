@@ -27,7 +27,7 @@ import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
 import Testrouter from './pages/Testrouter/Testrouter';
 import TestPage from './pages/TestPage/TestPage';
-
+import { fetchServices } from './store/thunks/services/FetchServices';
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
@@ -51,7 +51,6 @@ export const Layout: FC = () => {
   //     <div className={styles.LayoutBody}>{component}</div>
   //   </>
   // );
-
   // const navBarConfig: NavBarProps = {
   //   sections: routesConfig
   //     .filter((route) => route.inMenu)
@@ -195,7 +194,6 @@ export const Layout: FC = () => {
   const { loadingError } = useAppSelector(
     (state) => state.uploadProfileFileReducer
   );
-
   const { correntToken } = useAppSelector((state) => state.callbackReducer);
 
   useEffect(() => {
@@ -203,13 +201,12 @@ export const Layout: FC = () => {
       Toast(loadingError, {
         type: 'error',
       });
-
     dispatch(uploadProfileFileSlice.actions.uploadErrorFile(''));
   }, [loadingError]);
 
   useEffect(() => {
     dispatch(callbackSlice.actions.setToken(false));
-
+    dispatch(fetchServices());
     if (window.location.pathname !== RoutePaths.LOGOUT) {
       setTimeout(() => dispatch(checkToken()), 2000);
     }

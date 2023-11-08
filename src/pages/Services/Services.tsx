@@ -45,34 +45,29 @@ interface SIProps {
   serviceName: string;
   img: string;
   index: number;
-  isrppGuid: string;
+  isrppGuid: any;
 }
-const ServiceItem = (props: SIProps) => {
+const ServiceItem = ({ serviceName, img, index, isrppGuid }: SIProps) => {
   const navigate = useNavigate();
   function nav() {
-    console.log('nav');
-    navigate(String(props.isrppGuid));
+    if (isrppGuid != null) {
+      navigate(isrppGuid[0]);
+    }
   }
   return (
-    <div
-      key={props.index}
-      className={styles.ServicesItem}
-      onClick={
-        nav
-        //  "guid": "094d5ad7669c41e19a03b103684cff74",
-        // "name": "Продвижение в сфере международной электронной торговли"
-
-        //  "guid": "bb198aa6c22340679afff9ee5b67deef",
-        // "name": "Ритейл сети"
-      }
-    >
-      <h3 className={styles.ServicesItemNumber}>{props.index}.</h3>
-      <p>{props.serviceName}</p>
+    <div key={index} className={styles.ServicesItem} onClick={nav}>
+      <h3 className={styles.ServicesItemNumber}>{index}.</h3>
+      <p>{serviceName}</p>
       <div className={styles.ServicesItemImg}>
-        <img src={props.img} alt="" className={styles.ServicesItemImg} />
+        <img src={img} alt="" className={styles.ServicesItemImg} />
       </div>
     </div>
   );
 };
 
 export default Services;
+
+//  "guid": "094d5ad7669c41e19a03b103684cff74",
+// "name": "Продвижение в сфере международной электронной торговли"
+//  "guid": "bb198aa6c22340679afff9ee5b67deef",
+// "name": "Ритейл сети"

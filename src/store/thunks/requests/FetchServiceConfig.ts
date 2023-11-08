@@ -2,9 +2,10 @@ import { apiClient } from 'src/api/client/ApiClient';
 import { FormFieldParameters } from 'src/entities/Forms';
 import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { AppThunk } from '../../store';
+import { servicesSlice } from 'src/pages/Services/ServicesSlice';
 
 export const fetchServiceConfig =
-  (serviceId: string | undefined): AppThunk =>
+  (serviceId: string | undefined, services: any): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(requestSlice.actions.requestLoad());
@@ -13,6 +14,15 @@ export const fetchServiceConfig =
       );
       console.log('/requests/params?guid=... response:');
       console.log(response.data);
+
+      const fieldIds = services
+        .find((serv) => serv.IDUslugiIsRpp == serviceId)
+        .isrppFieldslDs.map((obj) => obj.IdIsRpp); // айдишники полей услуги, полученные из конфига админки
+
+      // РАСКОМЕНТИТЬ
+      // const fields = response.data.records.filter((field) =>
+      //   fieldIds.includes(field.parameterInApi)
+      // );
       const fields = response.data.records;
       const dictionary = fields.reduce(
         (acc: { [name: string]: any }, next: FormFieldParameters) => ({
