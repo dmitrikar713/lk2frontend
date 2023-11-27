@@ -12,6 +12,10 @@ export const requestsStatusesInfo: RequestsStatusesInfo = {
     title: 'Заявка зарегистрирована',
     common_status: RequestCommonStatuses.Processing,
   },
+  new: {
+    title: 'Новая',
+    common_status: RequestCommonStatuses.Processing,
+  },
   under_review: {
     title: 'На проверке',
     common_status: RequestCommonStatuses.Processing,

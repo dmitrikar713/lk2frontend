@@ -51,7 +51,7 @@
 .Whocanget {
   @include card;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: stretch;
   gap: 0.6rem;
 
@@ -70,37 +70,38 @@
 .Whatiscompensated {
   @include card;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row wrap;
+  align-items: flex-start;
   gap: 0.6rem;
 
   &Content {
     display: flex;
-    gap: 2.5rem;
-    align-items: center;
-    justify-content: space-between;
+    flex-flow: column wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex: 1;
 
     &Left {
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
     }
-    svg {
-      width: 8rem;
-      min-width: 8rem;
-    }
   }
+  // svg {
+  //   width: 8rem;
+  //   min-width: 8rem;
+  // }
 
   &Title {
-    margin-block-end: 0;
+    // margin-block-end: 0;
   }
   &Subtitle {
-    margin-block-end: 0;
+    // margin-block-end: 0;
     color: $color-accent-primary;
   }
   &Text {
     color: #00000099;
-    margin-block-end: 0;
+    // margin-block-end: 0;
   }
 }
 
@@ -126,88 +127,82 @@
 .Compensationsize {
   @include card;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row wrap;
+  align-items: flex-start;
   gap: 0.6rem;
 
   &Content {
+    flex: 1;
     display: flex;
-    gap: 2.5rem;
+    flex-flow: column wrap;
     align-items: flex-start;
-    justify-content: space-between;
-
-    &Left {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    svg {
-      width: 8rem;
-      min-width: 8rem;
-    }
+    justify-content: flex-start;
   }
-
+  // svg {
+  //   width: 8rem;
+  //   min-width: 8rem;
+  // }
   &Title {
-    margin-block-end: 0;
+    // margin-block-end: 0;
   }
   &Subtitle {
-    margin-block-end: 0;
+    // margin-block-end: 0;
     font-size: 20px;
     color: $color-accent-primary;
   }
   &Text {
     color: #00000099;
-    margin-block-end: 0;
+    // margin-block-end: 0;
   }
 }
 
 .Compensationperiod {
   @include card;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row wrap;
+  align-items: flex-start;
   gap: 0.6rem;
 
+  // svg {
+  //   width: 8rem;
+  //   min-width: 8rem;
+  // }
   &Content {
+    flex: 1;
     display: flex;
-    gap: 2.5rem;
-    align-items: center;
+    flex-flow: column wrap;
+    // gap: 2.5rem;
+    align-items: stretch;
     justify-content: space-between;
-
-    &Left {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    svg {
-      width: 8rem;
-      min-width: 8rem;
-    }
   }
 
+  // svg {
+  //   width: 8rem;
+  //   min-width: 8rem;
+  // }
   &Title {
-    margin-block-end: 0;
-  }
-  &Subtitle {
-    margin-block-end: 0;
-    font-size: 20px;
-    color: $color-accent-primary;
+    // margin-block-end: 0;
   }
   &Text {
-    color: #00000099;
-    margin-block-end: 0;
+    // color: #00000099;
+    color: $color-accent-primary;
+    // margin-block-end: 0;
   }
 }
 
 .Documents {
   @include card;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-flow: row wrap;
+  align-items: flex-start;
   gap: 0.6rem;
+  div {
+    min-width: 40%;
+    flex: 1;
+  }
 
   &Title {
-    margin-block-end: 0;
+    // margin-block-end: 0;
   }
 
   &List {
@@ -221,11 +216,11 @@
     flex-direction: column;
     gap: 0.6rem;
     &Title {
-      margin-block-end: 0;
+      // margin-block-end: 0;
     }
   }
   &Item {
-    margin-block-end: 0;
+    // margin-block-end: 0;
     color: $color-accent-primary;
     &:active,
     &:visited,

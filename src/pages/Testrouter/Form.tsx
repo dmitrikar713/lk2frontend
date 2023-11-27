@@ -37,13 +37,6 @@ import { DropDownItem } from 'src/components/DropDownItem/DropDownItem';
 //   Float = 'Number',
 // }
 
-// TODO подключить Select к Form. На данный момент проверка заполнения ручная. Должна проводиться в Компоненте Form.
-// TODO поля нужно делать disabled в случае, если данные уже получены из Bitrix.
-
-// Все поля кроме Region хранятся в Form до Submit. После этого, при успешной отправке формы значения записываются в Redux.
-// Значение поля Region хранится в Redux изначально, проверка заполнения проходит в данном компоненте, в обход Form.
-// Дефолтные значения на данный момент берутся из Redux.
-
 const TestrouterForm = () => {
   const dispatch = useAppDispatch();
   const [formState, setFormState] = useState({});

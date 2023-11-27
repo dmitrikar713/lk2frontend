@@ -10,13 +10,18 @@ export const fetchPrintedVersion =
     url: string,
     printableData: PrintableData,
     idFile: string,
-    filename: string
+    filename: string,
+    docxTemplateUrl: string
   ): AppThunk =>
   async (dispatch) => {
     try {
-      const response = await apiClient.post<Blob>(url, printableData, {
-        responseType: 'arraybuffer',
-      });
+      const response = await apiClient.post<Blob>(
+        url,
+        { requestData: printableData, docxTemplateUrl },
+        {
+          responseType: 'arraybuffer',
+        }
+      );
       dispatch(
         requestSlice.actions.setDocument(
           await setDocumentProfile(idFile, new File([response.data], filename))

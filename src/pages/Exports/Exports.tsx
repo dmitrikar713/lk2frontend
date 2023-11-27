@@ -62,7 +62,7 @@ const Exports: FC = () => {
               {currentQuestionIndex < questions.length ? (
                 <>
                   <ProgressBar
-                    currentStep={currentQuestionIndex}
+                    currentStep={currentQuestionIndex + 1}
                     steps={questions.length}
                   />
                   <div className={styles.ExportsCardQuestion}>

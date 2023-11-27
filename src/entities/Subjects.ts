@@ -46,6 +46,7 @@ export interface IndividualEntrepreneur {
   org_exports_market: string;
   org_exports_amount: string;
 }
+
 export interface Documents {
   map(arg0: (field: any) => JSX.Element): import('react').ReactNode;
   documents_charter: UploadedDocument;

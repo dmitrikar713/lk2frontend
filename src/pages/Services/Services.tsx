@@ -22,7 +22,7 @@ const Services: FC = () => {
         ? availableServices.map((item, index) => (
             <ServiceItem
               key={index}
-              serviceName={item.NAME}
+              serviceName={item.KratkoeNazvanie}
               img={item.UrlProductPicture}
               index={index + 1}
               isrppGuid={item.IDUslugiIsRpp}

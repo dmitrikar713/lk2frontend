@@ -21,9 +21,8 @@
     &SubstageBody {
       padding-top: 0.8rem;
     }
-    &AddComment
-    {
-      margin : 1rem;
+    &AddComment {
+      margin: 1rem;
     }
   }
 }
@@ -51,7 +50,7 @@
   }
 
   &InWork {
-    font-weight: bold;
+    font-weight: bold !important;
   }
 
   &Item {

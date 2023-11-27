@@ -11,6 +11,7 @@ import { Modal } from '../Modal/Modal';
 import { DropdownList } from './dropdowns/DropdownList';
 import { exit } from 'src/common/utils/exit';
 import styles from './Header.module.scss';
+import { HeaderLogo } from './header-logo';
 
 export const Header: FC = () => {
   const navigate = useNavigate();
@@ -21,27 +22,12 @@ export const Header: FC = () => {
     <div className={styles.HeaderWrapper}>
       <div className={styles.Header}>
         <span className={styles.TitleWrapper}>
-          <span className={styles.Title}>Moscow.Business</span>
-          <span className={styles.TitleDelimeter} />
-          <span className={styles.TitleExtra}>
-            Всё для предпринимателей Москвы
-          </span>
+          <HeaderLogo />
         </span>
         <div className={styles.HeaderRefs}>
           <span className={styles.HeaderLinks}>
-            <span className={styles.HeaderLinksItem}>медиа</span>
-            <Link to={RoutePaths.SERVICES}>
-              <span
-                className={
-                  window.location.pathname === RoutePaths.SERVICES
-                    ? styles.HeaderLinksItemActive
-                    : styles.HeaderLinksItem
-                }
-              >
-                бизнесмаркет
-              </span>
-            </Link>
-            <span className={styles.HeaderLinksItem}>инструкции</span>
+            {/* <span className={styles.HeaderLinksItem}>медиа</span> */}
+
             <Link to={RoutePaths.REQUESTS}>
               <span
                 className={
@@ -50,16 +36,28 @@ export const Header: FC = () => {
                     : styles.HeaderLinksItem
                 }
               >
-                заявки
+                Заявки
               </span>
             </Link>
+            <Link to={RoutePaths.SERVICES}>
+              <span
+                className={
+                  window.location.pathname === RoutePaths.SERVICES
+                    ? styles.HeaderLinksItemActive
+                    : styles.HeaderLinksItem
+                }
+              >
+                Список услуг
+              </span>
+            </Link>
+            {/* <span className={styles.HeaderLinksItem}>инструкции</span> */}
           </span>
           <span className={styles.HeaderIcons}>
-            <NavItem
+            {/* <NavItem
               className={styles.HeaderIconsItem}
               icon={<SearchOutlinedIcon />}
-            />
-            <NavItem className={styles.HeaderIconsItem} icon={<ShopIcon />} />
+            /> */}
+            {/* <NavItem className={styles.HeaderIconsItem} icon={<ShopIcon />} /> */}
             <NavItem
               className={styles.HeaderIconsItem}
               icon={<ProfileIcon />}

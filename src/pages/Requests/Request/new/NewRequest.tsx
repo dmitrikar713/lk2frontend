@@ -172,12 +172,12 @@ export const NewRequest: FC = () => {
     }
   }
   async function fetchFieldsAndName() {
-    console.log('fetchFieldsAndName');
+    // console.log('fetchFieldsAndName');
     await dispatch(fetchServiceConfig(serviceId, services));
     await dispatch(fetchServices());
     await dispatch(
       requestSlice.actions.setServiceName(
-        services.find((serv) => serv.IDUslugiIsRpp === serviceId).NAME
+        services.find((serv) => serv.IDUslugiIsRpp == serviceId).NAME
       )
     );
   }
@@ -188,18 +188,29 @@ export const NewRequest: FC = () => {
     window.scrollTo(0, 0);
     currentStep === 3 &&
       dispatch(
-        fetchPrintedVersionWithStamp({
-          fields: {
-            inn: organization.org_inn,
-            LastName: user.user_last_name,
-            FirstName: user.user_first_name,
-            MiddleName: user.user_middle_name,
-            Phone: user.user_phone,
-            guid: serviceId,
-            ...formData,
+        fetchPrintedVersionWithStamp(
+          {
+            fields: {
+              inn: organization.org_inn,
+              LastName: user.user_last_name,
+              FirstName: user.user_first_name,
+              MiddleName: user.user_middle_name,
+              Phone: user.user_phone,
+              guid: serviceId,
+              ...formData,
+            },
+            certs: { ...certs[0].info },
           },
-          certs: { ...certs[0].info },
-        })
+          services.find((serv) => {
+            if (serv.IDUslugiIsRpp) {
+              if (serv.IDUslugiIsRpp.length !== 0) {
+                console.log('serv.IDUslugiIsRpp');
+                console.log(serv.IDUslugiIsRpp);
+                return serv.IDUslugiIsRpp[0] == request.serviceId;
+              }
+            }
+          }).ApplicationTemplate
+        ) // TODO DOCX
       );
   }, [currentStep]);
 

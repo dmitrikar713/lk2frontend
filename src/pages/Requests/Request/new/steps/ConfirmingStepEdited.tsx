@@ -27,15 +27,17 @@ export const ConfirmingStep: FC<ConfirmingStepProps> = ({
     request: {
       serviceName,
       formData,
+      serviceId,
       formConfig: { dictionary },
     },
     isLoading,
     request,
   } = useAppSelector((state) => state.requestReducer);
-  const { services } = useAppSelector((state) => state.servicesReducer);
+
   const {
     formConfig: { fields },
   } = useAppSelector((state) => state.requestReducer.request);
+  const { services } = useAppSelector((state) => state.servicesReducer);
 
   const { user, organization } = useAppSelector(
     (state) => state.profileReducer.profile
@@ -107,7 +109,6 @@ export const ConfirmingStep: FC<ConfirmingStepProps> = ({
     dispatch(downloadPrintedVersion(printableData));
   };
 
-  // const asd: string = 'asd asd "s"';
   return isLoading ? (
     <>
       <Skeleton rows={2} withTitle />
@@ -139,36 +140,35 @@ export const ConfirmingStep: FC<ConfirmingStepProps> = ({
             </DropdownList>
           </div>
         </div>
-
+        {JSON.stringify(dictionary)}
         {Object.keys(formData)
           .sort()
-          .map((formKey) => {
-            console.log(formKey);
-            return (
-              dictionary[formKey] && (
-                <div key={formKey}>
-                  <span className={styles.RequestConfirmingBody}>
-                    {/* {dictionary[formKey].name || dictionary[formKey]}: */}
-                    {typeof dictionary[formKey] === 'string'
-                      ? dictionary[formKey]
-                      : dictionary[formKey]['name']}
-                    {/* {dictionary[formKey]} */}:{' '}
-                  </span>
-                  <b>
-                    {typeof formData[formKey] === 'object'
-                      ? formData[formKey].name
-                      : typeof formData[formKey] === 'string'
-                      ? formData[formKey]
-                      : typeof formData[formKey] === 'boolean'
-                      ? formData[formKey]
-                        ? 'да'
-                        : 'нет'
-                      : ''}
-                  </b>
-                </div>
-              )
-            );
-          })}
+          .map((formKey) => (
+            <div key={formKey}>
+              {/* <p>{formKey} s</p> */}
+              <span className={styles.RequestConfirmingBody}>
+                {/* {dictionary.length
+                  ? dictionary[formKey]
+                    ? dictionary[formKey]['name']
+                      ? dictionary[formKey]['name'] + ': '
+                      : ''
+                    : ''
+                  : ''} */}
+                {dictionary[formKey].name || dictionary[formKey]}:{' '}
+              </span>
+              <b>
+                {typeof formData[formKey] === 'object'
+                  ? formData[formKey].name
+                  : typeof formData[formKey] === 'string'
+                  ? formData[formKey]
+                  : typeof formData[formKey] === 'boolean'
+                  ? formData[formKey]
+                    ? 'да'
+                    : 'нет'
+                  : ''}
+              </b>
+            </div>
+          ))}
       </Card>
       <div className={styles.RequestControls}>
         <Button onClick={() => onSubmit(1)}>{submitTitle}</Button>

@@ -103,25 +103,17 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
 
   const filterRequests = (requests: Array<Request>): Array<Request> => {
     return requests.filter((request) => {
-      if (activeFilter === requestFilters[0]) {
-        return (
-          request.statusName !== RequestStatuses.Draft &&
-          request.serviceName ===
-            'Продвижение в сфере международной электронной торговли'
-        );
+      if (activeFilter == requestFilters[0]) {
+        return request.statusName != RequestStatuses.Draft;
       }
       return (
         requestsStatusesInfo[request.statusName].common_status ===
-          activeFilter.value &&
-        request.serviceName ===
-          'Продвижение в сфере международной электронной торговли'
+        activeFilter.value
       );
     });
   };
 
   // const [updatedRequest, setUpdatedRequest] = useState(requests);
-
-  // Пуш уведомление, если заявки были обновлены и/или их статусы
 
   // useEffect(() => {
   //   if (JSON.stringify(updatedRequest) !== JSON.stringify(requests)) {
@@ -196,24 +188,23 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
               ))}
             </div>
             <div>
-              {/* {filterRequests(requests).length > 1 && */}
-              {requests.length > 1 && activeFilter === requestFilters[3] && (
-                <Button
-                  className={styles.RequestsDeleteAll}
-                  onClick={() => {
-                    setDisabledDeleteAll(true);
-                    dispatch(removeAllDraft());
-                  }}
-                  disabled={disabledDeleteAll}
-                >
-                  Удалить все черновики
-                </Button>
-              )}
+              {filterRequests(requests).length > 1 &&
+                activeFilter === requestFilters[3] && (
+                  <Button
+                    className={styles.RequestsDeleteAll}
+                    onClick={() => {
+                      setDisabledDeleteAll(true);
+                      dispatch(removeAllDraft());
+                    }}
+                    disabled={disabledDeleteAll}
+                  >
+                    Удалить все черновики
+                  </Button>
+                )}
             </div>
           </div>
           <Card>
-            {/* {filterRequests(requests).length > 0 ? ( */}
-            {requests.length > 0 ? (
+            {filterRequests(requests).length > 0 ? (
               activeFilter !== requestFilters[3] ? (
                 <div className={styles.RequestsHeader}>
                   <div>Наименование, номер и дата заявки</div>
@@ -246,8 +237,7 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
               </Card>
             )}
             <TransitionGroup>
-              {/* {filterRequests(requests) */}
-              {requests
+              {filterRequests(requests)
                 .slice(0, shownRequests)
                 .map(
                   ({
@@ -276,7 +266,9 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                           if (activeFilter === requestFilters[3]) {
                             window.location.href = `${window.location.origin}${RoutePaths.REQUESTS}/add?draft=${serviceId}`;
                           } else {
-                            navigate(`${RoutePaths.REQUESTS}/${number}`);
+                            // navigate(`${RoutePaths.REQUESTS}/${number}`);
+                            // todo возможно раскоменить
+                            navigate(`${RoutePaths.REQUESTS}/${id}`);
                           }
                         }}
                       >
@@ -336,14 +328,14 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                                 `RequestsItemStatus${
                                   notification
                                     ? 'WithNotification'
-                                    : // : getStatusColor(statusName) todo раскоментить
-                                      'ServiceProvided'
+                                    : getStatusColor(statusName)
                                 }`
                               ]
                             }
                           >
-                            {/* {requestsStatusesInfo[statusName].title} */}
-                            {statusName}
+                            {/*    'ServiceProvided'  */}
+                            {requestsStatusesInfo[statusName].title}
+                            {/* {statusName} */}
                             {notification && (
                               <div
                                 className={styles.RequestsItemNotification}
@@ -374,8 +366,7 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                   )
                 )}
             </TransitionGroup>
-            {/* {filterRequests(requests).length > shownRequests && ( */}
-            {requests.length > shownRequests && (
+            {filterRequests(requests).length > shownRequests && (
               <div className={styles.RequestsShowMoreWrapper}>
                 <span className={styles.RequestsShowMore} onClick={showMore}>
                   Загрузить ещё

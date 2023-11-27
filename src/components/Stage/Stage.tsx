@@ -82,10 +82,6 @@ export const Stage: FC<StageProps> = ({ stage, docs }) => {
             {stage.title}
           </span>
         </div>
-        <span className={styles.StageStatusDate}>
-          {stage.dateCreated}
-          {stage.dateClosed && `-${stage.dateClosed}`}
-        </span>
       </div>
       {substageCollapsed &&
         stage.substages.map((substage) => (

@@ -8,6 +8,7 @@ export enum DocumentStatuses {
   Archive = 'Archive',
 }
 
+// общие статусы (закрыта, в обработке, черновик)
 export enum RequestCommonStatuses {
   Processing = 'Processing',
   Completed = 'Completed',
@@ -15,6 +16,7 @@ export enum RequestCommonStatuses {
 }
 
 export enum RequestStatuses {
+  New = 'new',
   Draft = 'draft',
   Registered = 'registered',
   UnderReview = 'under_review',

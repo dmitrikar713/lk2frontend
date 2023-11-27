@@ -340,6 +340,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
                             className={styles.ExportCardRecomsItem}
                             style={{
                               whiteSpace: 'nowrap',
+                              cursor: 'pointer',
                             }}
                             onClick={() =>
                               navigate(

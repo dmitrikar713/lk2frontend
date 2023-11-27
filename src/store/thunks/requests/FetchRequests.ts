@@ -15,7 +15,6 @@ export const fetchRequests =
       // const response = await apiClient.get<Array<Request>>('/requests');
       // todo разкомментить
       const response = await apiClient.get<Array<any>>('/requests');
-      // const response = {data: []}
       console.log('fetchRequests response:');
       console.log(response);
       dispatch(requestsSlice.actions.requestsLoadSuccess(response.data));

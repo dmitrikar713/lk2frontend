@@ -7,6 +7,7 @@ import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { fetchService } from 'src/store/thunks/services/FetchService';
 import { MoneybagIcon, RoubleIcon, TimeIcon } from './icons';
 import { useLocation } from 'react-router';
+import { fetchServices } from 'src/store/thunks/services/FetchServices';
 const parse = require('html-react-parser');
 
 const Service: FC = () => {
@@ -27,32 +28,17 @@ const Service: FC = () => {
     (state) => state.serviceReducer.service
   );
 
-  const createRequest = () => {
+  const openServiceForm = () => {
     dispatch(requestSlice.actions.setServiceId(serviceId));
     navigate('/requests/add');
   };
 
   useEffect(() => {
-    dispatch(fetchService(serviceId));
+    if (services.length === 0) dispatch(fetchServices());
     if (request.serviceId && request.serviceId != serviceId) {
       dispatch(requestSlice.actions.setDefaultState());
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (
-  //     PeriodKompensatsiiRef.current &&
-  //     KakiyeZatratyKompensiruyutsyaRef.current
-  //   ) {
-  //     console.log('tried setting innerhtml1');
-  //     PeriodKompensatsiiRef.current.innerHTML =
-  //       service.PeriodKompensatsiiMassiv.PeriodKompensatsii;
-  //     KakiyeZatratyKompensiruyutsyaRef.current.innerHTML =
-  //       service.KakiyeZatratyKompensiruMassiv.KakiyeZatratyKompensiruyutsya;
-  //     ('123');
-  //     console.log('tried setting innerhtml2');
-  //   }
-  // }, [PeriodKompensatsiiRef, KakiyeZatratyKompensiruyutsyaRef]);
 
   return service ? (
     <div className={styles.Service}>
@@ -79,7 +65,13 @@ const Service: FC = () => {
               <Button
                 type={ButtonType.Primary}
                 size={ButtonSize.Medium}
-                onClick={createRequest}
+                onClick={() => {
+                  if (service.LinkNaFormuProducta) {
+                    location.href = service.LinkNaFormuProducta;
+                  } else {
+                    openServiceForm();
+                  }
+                }}
               >
                 Получить услугу
               </Button>
@@ -87,7 +79,7 @@ const Service: FC = () => {
               <Button
                 type={ButtonType.Secondary}
                 size={ButtonSize.Medium}
-                onClick={createRequest}
+                onClick={openServiceForm}
               >
                 Предворительная подача
               </Button>
@@ -105,65 +97,78 @@ const Service: FC = () => {
         </div>
       </div>
 
-      <div className={styles.Whocanget}>
-        {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok && (
-          <h5 className={styles.WhocangetTitle}>
-            {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok}
-          </h5>
-        )}
-        {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok && (
-          <p className={styles.WhocangetSubtitle}>
-            {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok}
-          </p>
-        )}
-        {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit && (
-          <p className={styles.WhocangetText}>
-            {parse(service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit)}
-          </p>
-        )}
-      </div>
-
-      {service.KakiyeZatratyKompensiruMassiv && (
-        <div className={styles.Whatiscompensated}>
-          {service.KakiyeZatratyKompensiruMassiv
-            .KakiyeZatratyKompensiruyutsyaZagolovok && (
-            <h5 className={styles.WhatiscompensatedTitle}>
-              {
-                service.KakiyeZatratyKompensiruMassiv
-                  .KakiyeZatratyKompensiruyutsyaZagolovok
-              }
+      {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok ||
+      service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok ||
+      service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit ? (
+        <div className={styles.Whocanget}>
+          {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok && (
+            <h5 className={styles.WhocangetTitle}>
+              {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitZagolovok}
             </h5>
           )}
-          <div className={styles.WhatiscompensatedContent}>
-            <div className={styles.WhatiscompensatedContentLeft}>
-              {service.KakiyeZatratyKompensiruMassiv
-                .KakiyeZatratyKompensiruyutsyaPodzagolovok && (
-                <p className={styles.WhatiscompensatedSubtitle}>
-                  {
-                    service.KakiyeZatratyKompensiruMassiv
-                      .KakiyeZatratyKompensiruyutsyaPodzagolovok
-                  }
-                </p>
-              )}
-              {service.KakiyeZatratyKompensiruMassiv
-                .KakiyeZatratyKompensiruyutsya && (
-                <p
-                  className={styles.WhatiscompensatedText}
-                  ref={KakiyeZatratyKompensiruyutsyaRef}
-                >
-                  {parse(
-                    service.KakiyeZatratyKompensiruMassiv
-                      .KakiyeZatratyKompensiruyutsya
-                  )}
-                </p>
-              )}
-            </div>
-            <MoneybagIcon />
-          </div>
+          {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok && (
+            <p className={styles.WhocangetSubtitle}>
+              {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchitPodZagolovok}
+            </p>
+          )}
+          {service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit && (
+            <p className={styles.WhocangetText}>
+              {parse(service.KtoMozhetPoluchitMassiv.KtoMozhetPoluchit)}
+            </p>
+          )}
         </div>
+      ) : (
+        ''
       )}
 
-      {service.RezultatMassiv && (
+      {service.KakiyeZatratyKompensiruyutsyaMassiv
+        .KakiyeZatratyKompensiruyutsyaZagolovok ||
+      service.KakiyeZatratyKompensiruyutsyaMassiv
+        .KakiyeZatratyKompensiruyutsyaPodzagolovok ||
+      service.KakiyeZatratyKompensiruyutsyaMassiv
+        .KakiyeZatratyKompensiruyutsya ? (
+        <div className={styles.Whatiscompensated}>
+          <div className={styles.WhatiscompensatedContent}>
+            {service.KakiyeZatratyKompensiruyutsyaMassiv
+              .KakiyeZatratyKompensiruyutsyaZagolovok && (
+              <h5 className={styles.WhatiscompensatedTitle}>
+                {
+                  service.KakiyeZatratyKompensiruyutsyaMassiv
+                    .KakiyeZatratyKompensiruyutsyaZagolovok
+                }
+              </h5>
+            )}
+            {service.KakiyeZatratyKompensiruyutsyaMassiv
+              .KakiyeZatratyKompensiruyutsyaPodzagolovok && (
+              <p className={styles.WhatiscompensatedSubtitle}>
+                {
+                  service.KakiyeZatratyKompensiruyutsyaMassiv
+                    .KakiyeZatratyKompensiruyutsyaPodzagolovok
+                }
+              </p>
+            )}
+            {service.KakiyeZatratyKompensiruyutsyaMassiv
+              .KakiyeZatratyKompensiruyutsya && (
+              <p
+                className={styles.WhatiscompensatedText}
+                ref={KakiyeZatratyKompensiruyutsyaRef}
+              >
+                {parse(
+                  service.KakiyeZatratyKompensiruyutsyaMassiv
+                    .KakiyeZatratyKompensiruyutsya
+                )}
+              </p>
+            )}
+          </div>
+          <MoneybagIcon />
+        </div>
+      ) : (
+        ''
+      )}
+
+      {service.RezultatMassiv.RezultatZagolovok ||
+      service.RezultatMassiv.Rezultats ||
+      service.RezultatMassiv.RezultatPodzagolovok ? (
         <div className={styles.Result}>
           {service.RezultatMassiv.RezultatZagolovok && (
             <h5 className={styles.ResultTitle}>
@@ -178,67 +183,70 @@ const Service: FC = () => {
           {service.RezultatMassiv.Rezultats && (
             <p className={styles.ResultText}>
               {parse(service.RezultatMassiv.Rezultats)}
-              {/* {service.RezultatMassiv.Rezultats} */}
             </p>
           )}
         </div>
+      ) : (
+        ''
       )}
 
-      {service.RazmerKompensatsiiMassiv && (
+      {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok ||
+      service.RazmerKompensatsiiMassiv.RazmerKompensatsiiPodzagolovok ||
+      service.RazmerKompensatsiiMassiv.RazmerKompensatsii ? (
         <div className={styles.Compensationsize}>
-          {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok && (
-            <h5 className={styles.CompensationsizeTitle}>
-              {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok}
-            </h5>
-          )}
           <div className={styles.CompensationsizeContent}>
-            <div className={styles.CompensationsizeContentLeft}>
-              {service.RazmerKompensatsiiMassiv
-                .RazmerKompensatsiiPodzagolovok && (
-                <p className={styles.CompensationsizeSubtitle}>
-                  {
-                    service.RazmerKompensatsiiMassiv
-                      .RazmerKompensatsiiPodzagolovok
-                  }
-                </p>
-              )}
-
-              {service.RazmerKompensatsiiMassiv.RazmerKompensatsii && (
-                <p className={styles.CompensationsizeText}>
-                  {parse(service.RazmerKompensatsiiMassiv.RazmerKompensatsii)}
-                </p>
-              )}
-            </div>
-            <RoubleIcon />
+            {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok && (
+              <h5 className={styles.CompensationsizeTitle}>
+                {service.RazmerKompensatsiiMassiv.RazmerKompensatsiiZagolovok}
+              </h5>
+            )}
+            {service.RazmerKompensatsiiMassiv
+              .RazmerKompensatsiiPodzagolovok && (
+              <p className={styles.CompensationsizeSubtitle}>
+                {
+                  service.RazmerKompensatsiiMassiv
+                    .RazmerKompensatsiiPodzagolovok
+                }
+              </p>
+            )}
+            {service.RazmerKompensatsiiMassiv.RazmerKompensatsii && (
+              <p className={styles.CompensationsizeText}>
+                {parse(service.RazmerKompensatsiiMassiv.RazmerKompensatsii)}
+              </p>
+            )}
           </div>
+          <RoubleIcon />
         </div>
+      ) : (
+        ''
       )}
 
-      {service.PeriodKompensatsiiMassiv && (
+      {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok ||
+      service.PeriodKompensatsiiMassiv.PeriodKompensatsii ? (
         <div className={styles.Compensationperiod}>
-          {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok && (
-            <h5 className={styles.CompensationperiodTitle}>
-              {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok}
-            </h5>
-          )}
           <div className={styles.CompensationperiodContent}>
-            <div className={styles.CompensationperiodContentLeft}>
-              {service.PeriodKompensatsiiMassiv.PeriodKompensatsii && (
-                <p className={styles.CompensationperiodSubtitle}>
-                  {parse(service.PeriodKompensatsiiMassiv.PeriodKompensatsii)}
-                </p>
-              )}
-            </div>
-            <TimeIcon />
+            {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok && (
+              <h5 className={styles.CompensationperiodTitle}>
+                {service.PeriodKompensatsiiMassiv.PeriodKompensatsiiZagolovok}
+              </h5>
+            )}
+            {service.PeriodKompensatsiiMassiv.PeriodKompensatsii && (
+              <p className={styles.CompensationperiodText}>
+                {parse(service.PeriodKompensatsiiMassiv.PeriodKompensatsii)}
+              </p>
+            )}
           </div>
+          <TimeIcon />
         </div>
+      ) : (
+        ''
       )}
 
-      {service.Documenty && service.Documenty.length && (
+      {service.Documenty.length || service.DocumentyDlyaPodachi.length ? (
         <div className={styles.Documents}>
-          <h5 className={styles.DocumentsTitle}>{service.DocumentType}</h5>
-          <div className={styles.DocumentsList}>
-            <div className={styles.DocumentsGroup}>
+          {service.Documenty.length && (
+            <div className={styles.Documenty}>
+              <h5 className={styles.DocumentsTitle}>Официальные документы</h5>
               {service.Documenty.map((doc, index) => (
                 <a
                   href={doc.DocLink}
@@ -249,9 +257,26 @@ const Service: FC = () => {
                 </a>
               ))}
             </div>
-            <div className={styles.DocumentsGroup}></div>
-          </div>
+          )}
+          {service.DocumentyDlyaPodachi.length && (
+            <div className={styles.DocumentyDlyaPodachi}>
+              <h5 className={styles.DocumentsTitle}>
+                Документы для подачи заявки
+              </h5>
+              {service.DocumentyDlyaPodachi.map((doc, index) => (
+                <a
+                  href={doc.DocDlyaPodachiLink}
+                  key={index + doc.DocName}
+                  className={styles.DocumentsItem}
+                >
+                  {doc.DocDlyaPodachiName}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
+      ) : (
+        ''
       )}
 
       <div className={styles.Actions}>
@@ -259,7 +284,13 @@ const Service: FC = () => {
           <Button
             type={ButtonType.Primary}
             size={ButtonSize.Medium}
-            onClick={createRequest}
+            onClick={() => {
+              if (service.LinkNaFormuProducta) {
+                location.href = service.LinkNaFormuProducta;
+              } else {
+                openServiceForm();
+              }
+            }}
           >
             Получить услугу
           </Button>
@@ -267,7 +298,7 @@ const Service: FC = () => {
           <Button
             type={ButtonType.Secondary}
             size={ButtonSize.Medium}
-            onClick={createRequest}
+            onClick={openServiceForm}
           >
             Предворительная подача
           </Button>

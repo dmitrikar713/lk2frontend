@@ -47,11 +47,7 @@ export const Substage: FC<SubstageProps> = ({ substage, status, docs }) => {
       setDocuments({ ...activedocs });
     else setDocuments({ ...activedocs, ...substage.history });
   }, [substage, docs]);
-  // // eslint-disable-next-line
-  // console.log('substage.status', substage);
-  // console.log('substage.history', substage.history);
-  // console.log('docs', docs);
-  // console.log('documents', documents);
+
   return (
     <div className={styles.SubstageRequest}>
       <div className={styles.SubstageRequestHeader}>

@@ -13,6 +13,7 @@ export const createDraftRequest =
   }): AppThunk =>
   async (dispatch) => {
     try {
+      console.log('createDraftRequest');
       await apiClient.post('/requests?draft=true', draft);
     } catch (error: any) {
       dispatch(requestSlice.actions.requestLoadError(error.message));

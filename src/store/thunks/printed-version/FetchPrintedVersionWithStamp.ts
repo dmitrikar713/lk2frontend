@@ -4,12 +4,12 @@ import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { AppThunk } from '../../store';
 
 export const fetchPrintedVersionWithStamp =
-  (printableData: any): AppThunk =>
+  (printableData: any, docxTemplateUrl: string): AppThunk =>
   async (dispatch) => {
     try {
       const response = await apiClient.post<Blob>(
         '/request/stamp',
-        printableData,
+        { requestData: printableData, docxTemplateUrl },
         {
           responseType: 'arraybuffer',
         }

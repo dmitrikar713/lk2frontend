@@ -9,8 +9,7 @@ export const createRequest =
   (request: Request): AppThunk =>
   async (dispatch) => {
     try {
-      console.log('createRequest request:')
-      console.log(request)
+      console.log('createRequest request:');
       const result = await apiClient.post<Request>('/requests', request);
       if (result.status === 201) {
         dispatch(removeAllDraft());
@@ -20,6 +19,8 @@ export const createRequest =
         });
       }
     } catch (error: any) {
+      console.log('ERROR IN CREATE REQUEST DISPATCH');
+      console.log(error.message);
       dispatch(requestSlice.actions.requestLoadError(error.message));
       dispatch(
         createDraftRequest({

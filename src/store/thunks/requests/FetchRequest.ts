@@ -16,6 +16,8 @@ export const fetchRequest =
       console.log(response);
       dispatch(requestSlice.actions.requestLoadSuccess(response.data));
     } catch (error: any) {
+      console.log('fetchRequest error:');
+      console.log(error);
       dispatch(requestSlice.actions.requestLoadError(error.message));
     }
   };

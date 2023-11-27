@@ -19,26 +19,38 @@ export const fetchServiceConfig =
         .find((serv) => serv.IDUslugiIsRpp == serviceId)
         .isrppFieldslDs.map((obj) => obj.IdIsRpp); // айдишники полей услуги, полученные из конфига админки
 
+      console.log('service fieldIds list:');
+      console.log(fieldIds);
+
       // РАСКОМЕНТИТЬ
-      // const fields = response.data.records.filter((field) =>
-      //   fieldIds.includes(field.parameterInApi)
-      // );
-      const fields = response.data.records;
-      const dictionary = fields.reduce(
-        (acc: { [name: string]: any }, next: FormFieldParameters) => ({
-          ...acc,
-          [next.parameterInApi]: next.fieldType.dictionaries.length
+      const fields = await response.data.records.filter((field) =>
+        fieldIds.includes(field.parameterInApi)
+      );
+      // const fields = response.data.records;
+
+      const dictionary = await fields.reduce(
+        (
+          accumulator: { [name: string]: any },
+          currentValue: FormFieldParameters
+        ) => ({
+          ...accumulator,
+          [currentValue.parameterInApi]: currentValue.fieldType.dictionaries
+            .length
             ? {
-                name: next.name,
-                dictionaries: next.fieldType.dictionaries.reduce(
-                  (acc, next) => ({ ...acc, [next.id]: next.name }),
+                name: currentValue.name,
+                dictionaries: currentValue.fieldType.dictionaries.reduce(
+                  (accumulator, currentValue2) => ({
+                    ...accumulator,
+                    [currentValue2.id]: currentValue2.name,
+                  }),
                   {}
                 ),
               }
-            : next.name,
+            : currentValue.name,
         }),
         {}
       );
+      console.log('fetchserviceconfig');
       dispatch(requestSlice.actions.setFormConfig({ fields, dictionary }));
     } catch (error: any) {
       dispatch(requestSlice.actions.requestLoadError(error.message));

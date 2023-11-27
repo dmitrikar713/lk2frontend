@@ -14,7 +14,7 @@ const socialMedias = [
   // SocialMediaType.Instagram,
   // SocialMediaType.Facebook,
   SocialMediaType.Telegram,
-  SocialMediaType.YouTube,
+  // SocialMediaType.YouTube,
 ];
 
 export const Footer: FC<FooterProps> = ({ isMobile = false }) => (
@@ -24,7 +24,12 @@ export const Footer: FC<FooterProps> = ({ isMobile = false }) => (
         [styles.Mobile]: isMobile,
       })}
     >
-      <MoscowDepartmentIcon />
+      {/* <MoscowDepartmentIcon /> */}
+      <div className={styles.FooterText}>
+        <p>© 2023</p>
+        <p>16+</p>
+        <p>Московский экспортный центр. Все права защищены</p>
+      </div>
       <div className={styles.FooterSocial}>
         {socialMedias.map((media: SocialMediaType) => (
           <SocialMedia key={media} type={media} />

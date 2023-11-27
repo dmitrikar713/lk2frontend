@@ -53,7 +53,13 @@ export const FillingStep: FC<FillingStepProps> = ({
       field.isUserFill &&
       field.fieldType.name === FieldType.Text &&
       field.stage.description === StageType.ContactInformation
+    //   ||
+    // (field.visibility &&
+    //   field.isUserFill &&
+    //   field.fieldType.name === FieldType.Dropdown &&
+    //   field.stage.description === StageType.ContactInformation)
   );
+  // todo в данные заявки не надо добавлять контактную информацию
   const requestInfo = fields.filter(
     (field: FormFieldParameters) =>
       (field.visibility &&
@@ -141,8 +147,6 @@ export const FillingStep: FC<FillingStepProps> = ({
   };
 
   const handleSubmitForm = (formData: any) => {
-    // Поиск обязательного документа для вложения
-    // todo - была захардкоженная проверка конкретного документа, наверно потом удалить нужно вообще
     // if (!Object.keys(uploadedDocuments).includes('p7348801')) {
     //   Toast(
     //     'Для подписания загрузите отчёт о финансовых результатах за 2 последних финансовых года',
@@ -191,8 +195,6 @@ export const FillingStep: FC<FillingStepProps> = ({
     confirmSectionRef,
     docsSectionRef,
   ];
-
-  // Hydrating form data with profile info
 
   const defaultValues: any = {
     [String(getFieldId(dictionary, DefaultOptions.OrgName))]:

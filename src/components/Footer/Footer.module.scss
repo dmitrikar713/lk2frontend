@@ -5,6 +5,15 @@
   padding: 1rem 2.5rem;
   display: flex;
   justify-content: space-between;
+  &Text {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    p {
+      color: white;
+      margin: 0 !important;
+    }
+  }
 
   &Wrapper {
     color: $color-text-inversion;

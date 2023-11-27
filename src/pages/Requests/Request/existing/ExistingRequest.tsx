@@ -54,12 +54,14 @@ enum ConfirmationSteps {
 }
 
 export const ExistingRequest: FC = () => {
-  const { requestId } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { requestId } = useParams();
+
   const { request, isLoading } = useAppSelector(
     (state) => state.requestReducer
   );
-  const navigate = useNavigate();
   const notifications = useAppSelector(
     (state) => state.notificationsReducer.notifications
   );
@@ -87,58 +89,6 @@ export const ExistingRequest: FC = () => {
   const [step, setNextStep] = useState<ConfirmationSteps>(
     ConfirmationSteps.Sign
   );
-
-  useEffect(() => dispatch(fetchRequest(requestId)), []);
-
-  useEffect(() => {
-    completedStages === request.stages.length
-      ? setNavBarShow(false)
-      : setNavBarShow(true);
-
-    if (request.actions) {
-      setAdditionalDocs(false);
-      setRecallRequest(false);
-      setCancelRequest(false);
-      setAdditionalRecall(false);
-      setAddAct(false);
-      request.actions.forEach((action) => {
-        if (action.name === Actions.additionalDocs && action.active == true) {
-          setAdditionalDocs(true);
-        } else if (
-          action.name === Actions.recallRequest &&
-          action.active == true
-        ) {
-          setRecallRequest(true);
-        } else if (
-          action.name === Actions.cancelRequest &&
-          action.active === true
-        )
-          setCancelRequest(true);
-        else if (
-          action.name === Actions.recallAdditionalRequest &&
-          action.active === true
-        )
-          setAdditionalRecall(true);
-        else if (action.name === Actions.addAct && action.active === true)
-          setAddAct(true);
-      });
-    }
-
-    Object.keys(request.uploadedDocuments).map((key) => {
-      if (request.uploadedDocuments[key].status !== DocumentStatuses.Signed) {
-        setDocsSigned(false);
-      }
-    });
-
-    if (
-      !request.stages.filter((stage) => stage.status === RequestStatus.inWork)
-        .length
-    ) {
-      setActiveStages(false);
-    } else {
-      setActiveStages(true);
-    }
-  }, [request]);
 
   const handleRequest = async (type: Actions) => {
     const data = {} as RequestAction;
@@ -171,12 +121,12 @@ export const ExistingRequest: FC = () => {
     const data = {} as RequestAction;
     let curSubStage: RequestSubstages | undefined;
     data.requestId = String(request.number);
-    const curStage = request.stages.find(
-      (stage) => stage && stage.status === RequestStatus.inWork
+    const curStage = request.stages.find((stage) =>
+      stage.substages.some((subst) => subst.code == request.statusId)
     );
     if (curStage)
       curSubStage = curStage.substages.find(
-        (subStage) => subStage.status === RequestStatus.inWork
+        (subStage) => subStage.code === request.statusId
       );
 
     if (curSubStage) data.currentStage = curSubStage.code;
@@ -321,6 +271,57 @@ export const ExistingRequest: FC = () => {
     }
   };
 
+  useEffect(() => dispatch(fetchRequest(requestId)), []);
+  useEffect(() => {
+    completedStages === request.stages.length
+      ? setNavBarShow(false)
+      : setNavBarShow(true);
+
+    if (request.actions) {
+      setAdditionalDocs(false);
+      setRecallRequest(false);
+      setCancelRequest(false);
+      setAdditionalRecall(false);
+      setAddAct(false);
+      request.actions.forEach((action) => {
+        if (action.name === Actions.additionalDocs && action.active == true) {
+          setAdditionalDocs(true);
+        } else if (
+          action.name === Actions.recallRequest &&
+          action.active == true
+        ) {
+          setRecallRequest(true);
+        } else if (
+          action.name === Actions.cancelRequest &&
+          action.active === true
+        )
+          setCancelRequest(true);
+        else if (
+          action.name === Actions.recallAdditionalRequest &&
+          action.active === true
+        )
+          setAdditionalRecall(true);
+        else if (action.name === Actions.addAct && action.active === true)
+          setAddAct(true);
+      });
+    }
+
+    Object.keys(request.uploadedDocuments).map((key) => {
+      if (request.uploadedDocuments[key].status !== DocumentStatuses.Signed) {
+        setDocsSigned(false);
+      }
+    });
+
+    if (
+      !request.stages.filter((stage) => stage.status === RequestStatus.inWork)
+        .length
+    ) {
+      setActiveStages(false);
+    } else {
+      setActiveStages(true);
+    }
+  }, [request]);
+
   return (
     <>
       <div className={styles.Request}>
@@ -339,6 +340,8 @@ export const ExistingRequest: FC = () => {
           </>
         ) : (
           <>
+            <pre>{JSON.stringify(request, null, 4)}</pre>
+
             {NavBarShow && (
               <div className={styles.RequestNavBarSticky}>
                 <div className={styles.RequestNavBar}>

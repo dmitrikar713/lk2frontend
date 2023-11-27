@@ -26,6 +26,51 @@ export interface DocumentPayload {
   document: UploadedDocument;
 }
 
+// const serviceConfigExample = {
+//   fields: [{
+//     name: string;
+//     type?: string;
+//     description: string | null;
+//     parameterInApi: string;
+//     fieldType: {
+//       id: number;
+//       name: string;
+//       code: number | null;
+//       dictionaries: Array<{
+//         id: string;
+//         name: string;
+//         code: number | null;
+//         dictionaries: [];
+//       }>;
+//     };
+//     required: boolean;
+//     signatureRequired: boolean;
+//     inner: boolean;
+//     url: string | null;
+//     signatures: [];
+//     maxSignaturesCount: number | null;
+//     digitalStorageType: {
+//       name: string;
+//       outerId: number | null;
+//       outerName: string | null;
+//       fileFormats: string | null;
+//       fileSizeMaxByte: number;
+//     };
+//     visibility: boolean;
+//     isUserFill: boolean;
+//     readOnly: boolean;
+//     measureServiceParamValueGroup: number | null;
+//     stage: {
+//       order: number;
+//       name: string;
+//       description: string;
+//       group: string | null;
+//     };
+//     inputMask: string | null;
+//   }];
+//   dictionary: FormData;
+// }
+
 interface FormConfig {
   fields: Array<FormFieldParameters>;
   dictionary: FormData;
@@ -53,7 +98,8 @@ export interface Request {
   uploadedDocuments: UploadedDocuments;
   number?: string;
   createdAt?: string;
-  statusId: number;
+  statusId: string;
+  statusName?: string;
   stages: RequestStages[];
   actions: Actions[];
   formSelectsValue: Array<any>;
@@ -91,7 +137,7 @@ const initialState: RequestState = {
     serviceName: null,
     formConfig: { fields: [], dictionary: {} },
     formData: {},
-    statusId: 0,
+    statusId: '',
     uploadedDocuments: {},
     stages: [],
     actions: [],
@@ -154,6 +200,8 @@ export const requestSlice = createSlice({
       });
     },
     setDocument(state, action: PayloadAction<DocumentPayload>) {
+      console.log('setDocument action.payload');
+      console.log(action.payload);
       state.request.uploadedDocuments[action.payload.key] =
         action.payload.document;
     },
