@@ -59,7 +59,6 @@ export const FillingStep: FC<FillingStepProps> = ({
     //   field.fieldType.name === FieldType.Dropdown &&
     //   field.stage.description === StageType.ContactInformation)
   );
-  // todo в данные заявки не надо добавлять контактную информацию
   const requestInfo = fields.filter(
     (field: FormFieldParameters) =>
       (field.visibility &&
@@ -87,7 +86,6 @@ export const FillingStep: FC<FillingStepProps> = ({
       field.isUserFill &&
       field.fieldType.name === FieldType.Files
   );
-
   const formSections = [
     { name: FillingFormSections.Requisites, fields: requisites },
     { name: FillingFormSections.RequestInfo, fields: requestInfo },
@@ -479,15 +477,16 @@ export const FillingStep: FC<FillingStepProps> = ({
                           name={field.parameterInApi}
                           label={field.name}
                           type={
-                            /телефон/.test(field.name)
-                              ? InputType.Phone
-                              : /Э|электронн[a-я]{2,3} почт[a-я]{1,3}/.test(
-                                  field.name
-                                )
-                              ? InputType.Email
-                              : section.name === FillingFormSections.RequestInfo
-                              ? InputType.Float
-                              : InputType.Text
+                            InputType.Text
+                            // /телефон/.test(field.name)
+                            //   ? InputType.Phone
+                            //   : /Э|электронн[a-я]{2,3} почт[a-я]{1,3}/.test(
+                            //       field.name
+                            //     )
+                            //   ? InputType.Email
+                            //   : section.name === FillingFormSections.RequestInfo
+                            //   ? InputType.Float
+                            //   : InputType.Text
                           }
                           required={field.required}
                         />
@@ -498,6 +497,8 @@ export const FillingStep: FC<FillingStepProps> = ({
               </Card>
             </React.Fragment>
           ))}
+
+          <pre>{JSON.stringify(formSections, null, 4)}</pre>
         </>
       </Form>
       <Modal

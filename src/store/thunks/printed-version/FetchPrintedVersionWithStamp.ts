@@ -7,6 +7,7 @@ export const fetchPrintedVersionWithStamp =
   (printableData: any, docxTemplateUrl: string): AppThunk =>
   async (dispatch) => {
     try {
+      dispatch(requestSlice.actions.requestLoad());
       const response = await apiClient.post<Blob>(
         '/request/stamp',
         { requestData: printableData, docxTemplateUrl },
@@ -15,6 +16,7 @@ export const fetchPrintedVersionWithStamp =
         }
       );
       dispatch(requestSlice.actions.setPrintedVersionWithStamp(response.data));
+      dispatch(requestSlice.actions.requestLoaded());
     } catch (error: any) {
       dispatch(uploadProfileFileSlice.actions.uploadErrorFile(error.message));
     }

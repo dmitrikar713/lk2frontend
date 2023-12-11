@@ -8,12 +8,12 @@ type RequestsStatusesInfo = {
 };
 
 export const requestsStatusesInfo: RequestsStatusesInfo = {
-  registered: {
-    title: 'Заявка зарегистрирована',
-    common_status: RequestCommonStatuses.Processing,
-  },
   new: {
     title: 'Новая',
+    common_status: RequestCommonStatuses.Processing,
+  },
+  registered: {
+    title: 'Заявка зарегистрирована',
     common_status: RequestCommonStatuses.Processing,
   },
   under_review: {

@@ -15,6 +15,7 @@ export const fetchPrintedVersion =
   ): AppThunk =>
   async (dispatch) => {
     try {
+      dispatch(requestSlice.actions.requestLoad());
       const response = await apiClient.post<Blob>(
         url,
         { requestData: printableData, docxTemplateUrl },
@@ -27,6 +28,7 @@ export const fetchPrintedVersion =
           await setDocumentProfile(idFile, new File([response.data], filename))
         )
       );
+      dispatch(requestSlice.actions.requestLoaded());
     } catch (error: any) {
       dispatch(uploadProfileFileSlice.actions.uploadErrorFile(error.message));
     }

@@ -55,6 +55,8 @@ export const Substage: FC<SubstageProps> = ({ substage, status, docs }) => {
           className={
             substage.status === RequestStatus.inWork
               ? styles.SubstageRequestInWork
+              : substage.status === RequestStatus.Pending
+              ? styles.SubstageRequestPending
               : ''
           }
         >

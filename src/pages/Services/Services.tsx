@@ -1,8 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { fetchServices } from 'src/store/thunks/services/FetchServices';
 import styles from './Services.module.scss';
+import axios from 'axios';
 
 const Services: FC = () => {
   const services = useAppSelector((state) => state.servicesReducer.services);
@@ -49,18 +50,34 @@ interface SIProps {
 }
 const ServiceItem = ({ serviceName, img, index, isrppGuid }: SIProps) => {
   const navigate = useNavigate();
+  const [available, setAvailable] = useState(false);
   function nav() {
     if (isrppGuid != null) {
       navigate(isrppGuid[0]);
     }
   }
+  const getImg = async () => {
+    const imgg = await axios.get(img);
+
+    setAvailable(imgg.status === 200 ? true : false);
+  };
+  useEffect(() => {
+    getImg();
+  }, []);
+
   return (
     <div key={index} className={styles.ServicesItem} onClick={nav}>
       <h3 className={styles.ServicesItemNumber}>{index}.</h3>
       <p>{serviceName}</p>
-      <div className={styles.ServicesItemImg}>
-        <img src={img} alt="" className={styles.ServicesItemImg} />
-      </div>
+      {available && (
+        <div className={styles.ServicesItemImg}>
+          <img
+            src={img}
+            alt="изображение услуги"
+            className={styles.ServicesItemImg}
+          />
+        </div>
+      )}
     </div>
   );
 };

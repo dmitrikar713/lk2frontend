@@ -51,6 +51,10 @@
 
   &InWork {
     font-weight: bold !important;
+    // color: $color-accent-primary;
+  }
+  &Pending {
+    color: rgba($color-text-primary, 0.5);
   }
 
   &Item {

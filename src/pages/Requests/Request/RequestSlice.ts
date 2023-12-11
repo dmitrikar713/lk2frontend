@@ -166,6 +166,9 @@ export const requestSlice = createSlice({
     requestLoad(state) {
       state.isLoading = true;
     },
+    requestLoaded(state) {
+      state.isLoading = false;
+    },
     requestLoadSuccess(state, action: PayloadAction<Request>) {
       state.isLoading = false;
       state.error = '';
@@ -200,8 +203,6 @@ export const requestSlice = createSlice({
       });
     },
     setDocument(state, action: PayloadAction<DocumentPayload>) {
-      console.log('setDocument action.payload');
-      console.log(action.payload);
       state.request.uploadedDocuments[action.payload.key] =
         action.payload.document;
     },

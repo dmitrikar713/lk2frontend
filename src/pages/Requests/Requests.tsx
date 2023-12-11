@@ -333,7 +333,6 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                               ]
                             }
                           >
-                            {/*    'ServiceProvided'  */}
                             {requestsStatusesInfo[statusName].title}
                             {/* {statusName} */}
                             {notification && (

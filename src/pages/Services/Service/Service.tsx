@@ -29,8 +29,12 @@ const Service: FC = () => {
   );
 
   const openServiceForm = () => {
-    dispatch(requestSlice.actions.setServiceId(serviceId));
-    navigate('/requests/add');
+    if (service.LinkNaFormuProducta) {
+      window.open(service.LinkNaFormuProducta, '_blank', 'noreferrer');
+    } else {
+      dispatch(requestSlice.actions.setServiceId(serviceId));
+      navigate('/requests/add');
+    }
   };
 
   useEffect(() => {
@@ -44,14 +48,15 @@ const Service: FC = () => {
     <div className={styles.Service}>
       <div className={styles.Hero}>
         <div className={styles.HeroText}>
+          {service.NAME && <h2>{service.NAME}</h2>}
           {service.KratkoyeOpisaniyeUslugiMassiv
             .KratkoyeOpisaniyeUslugiZagolovok && (
-            <h2>
+            <p style={styles.HeroTextSubtitle}>
               {
                 service.KratkoyeOpisaniyeUslugiMassiv
                   .KratkoyeOpisaniyeUslugiZagolovok
               }
-            </h2>
+            </p>
           )}
           {service.KratkoyeOpisaniyeUslugiMassiv.KratkoyeOpisaniyeUslugi && (
             <p>
@@ -65,13 +70,7 @@ const Service: FC = () => {
               <Button
                 type={ButtonType.Primary}
                 size={ButtonSize.Medium}
-                onClick={() => {
-                  if (service.LinkNaFormuProducta) {
-                    location.href = service.LinkNaFormuProducta;
-                  } else {
-                    openServiceForm();
-                  }
-                }}
+                onClick={openServiceForm}
               >
                 Получить услугу
               </Button>
@@ -88,11 +87,7 @@ const Service: FC = () => {
         </div>
         <div className={styles.HeroImage}>
           {service.UrlProductPicture && (
-            <img
-              //  src="https:soft-id.ru/upload/iblock/8c4/8c4baf05a96c5ad4b0d251b08f4e2940.png"
-              src={service.UrlProductPicture}
-              alt=""
-            />
+            <img src={service.UrlProductPicture} alt="" />
           )}
         </div>
       </div>
@@ -244,8 +239,8 @@ const Service: FC = () => {
 
       {service.Documenty.length || service.DocumentyDlyaPodachi.length ? (
         <div className={styles.Documents}>
-          {service.Documenty.length && (
-            <div className={styles.Documenty}>
+          {service.Documenty.length ? (
+            <div className={styles.DocsColumn}>
               <h5 className={styles.DocumentsTitle}>Официальные документы</h5>
               {service.Documenty.map((doc, index) => (
                 <a
@@ -257,9 +252,11 @@ const Service: FC = () => {
                 </a>
               ))}
             </div>
+          ) : (
+            ''
           )}
-          {service.DocumentyDlyaPodachi.length && (
-            <div className={styles.DocumentyDlyaPodachi}>
+          {service.DocumentyDlyaPodachi.length ? (
+            <div className={styles.DocsColumn}>
               <h5 className={styles.DocumentsTitle}>
                 Документы для подачи заявки
               </h5>
@@ -273,6 +270,8 @@ const Service: FC = () => {
                 </a>
               ))}
             </div>
+          ) : (
+            ''
           )}
         </div>
       ) : (
@@ -284,13 +283,7 @@ const Service: FC = () => {
           <Button
             type={ButtonType.Primary}
             size={ButtonSize.Medium}
-            onClick={() => {
-              if (service.LinkNaFormuProducta) {
-                location.href = service.LinkNaFormuProducta;
-              } else {
-                openServiceForm();
-              }
-            }}
+            onClick={openServiceForm}
           >
             Получить услугу
           </Button>
