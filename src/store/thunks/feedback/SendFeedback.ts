@@ -10,9 +10,13 @@ export const sendFeedback =
   (feedback: SendFeedback): AppThunk =>
   async (dispatch) => {
     try {
-      await apiClient.post<SendFeedback>('/requests/feedback', feedback);
+      await apiClient.post<SendFeedback>('/notifications/feedback', feedback);
       dispatch(feedbackSlice.actions.feedbackClearState());
       dispatch(feedbackSlice.actions.feedbackHide(false));
+      dispatch(feedbackSlice.actions.setSending(false));
+      Toast('Благодарим за обратную связь!', {
+        type: 'success',
+      });
     } catch (error: any) {
       let resError = '';
       if (error.response && error.response.data)

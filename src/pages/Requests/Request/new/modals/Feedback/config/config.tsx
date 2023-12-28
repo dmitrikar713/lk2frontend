@@ -7,7 +7,7 @@ export enum feedbackFields {
   contractItem = 'Товар/Услуга',
   contractDate = 'Дата',
   country = 'Страна',
-  contractSumm = 'Сумма контракта в $',
+  contractSumm = 'Сумма контракта',
 }
 
 export const configFeadBack = {
@@ -66,16 +66,16 @@ export const configFeadBack = {
       type: 'text',
       onFocus: 'date',
     },
-    {
-      id: 10,
-      title: 'Страна',
-      value: '',
-      type: 'text',
-      onFocus: 'text',
-    },
+    // {
+    //   id: 10,
+    //   title: 'Страна',
+    //   value: '',
+    //   type: 'text',
+    //   onFocus: 'text',
+    // },
     {
       id: 11,
-      title: 'Сумма контракта в $',
+      title: 'Сумма контракта',
       value: '',
       type: 'text',
       onFocus: 'text',

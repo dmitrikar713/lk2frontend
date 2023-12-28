@@ -294,7 +294,6 @@ export const NewRequest: FC = () => {
         </>
       </Card>
       {steps[currentStep]}
-      {currentStep}
     </div>
   );
 };

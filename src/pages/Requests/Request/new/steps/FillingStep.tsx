@@ -48,11 +48,17 @@ export const FillingStep: FC<FillingStepProps> = ({
   } = useAppSelector((state) => state.requestReducer.request);
 
   const requisites = fields.filter(
-    (field: FormFieldParameters) =>
-      field.visibility &&
-      field.isUserFill &&
-      field.fieldType.name === FieldType.Text &&
-      field.stage.description === StageType.ContactInformation
+    (field: FormFieldParameters & { crmTable: any }) =>
+      field.visibility && field.isUserFill && field.crmTable == 'Реквизиты'
+    // (field.visibility &&
+    //   field.isUserFill &&
+    //   field.fieldType.name === FieldType.Text &&
+    //   field.stage.description === StageType.ContactInformation) ||
+    // (field.visibility &&
+    //   field.isUserFill &&
+    //   // field.fieldType.name === FieldType.Text &&
+    //   field.stage.description === 'Цель, сумма и реквизиты организации')
+
     //   ||
     // (field.visibility &&
     //   field.isUserFill &&
@@ -60,31 +66,40 @@ export const FillingStep: FC<FillingStepProps> = ({
     //   field.stage.description === StageType.ContactInformation)
   );
   const requestInfo = fields.filter(
-    (field: FormFieldParameters) =>
-      (field.visibility &&
-        field.isUserFill &&
-        field.fieldType.name === FieldType.Text &&
-        field.stage.description === StageType.Description) ||
-      (field.visibility &&
-        field.isUserFill &&
-        field.fieldType.name === FieldType.Dropdown &&
-        field.stage.description === StageType.Description) ||
-      (field.visibility &&
-        field.isUserFill &&
-        field.fieldType.name === FieldType.Float &&
-        field.stage.description === StageType.Description)
+    (field: FormFieldParameters & { crmTable: any }) =>
+      field.visibility && field.isUserFill && field.crmTable == 'Заявка'
+
+    // (field.visibility &&
+    //     field.isUserFill &&
+    //     field.fieldType.name === FieldType.Text &&
+    //     field.stage.description === StageType.Description) ||
+    //   (field.visibility &&
+    //     field.isUserFill &&
+    //     field.fieldType.name === FieldType.Dropdown &&
+    //     field.stage.description === StageType.Description) ||
+    //   (field.visibility &&
+    //     field.isUserFill &&
+    //     field.fieldType.name === FieldType.Float &&
+    //     field.stage.description === StageType.Description) ||
+    //   (field.visibility &&
+    //     field.isUserFill &&
+    //     field.fieldType.name === FieldType.Float &&
+    //     field.stage.description === 'Цель, сумма и реквизиты организации')
   );
   const confirmations = fields.filter(
-    (field: FormFieldParameters) =>
-      field.visibility &&
-      field.isUserFill &&
-      field.fieldType.name === FieldType.Checkbox
+    (field: FormFieldParameters & { crmTable: any }) =>
+      field.visibility && field.isUserFill && field.crmTable == 'Согласие'
+    // field.visibility &&
+    // field.isUserFill &&
+    // field.fieldType.name === FieldType.Checkbox
   );
   const documents = fields.filter(
-    (field: FormFieldParameters) =>
-      field.visibility &&
-      field.isUserFill &&
-      field.fieldType.name === FieldType.Files
+    (field: FormFieldParameters & { crmTable: any }) =>
+      field.visibility && field.isUserFill && field.crmTable == 'Документы'
+
+    // field.visibility &&
+    // field.isUserFill &&
+    // field.fieldType.name === FieldType.Files
   );
   const formSections = [
     { name: FillingFormSections.Requisites, fields: requisites },
@@ -335,170 +350,176 @@ export const FillingStep: FC<FillingStepProps> = ({
           {formSections.map((section, index) => (
             <React.Fragment key={section.name}>
               <div ref={sectionsRefs[index]} />
-              <Card title={section.name} collapsible styleWithBorder>
-                <div
-                  className={
-                    section.name === FillingFormSections.Documents
-                      ? documents.length % 2 === 0
-                        ? styles.GridDocumentUploaderEven
-                        : styles.GridDocumentUploaderOdd
-                      : ''
-                  }
-                >
-                  {section.name === FillingFormSections.Requisites && (
-                    <Link to={RoutePaths.PROFILE}>
-                      <span className={styles.RequestSectionCardProfileRef}>
-                        Изменить профиль
-                      </span>
-                    </Link>
-                  )}
-                  {section.name === FillingFormSections.Confirmations && (
-                    <Checkbox
-                      label={'Выбрать всё'}
-                      checked={isCheckedAll}
-                      onClick={() => setCheckedAll(!isCheckedAll)}
-                      size={CheckboxSize.Small}
-                    />
-                  )}
-                  {section.fields.map((field: any) => (
-                    <React.Fragment key={field.parameterInApi}>
-                      {section.name === FillingFormSections.Confirmations ? (
-                        <Checkbox
-                          hookControlled
-                          name={field.parameterInApi}
-                          label={field.name}
-                          defaultRequired={field.required}
-                          onClick={() => null}
-                          size={CheckboxSize.Small}
-                        />
-                      ) : section.name === FillingFormSections.Documents ? (
-                        <div
-                          className={
-                            documents.length % 2 === 0
-                              ? styles.GridDocumentUploader
-                              : ''
-                          }
-                        >
-                          <DocumentUploader
-                            documentName={field.name}
-                            documentType={field.type ? field.type : ''}
-                            download={
-                              uploadedDocuments[field.parameterInApi] &&
-                              uploadedDocuments[field.parameterInApi].url
-                                ? true
-                                : false
-                            }
-                            onDownload={() =>
-                              previewDocument(
-                                uploadedDocuments[field.parameterInApi].url
-                              )
-                            }
-                            onUpload={async (file, uploadedAt) => {
-                              dispatch(
-                                requestSlice.actions.setFormDocType({
-                                  parameterInApi: field.parameterInApi,
-                                  file,
-                                })
-                              );
-                              dispatch(
-                                requestSlice.actions.setDocument(
-                                  await setDocumentProfile(
-                                    field.parameterInApi,
-                                    file,
-                                    uploadedAt
-                                  )
-                                )
-                              );
-                            }}
-                            deletable
-                            onDelete={async () =>
-                              dispatch(
-                                requestSlice.actions.setDocument(
-                                  await setDocumentProfile(
-                                    field.parameterInApi,
-                                    null
-                                  )
-                                )
-                              )
-                            }
-                            documentUploaded={
-                              uploadedDocuments[field.parameterInApi]
-                            }
+              {section.fields.length ? (
+                <Card title={section.name} collapsible styleWithBorder>
+                  <div
+                    className={
+                      section.name === FillingFormSections.Documents
+                        ? documents.length % 2 === 0
+                          ? styles.GridDocumentUploaderEven
+                          : styles.GridDocumentUploaderOdd
+                        : ''
+                    }
+                  >
+                    {section.name === FillingFormSections.Requisites && (
+                      <Link to={RoutePaths.PROFILE}>
+                        <span className={styles.RequestSectionCardProfileRef}>
+                          Изменить профиль
+                        </span>
+                      </Link>
+                    )}
+                    {section.name === FillingFormSections.Confirmations && (
+                      <Checkbox
+                        label={'Выбрать всё'}
+                        checked={isCheckedAll}
+                        onClick={() => setCheckedAll(!isCheckedAll)}
+                        size={CheckboxSize.Small}
+                      />
+                    )}
+                    {section.fields.map((field: any) => (
+                      <React.Fragment key={field.parameterInApi}>
+                        {section.name === FillingFormSections.Confirmations ? (
+                          <Checkbox
+                            hookControlled
+                            name={field.parameterInApi}
+                            label={field.name}
+                            defaultRequired={field.required}
+                            onClick={() => null}
+                            size={CheckboxSize.Small}
                           />
-                        </div>
-                      ) : field.fieldType.id === 2406 ? (
-                        <Select
-                          value={
-                            formSelects[field.parameterInApi]
-                              ? formSelects[field.parameterInApi].id
-                              : ''
-                          }
-                          onChange={(value) => {
-                            setFormSelects({
-                              ...formSelects,
-                              [field.parameterInApi]: {
-                                id: value,
-                                name: (dictionary[field.parameterInApi] as any)
-                                  .dictionaries[value],
-                              },
-                            });
-                          }}
-                          renderInputValue={(value) => (
-                            <div className={styles.SelectWrapper}>
-                              {value ? (
-                                <>
-                                  <div className={styles.SelectLabel}>
+                        ) : section.name === FillingFormSections.Documents &&
+                          documents.length ? (
+                          <div
+                            className={
+                              documents.length % 2 === 0
+                                ? styles.GridDocumentUploader
+                                : ''
+                            }
+                          >
+                            <DocumentUploader
+                              documentName={field.name}
+                              documentType={field.type ? field.type : ''}
+                              download={
+                                uploadedDocuments[field.parameterInApi] &&
+                                uploadedDocuments[field.parameterInApi].url
+                                  ? true
+                                  : false
+                              }
+                              onDownload={() =>
+                                previewDocument(
+                                  uploadedDocuments[field.parameterInApi].url
+                                )
+                              }
+                              onUpload={async (file, uploadedAt) => {
+                                dispatch(
+                                  requestSlice.actions.setFormDocType({
+                                    parameterInApi: field.parameterInApi,
+                                    file,
+                                  })
+                                );
+                                dispatch(
+                                  requestSlice.actions.setDocument(
+                                    await setDocumentProfile(
+                                      field.parameterInApi,
+                                      file,
+                                      uploadedAt
+                                    )
+                                  )
+                                );
+                              }}
+                              deletable
+                              onDelete={async () =>
+                                dispatch(
+                                  requestSlice.actions.setDocument(
+                                    await setDocumentProfile(
+                                      field.parameterInApi,
+                                      null
+                                    )
+                                  )
+                                )
+                              }
+                              documentUploaded={
+                                uploadedDocuments[field.parameterInApi]
+                              }
+                            />
+                          </div>
+                        ) : field.fieldType.id === 2406 ? (
+                          <Select
+                            value={
+                              formSelects[field.parameterInApi]
+                                ? formSelects[field.parameterInApi].id
+                                : ''
+                            }
+                            onChange={(value) => {
+                              setFormSelects({
+                                ...formSelects,
+                                [field.parameterInApi]: {
+                                  id: value,
+                                  name: (
+                                    dictionary[field.parameterInApi] as any
+                                  ).dictionaries[value],
+                                },
+                              });
+                            }}
+                            renderInputValue={(value) => (
+                              <div className={styles.SelectWrapper}>
+                                {value ? (
+                                  <>
+                                    <div className={styles.SelectLabel}>
+                                      {field.name}
+                                    </div>
+                                    <div className={styles.SelectValue}>
+                                      {formSelects[field.parameterInApi].name}
+                                    </div>
+                                  </>
+                                ) : (
+                                  <span className={styles.SelectPlaceholder}>
                                     {field.name}
-                                  </div>
-                                  <div className={styles.SelectValue}>
-                                    {formSelects[field.parameterInApi].name}
-                                  </div>
-                                </>
-                              ) : (
-                                <span className={styles.SelectPlaceholder}>
-                                  {field.name}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                        >
-                          {field.fieldType.dictionaries.map((dic: any) => (
-                            <DropDownItem
-                              role="option"
-                              value={dic.id}
-                              key={dic.id}
-                            >
-                              {dic.name}
-                            </DropDownItem>
-                          ))}
-                        </Select>
-                      ) : (
-                        <Input
-                          name={field.parameterInApi}
-                          label={field.name}
-                          type={
-                            InputType.Text
-                            // /телефон/.test(field.name)
-                            //   ? InputType.Phone
-                            //   : /Э|электронн[a-я]{2,3} почт[a-я]{1,3}/.test(
-                            //       field.name
-                            //     )
-                            //   ? InputType.Email
-                            //   : section.name === FillingFormSections.RequestInfo
-                            //   ? InputType.Float
-                            //   : InputType.Text
-                          }
-                          required={field.required}
-                        />
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </Card>
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          >
+                            {field.fieldType.dictionaries.map((dic: any) => (
+                              <DropDownItem
+                                role="option"
+                                value={dic.id}
+                                key={dic.id}
+                              >
+                                {dic.name}
+                              </DropDownItem>
+                            ))}
+                          </Select>
+                        ) : (
+                          <Input
+                            name={field.parameterInApi}
+                            label={field.name}
+                            type={
+                              InputType.Text
+                              // /телефон/.test(field.name)
+                              //   ? InputType.Phone
+                              //   : /Э|электронн[a-я]{2,3} почт[a-я]{1,3}/.test(
+                              //       field.name
+                              //     )
+                              //   ? InputType.Email
+                              //   : section.name === FillingFormSections.RequestInfo
+                              //   ? InputType.Float
+                              //   : InputType.Text
+                            }
+                            required={field.required}
+                          />
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </Card>
+              ) : (
+                ''
+              )}
             </React.Fragment>
           ))}
 
-          <pre>{JSON.stringify(formSections, null, 4)}</pre>
+          {/* <pre>{JSON.stringify(formSections, null, 4)}</pre> */}
         </>
       </Form>
       <Modal

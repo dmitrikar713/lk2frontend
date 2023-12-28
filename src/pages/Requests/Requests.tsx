@@ -133,19 +133,20 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
     if (services.length == 0) {
       dispatch(fetchServices());
     }
-    // const currentTime = new Date().getTime();
+    // TODO ЗАКОМЕНТИТЬ ?
+    const currentTime = new Date().getTime();
 
-    // if (!localStorage.getItem('request-time')) {
-    //   dispatch(fetchRequests(requests));
-    //   localStorage.setItem('request-time', String(currentTime));
-    // }
+    if (!localStorage.getItem('request-time')) {
+      dispatch(fetchRequests(requests));
+      localStorage.setItem('request-time', String(currentTime));
+    }
 
-    // const localStorageTime = localStorage.getItem('request-time');
+    const localStorageTime = localStorage.getItem('request-time');
 
-    // if (currentTime - Number(localStorageTime) >= 10000) {
-    //   dispatch(fetchRequests(requests));
-    //   localStorage.setItem('request-time', String(currentTime));
-    // }
+    if (currentTime - Number(localStorageTime) >= 10000) {
+      dispatch(fetchRequests(requests));
+      localStorage.setItem('request-time', String(currentTime));
+    }
   }, []);
 
   return (
@@ -228,8 +229,8 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                     textColor="white"
                     breadcrumbList={[
                       {
-                        title: 'Назад в Бизнесмаркет',
-                        path: 'https://moscow.business/business-market/',
+                        title: 'Назад к списку услуг',
+                        path: 'https://dev-lk.moscow.business/services',
                       },
                     ]}
                   />
@@ -246,11 +247,12 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                     number,
                     createdAt,
                     statusName,
+                    statusId,
                     smileIcon,
                     notification,
                     stages,
                     serviceId,
-                  }: Request) => (
+                  }: any) => (
                     <CSSTransition
                       key={id + number}
                       timeout={500}
@@ -325,16 +327,13 @@ const Requests: FC<RequestsProps> = ({ profileCard }) => {
                           <div
                             className={
                               styles[
-                                `RequestsItemStatus${
-                                  notification
-                                    ? 'WithNotification'
-                                    : getStatusColor(statusName)
-                                }`
+                                `RequestsItemStatus${getStatusColor(
+                                  statusName
+                                )}`
                               ]
                             }
                           >
-                            {requestsStatusesInfo[statusName].title}
-                            {/* {statusName} */}
+                            {statusId}
                             {notification && (
                               <div
                                 className={styles.RequestsItemNotification}

@@ -28,6 +28,7 @@ import { fetchProfile } from './store/thunks/profile/FetchProfile';
 import Testrouter from './pages/Testrouter/Testrouter';
 import TestPage from './pages/TestPage/TestPage';
 import { fetchServices } from './store/thunks/services/FetchServices';
+import { Settings } from './pages/Settings/Settings';
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
@@ -96,6 +97,13 @@ export const Layout: FC = () => {
       ),
     },
     {
+      name: 'settings',
+      isIndex: true,
+      path: RoutePaths.SETTINGS,
+      title: 'Настройки',
+      component: <Settings />,
+    },
+    {
       name: 'profile',
       isIndex: true,
       path: RoutePaths.REPRESENTATIVE_PROFILE,
@@ -123,7 +131,12 @@ export const Layout: FC = () => {
       component: (
         <Requests
           profileCard={
-            <ProfileInfo segmentsIncluded={[ProfileSegments.Notifications]} />
+            <ProfileInfo
+              segmentsIncluded={[
+                ProfileSegments.Notifications,
+                ProfileSegments.Settings,
+              ]}
+            />
           }
         />
       ),

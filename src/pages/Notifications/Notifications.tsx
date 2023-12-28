@@ -5,6 +5,9 @@ import { useAppSelector } from 'src/hooks/redux';
 import { Notification } from './components/Notification';
 
 import styles from './Notifications.module.scss';
+import { ClearIcon } from 'src/styles/icons/clear';
+import { readNotifications } from 'src/store/thunks/notifications/ReadNotifications';
+import { useDispatch } from 'react-redux';
 
 const headerTitles = {
   info: 'Наименование, номер и дата заявки',
@@ -12,6 +15,7 @@ const headerTitles = {
 };
 
 const Notifications: FC = () => {
+  const dispatch = useDispatch();
   const { notifications, isLoading } = useAppSelector(
     (state) => state.notificationsReducer
   );
@@ -28,7 +32,7 @@ const Notifications: FC = () => {
               withArrowBack
               breadcrumbList={[{ title: 'Назад к заявкам', path: '/requests' }]}
             />
-            {/* {notifications.length > 0 && (
+            {notifications.length > 0 && (
               <div
                 className={styles.NotificationsClear}
                 onClick={() => dispatch(readNotifications())}
@@ -38,7 +42,7 @@ const Notifications: FC = () => {
                   Очистить уведомления
                 </span>
               </div>
-            )} */}
+            )}
           </div>
           <div className={styles.NotificationsTitle}>
             {notifications.length > 0 ? 'Уведомления' : 'Новых уведомлений нет'}

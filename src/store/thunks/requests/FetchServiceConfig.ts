@@ -12,20 +12,23 @@ export const fetchServiceConfig =
       const response = await apiClient.get<any>(
         `/requests/params?guid=${serviceId}`
       );
-      console.log('/requests/params?guid=... response:');
-      console.log(response.data);
 
-      const fieldIds = services
-        .find((serv) => serv.IDUslugiIsRpp == serviceId)
-        .isrppFieldslDs.map((obj) => obj.IdIsRpp); // айдишники полей услуги, полученные из конфига админки
-
-      console.log('service fieldIds list:');
-      console.log(fieldIds);
+      const service = services.find(
+        (serv) => serv.IDUslugiIsRpp[0] == serviceId
+      );
+      const fieldIds = service.isrppFieldslDs.map((obj) => obj.IdIsRpp); // айдишники полей услуги, полученные из конфига админки
 
       // РАСКОМЕНТИТЬ
       const fields = await response.data.records.filter((field) =>
         fieldIds.includes(field.parameterInApi)
       );
+
+      fields.forEach((f) => {
+        f.crmTable = service.isrppFieldslDs.find(
+          (fid) => fid.IdIsRpp == f.parameterInApi
+        ).Table;
+      });
+
       // const fields = response.data.records;
 
       const dictionary = await fields.reduce(

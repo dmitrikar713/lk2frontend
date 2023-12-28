@@ -20,6 +20,10 @@ export interface SendFeedback {
   contractSumm: number;
   contractItem: string;
   contractWith: string;
+  document: any;
+  documentExt: string;
+  documentName: string;
+  msp: string;
 }
 
 export interface FeedBack {
@@ -30,19 +34,8 @@ export interface FeedBack {
   leadName: string;
   leadNumber: string;
 }
-interface FeedbackState {
-  accountId: string;
-  leadId: string;
-  activityId: string;
-  feedbackShown: boolean;
-  feedbackContract: boolean;
-  isLoading: boolean;
-  error: string;
-  leadName: string;
-  leadNumber: string;
-}
 
-const initialState: FeedbackState = {
+const initialState = {
   activityId: '',
   accountId: '',
   leadId: '',
@@ -52,12 +45,16 @@ const initialState: FeedbackState = {
   error: '',
   leadName: '',
   leadNumber: '',
+  sending: false,
 };
 
 export const feedbackSlice = createSlice({
   name: 'feedback',
   initialState,
   reducers: {
+    setSending(state, action) {
+      state.sending = action.payload;
+    },
     feedbackLoad(state) {
       state.isLoading = true;
     },

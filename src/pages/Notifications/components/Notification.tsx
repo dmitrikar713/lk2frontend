@@ -66,7 +66,7 @@ export const Notification: FC<NotificationProps> = ({
       >
         <ForwardLink
           title="Подробнее"
-          path={RoutePaths.REQUESTS + '/' + number}
+          path={RoutePaths.REQUESTS + '/' + requestId}
         />
       </div>
     </>

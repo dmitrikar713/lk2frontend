@@ -1,6 +1,11 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
+.Select {
+  height: 100%;
+  width: 100%;
+}
+
 .Feedback {
   &Rating {
     padding-bottom: 1rem;
@@ -42,7 +47,7 @@
       color: $color-text-secondary;
     }
   }
-  &WrapChekbox{
+  &WrapChekbox {
     position: relative;
   }
   &Button {

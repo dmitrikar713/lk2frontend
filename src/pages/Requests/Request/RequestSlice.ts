@@ -164,12 +164,15 @@ export const requestSlice = createSlice({
       state.request.serviceId = action.payload;
     },
     requestLoad(state) {
+      console.log('requestLoad');
       state.isLoading = true;
     },
     requestLoaded(state) {
+      console.log('requestLoaded');
       state.isLoading = false;
     },
     requestLoadSuccess(state, action: PayloadAction<Request>) {
+      console.log('requestLoadSuccess');
       state.isLoading = false;
       state.error = '';
       state.request = action.payload;

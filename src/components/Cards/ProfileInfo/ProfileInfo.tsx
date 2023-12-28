@@ -26,7 +26,7 @@ interface ProfileInfoProps {
 
 export const ProfileInfo: FC<ProfileInfoProps> = ({
   withLogoUploading,
-  segmentsIncluded = [ProfileSegments.Exports],
+  segmentsIncluded = [ProfileSegments.Exports, ProfileSegments.Settings],
 }) => {
   const navigate = useNavigate();
 
@@ -78,7 +78,10 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({
       {
         <div className={styles.ProfileIcons}>
           {segmentsIncluded.includes(ProfileSegments.Settings) && (
-            <span className={styles.ProfileIconsSettings}>
+            <span
+              className={styles.ProfileIconsSettings}
+              onClick={() => navigate('/settings')}
+            >
               <SettingsIcon />
             </span>
           )}

@@ -4,11 +4,13 @@ import { ErrorNames } from 'src/entities/ErrorNames';
 import { PrintableData } from 'src/entities/Subjects';
 import { uploadProfileFileSlice } from 'src/pages/Profile/UploadProfileFileSlice';
 import { AppThunk } from '../../store';
+import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 
 export const downloadPrintedVersion =
   (printableData: PrintableData): AppThunk =>
   async (dispatch) => {
     try {
+      dispatch(requestSlice.actions.requestLoad());
       const response = await apiClient.post<Blob>(
         '/request/pdf-print-form',
         printableData,
@@ -17,6 +19,7 @@ export const downloadPrintedVersion =
         }
       );
       downloadFile('Печатная форма заявки', response.data);
+      dispatch(requestSlice.actions.requestLoaded());
     } catch (error: any) {
       dispatch(
         uploadProfileFileSlice.actions.uploadErrorFile(
