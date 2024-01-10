@@ -12,11 +12,13 @@ import { DropdownList } from './dropdowns/DropdownList';
 import { exit } from 'src/common/utils/exit';
 import styles from './Header.module.scss';
 import { HeaderLogo } from './header-logo';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const Header: FC = () => {
   const navigate = useNavigate();
   const [isModalShown, setModalShown] = useState<boolean>(false);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const { correntToken } = useAppSelector((state) => state.callbackReducer);
 
   return (
     <div className={styles.HeaderWrapper}>
@@ -28,17 +30,22 @@ export const Header: FC = () => {
           <span className={styles.HeaderLinks}>
             {/* <span className={styles.HeaderLinksItem}>медиа</span> */}
 
-            <Link to={RoutePaths.REQUESTS}>
-              <span
-                className={
-                  window.location.pathname === RoutePaths.REQUESTS
-                    ? styles.HeaderLinksItemActive
-                    : styles.HeaderLinksItem
-                }
-              >
-                Заявки
-              </span>
-            </Link>
+            {correntToken ? (
+              <Link to={RoutePaths.REQUESTS}>
+                <span
+                  className={
+                    window.location.pathname === RoutePaths.REQUESTS
+                      ? styles.HeaderLinksItemActive
+                      : styles.HeaderLinksItem
+                  }
+                >
+                  Заявки
+                </span>
+              </Link>
+            ) : (
+              ''
+            )}
+
             <Link to={RoutePaths.SERVICES}>
               <span
                 className={
@@ -50,39 +57,54 @@ export const Header: FC = () => {
                 Список услуг
               </span>
             </Link>
-            {/* <span className={styles.HeaderLinksItem}>инструкции</span> */}
+            {!correntToken ? (
+              <span
+                onClick={() => {
+                  window.location.pathname = '/api/login';
+                }}
+                className={styles.HeaderLinksItem}
+              >
+                Войти
+              </span>
+            ) : (
+              ''
+            )}
           </span>
-          <span className={styles.HeaderIcons}>
-            {/* <NavItem
-              className={styles.HeaderIconsItem}
-              icon={<SearchOutlinedIcon />}
-            /> */}
-            {/* <NavItem className={styles.HeaderIconsItem} icon={<ShopIcon />} /> */}
-            <NavItem
-              className={styles.HeaderIconsItem}
-              icon={<ProfileIcon />}
-              onClick={() => setDropdownOpen(!isDropdownOpen)}
-              isShown={isDropdownOpen}
-            >
-              <DropdownList
-                onHide={() => setDropdownOpen(!isDropdownOpen)}
+          {correntToken ? (
+            <span className={styles.HeaderIcons}>
+              {/* <NavItem
+                className={styles.HeaderIconsItem}
+                icon={<SearchOutlinedIcon />}
+              /> */}
+              {/* <NavItem className={styles.HeaderIconsItem} icon={<ShopIcon />} /> */}
+              <NavItem
+                className={styles.HeaderIconsItem}
+                icon={<ProfileIcon />}
+                onClick={() => setDropdownOpen(!isDropdownOpen)}
                 isShown={isDropdownOpen}
               >
-                <span
-                  className={styles.HeaderDropdownItem}
-                  onClick={() => navigate(RoutePaths.PROFILE)}
+                <DropdownList
+                  onHide={() => setDropdownOpen(!isDropdownOpen)}
+                  isShown={isDropdownOpen}
                 >
-                  Профиль
-                </span>
-                <span
-                  className={styles.HeaderDropdownItem}
-                  onClick={() => setModalShown(true)}
-                >
-                  Выход
-                </span>
-              </DropdownList>
-            </NavItem>
-          </span>
+                  <span
+                    className={styles.HeaderDropdownItem}
+                    onClick={() => navigate(RoutePaths.PROFILE)}
+                  >
+                    Профиль
+                  </span>
+                  <span
+                    className={styles.HeaderDropdownItem}
+                    onClick={() => setModalShown(true)}
+                  >
+                    Выход
+                  </span>
+                </DropdownList>
+              </NavItem>
+            </span>
+          ) : (
+            ''
+          )}
         </div>
         <span className={styles.HeaderIconsMobile}>
           <SettingsIcon />

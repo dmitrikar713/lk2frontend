@@ -1,5 +1,5 @@
 import styles from './Service.module.scss';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, ButtonSize, ButtonType } from 'src/components/Button/Button';
 import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
@@ -8,6 +8,7 @@ import { fetchService } from 'src/store/thunks/services/FetchService';
 import { MoneybagIcon, RoubleIcon, TimeIcon } from './icons';
 import { useLocation } from 'react-router';
 import { fetchServices } from 'src/store/thunks/services/FetchServices';
+import { Modal } from 'src/components/Modal/Modal';
 const parse = require('html-react-parser');
 
 const Service: FC = () => {
@@ -15,25 +16,30 @@ const Service: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const available = true; // заменить на проверку доступности сервера
-  const PeriodKompensatsiiRef = useRef(null);
   const KakiyeZatratyKompensiruyutsyaRef = useRef(null);
 
   const request = useAppSelector((state) => state.requestReducer.request);
   const services = useAppSelector((state) => state.servicesReducer.services);
   const service = services.find((serv) => serv.IDUslugiIsRpp == serviceId);
-  // const service = services.find((serv) => serv.ID === '1460');
-  // console.log(service);
+  const [authShown, setAuthShown] = useState(false);
 
   const { name, infoList, stages } = useAppSelector(
     (state) => state.serviceReducer.service
+  );
+  const { correntToken, loading } = useAppSelector(
+    (state) => state.callbackReducer
   );
 
   const openServiceForm = () => {
     if (service.LinkNaFormuProducta) {
       window.open(service.LinkNaFormuProducta, '_blank', 'noreferrer');
     } else {
-      dispatch(requestSlice.actions.setServiceId(serviceId));
-      navigate('/requests/add');
+      if (correntToken) {
+        dispatch(requestSlice.actions.setServiceId(serviceId));
+        navigate('/requests/add');
+      } else {
+        setAuthShown(true);
+      }
     }
   };
 
@@ -46,6 +52,37 @@ const Service: FC = () => {
 
   return service ? (
     <div className={styles.Service}>
+      <Modal
+        isShown={authShown}
+        className={styles.Modal}
+        title={`Добро пожаловать в личный кабинет АНО "МЭЦ"`}
+        onHide={() => {
+          setAuthShown(false);
+        }}
+      >
+        <p>
+          Авторизуйтесь в личном кабинете для доступа ко всем услугам.
+          <br /> Внимание: без авторизации часть функционала недоступна.
+        </p>
+        <div className={styles.ModalButtons}>
+          <Button
+            size={ButtonSize.Medium}
+            onClick={() => {
+              window.location.pathname = '/api/login';
+            }}
+          >
+            Авторизоваться в личном кабинете
+          </Button>
+          <Button
+            size={ButtonSize.Medium}
+            type={ButtonType.Secondary}
+            onClick={() => setAuthShown(false)}
+          >
+            Продолжить без авторизации
+          </Button>
+        </div>
+      </Modal>
+
       <div className={styles.Hero}>
         <div className={styles.HeroText}>
           {service.NAME && <h2>{service.NAME}</h2>}

@@ -4,21 +4,62 @@ import { useAppDispatch, useAppSelector } from 'src/hooks/redux';
 import { fetchServices } from 'src/store/thunks/services/FetchServices';
 import styles from './Services.module.scss';
 import axios from 'axios';
+import { Modal } from 'src/components/Modal/Modal';
+import { Button, ButtonSize, ButtonType } from 'src/components/Button/Button';
+import { Auth } from 'src/api/auth';
 
 const Services: FC = () => {
+  const [authShown, setAuthShown] = useState(false);
   const services = useAppSelector((state) => state.servicesReducer.services);
   const dispatch = useAppDispatch();
   const availableServices =
     services.length > 0
       ? services.filter((s) => s.OtobrazhatVLkWeb === 'Да')
       : [];
+  const { correntToken, loading } = useAppSelector(
+    (state) => state.callbackReducer
+  );
 
   useEffect(() => {
     dispatch(fetchServices());
+    if (!correntToken && !authShown) {
+      setAuthShown(true);
+    }
   }, []);
 
   return (
     <div className={styles.Services}>
+      <Modal
+        isShown={authShown}
+        className={styles.Modal}
+        title={`Добро пожаловать в личный кабинет АНО "МЭЦ"`}
+        onHide={() => {
+          setAuthShown(false);
+        }}
+      >
+        <p>
+          Авторизуйтесь в личном кабинете для доступа ко всем услугам.
+          <br /> Внимание: без авторизации часть функционала недоступна.
+        </p>
+        <div className={styles.ModalButtons}>
+          <Button
+            size={ButtonSize.Medium}
+            onClick={() => {
+              window.location.pathname = '/api/login';
+            }}
+          >
+            Авторизоваться в личном кабинете
+          </Button>
+          <Button
+            size={ButtonSize.Medium}
+            type={ButtonType.Secondary}
+            onClick={() => setAuthShown(false)}
+          >
+            Продолжить без авторизации
+          </Button>
+        </div>
+      </Modal>
+
       {availableServices.length > 0
         ? availableServices.map((item, index) => (
             <ServiceItem

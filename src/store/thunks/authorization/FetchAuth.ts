@@ -8,6 +8,7 @@ import Toast from 'src/components/Toast';
 export const fetchAuth =
   (data: StringObject): AppThunk =>
   async (dispatch) => {
+    console.log('fetchAuth');
     try {
       const response = await apiClient.get(`/auth?code=${data.code}`);
       Auth.setAuthData({
@@ -15,6 +16,7 @@ export const fetchAuth =
       });
       dispatch(callbackSlice.actions.setToken(true));
       dispatch(callbackSlice.actions.callbackLoadError(''));
+      console.log('fetchAuth success');
     } catch (error: any) {
       let resError = '';
       if (error.response && error.response.data) resError = error.response.data;

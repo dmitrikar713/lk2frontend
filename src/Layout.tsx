@@ -1,4 +1,4 @@
-import React, { FC, lazy, Suspense, useEffect } from 'react';
+import React, { FC, lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { RoutePaths } from './entities/Routes';
@@ -29,6 +29,7 @@ import Testrouter from './pages/Testrouter/Testrouter';
 import TestPage from './pages/TestPage/TestPage';
 import { fetchServices } from './store/thunks/services/FetchServices';
 import { Settings } from './pages/Settings/Settings';
+import { Skeleton } from './components/Skeleton/Skeleton';
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
@@ -203,11 +204,47 @@ export const Layout: FC = () => {
       className: styles.Exit,
     },
   ];
+  const routesConfigGuest: Array<RouteConfig> = [
+    {
+      isIndex: true,
+      name: 'services',
+      path: RoutePaths.BASE,
+      title: 'Услуги',
+      component: <Services />,
+    },
+    {
+      isIndex: true,
+      name: 'services',
+      path: RoutePaths.SERVICES,
+      title: 'Услуги',
+      component: <Services />,
+    },
+    {
+      name: 'service',
+      path: RoutePaths.SERVICE,
+      title: 'Услуга',
+      component: <Service />,
+    },
+    {
+      name: '404',
+      path: RoutePaths.ALL,
+      title: 'Not found page',
+      component: <PageStatus status={StatusCode.NotFound} />,
+    },
+    {
+      name: 'callback',
+      path: RoutePaths.CALLBACK,
+      title: 'Auth callback',
+      component: <CallbackAuth />,
+    },
+  ];
 
   const { loadingError } = useAppSelector(
     (state) => state.uploadProfileFileReducer
   );
-  const { correntToken } = useAppSelector((state) => state.callbackReducer);
+  const { correntToken, loading } = useAppSelector(
+    (state) => state.callbackReducer
+  );
 
   useEffect(() => {
     loadingError &&
@@ -219,15 +256,17 @@ export const Layout: FC = () => {
 
   useEffect(() => {
     dispatch(callbackSlice.actions.setToken(false));
-    dispatch(fetchServices());
     if (window.location.pathname !== RoutePaths.LOGOUT) {
       setTimeout(() => dispatch(checkToken()), 2000);
     }
+    dispatch(fetchServices());
   }, []);
 
   useEffect(() => {
     correntToken && dispatch(fetchProfile());
   }, [correntToken]);
+
+  const conditionalConfig = correntToken ? routesConfig : routesConfigGuest;
 
   return (
     <>
@@ -236,23 +275,27 @@ export const Layout: FC = () => {
       <div className={styles.Layout}>
         <Header />
         <div className={styles.LayoutWrapper}>
-          <Suspense fallback={<div />}>
-            <Routes>
-              {routesConfig.map(
-                ({ name, isIndex, path, component, withNavbar }) => (
-                  <Route
-                    key={name}
-                    index={isIndex}
-                    path={path}
-                    element={
-                      component
-                      // withNavbar ? ComponentWithNavbar(component) : component
-                    }
-                  />
-                )
-              )}
-            </Routes>
-          </Suspense>
+          {loading ? (
+            <Skeleton rows={5} withTitle />
+          ) : (
+            <Suspense fallback={<div />}>
+              <Routes>
+                {conditionalConfig.map(
+                  ({ name, isIndex, path, component, withNavbar }) => (
+                    <Route
+                      key={name}
+                      index={isIndex}
+                      path={path}
+                      element={
+                        component
+                        // withNavbar ? ComponentWithNavbar(component) : component
+                      }
+                    />
+                  )
+                )}
+              </Routes>
+            </Suspense>
+          )}
         </div>
         {window.innerWidth > 1050 ? <Footer /> : <FooterMobile />}
       </div>

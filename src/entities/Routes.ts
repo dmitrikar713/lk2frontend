@@ -1,6 +1,7 @@
 export enum RoutePaths {
   ALL = '*',
   PROFILE = '/',
+  BASE = '/',
   REPRESENTATIVE_PROFILE = '/profile/representative',
   TESTROUTER = '/testrouter',
   REQUEST_DETAILS = '/request/details',

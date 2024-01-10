@@ -1,6 +1,27 @@
 @import 'styles/variables';
 @import 'styles/mixins';
 
+.Modal {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  p {
+    text-align: center;
+  }
+  &Buttons {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    gap: 2rem;
+    button {
+      width: auto !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+}
+
 .Services {
   @include card;
   margin-top: 1.5rem;

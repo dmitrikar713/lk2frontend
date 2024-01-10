@@ -4,12 +4,14 @@ interface CallbackState {
   error: string;
   pageBack: string;
   correntToken: boolean;
+  loading: boolean;
 }
 
 const initialState: CallbackState = {
   error: '',
   pageBack: '',
   correntToken: false,
+  loading: true,
 };
 
 export const callbackSlice = createSlice({
@@ -24,6 +26,9 @@ export const callbackSlice = createSlice({
     },
     setToken(state, action: PayloadAction<boolean>) {
       state.correntToken = action.payload;
+    },
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
   },
 });
