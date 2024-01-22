@@ -26,6 +26,7 @@
     &Wrapper {
       display: flex;
       align-items: center;
+      max-width: 100%;
     }
 
     &Delimeter {
@@ -125,7 +126,7 @@
       color: $color-label-default;
     }
   }
-  
+
   &ModalLogout {
     @include logout;
   }

@@ -1,8 +1,8 @@
 import React from 'react';
-export const HeaderLogo = () => {
+export const HeaderLogo = ({ mobile }: { mobile?: boolean | undefined }) => {
   return (
     <svg
-      width="403"
+      width={!mobile ? '403' : '200'}
       height="50"
       viewBox="0 0 403 50"
       fill="none"

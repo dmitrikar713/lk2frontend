@@ -29,7 +29,7 @@
   display: flex;
   flex-flow: row wrap;
   gap: 13px !important;
-  align-items: flex-start;
+  align-items: stretch;
 
   padding: 40px 36px;
   border-radius: 16px;
@@ -52,6 +52,39 @@
     border-radius: 10px;
     border: 1px solid #d2d2d2;
     overflow: hidden;
+    &Mobile {
+      position: relative;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 45%;
+      min-height: 140px;
+      // aspect-ratio: 1 / 1;
+      padding: 15px 8px;
+      border-radius: 10px;
+      border: 1px solid #d2d2d2;
+      overflow: hidden;
+      &Img {
+        position: absolute;
+        height: 80%;
+        width: auto;
+        bottom: 0;
+        right: 0;
+        z-index: 0;
+      }
+      p {
+        z-index: 2;
+        position: relative;
+        text-align: start;
+      }
+      h3 {
+        z-index: 2;
+        position: relative;
+        text-align: start;
+        color: #ff4361;
+      }
+    }
 
     &Img {
       position: absolute;

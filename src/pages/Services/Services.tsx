@@ -11,18 +11,16 @@ import { Auth } from 'src/api/auth';
 const Services: FC = () => {
   const [authShown, setAuthShown] = useState(false);
   const services = useAppSelector((state) => state.servicesReducer.services);
+  const { correntToken } = useAppSelector((state) => state.callbackReducer);
   const dispatch = useAppDispatch();
   const availableServices =
     services.length > 0
       ? services.filter((s) => s.OtobrazhatVLkWeb === 'Да')
       : [];
-  const { correntToken, loading } = useAppSelector(
-    (state) => state.callbackReducer
-  );
 
   useEffect(() => {
     dispatch(fetchServices());
-    if (!correntToken && !authShown) {
+    if (!Auth.token && !authShown) {
       setAuthShown(true);
     }
   }, []);
@@ -94,7 +92,11 @@ const ServiceItem = ({ serviceName, img, index, isrppGuid }: SIProps) => {
   const [available, setAvailable] = useState(false);
   function nav() {
     if (isrppGuid != null) {
-      navigate(isrppGuid[0]);
+      navigate(
+        window.location.pathname == '/services'
+          ? isrppGuid[0]
+          : `/services/${isrppGuid[0]}`
+      ); // если не авторизованы, то сервисы по базовому "/" показываются, добавляем /services
     }
   }
   const getImg = async () => {
@@ -107,25 +109,28 @@ const ServiceItem = ({ serviceName, img, index, isrppGuid }: SIProps) => {
   }, []);
 
   return (
-    <div key={index} className={styles.ServicesItem} onClick={nav}>
+    <div
+      key={index}
+      className={
+        window.innerWidth >= 1050
+          ? styles.ServicesItem
+          : styles.ServicesItemMobile
+      }
+      onClick={nav}
+    >
       <h3 className={styles.ServicesItemNumber}>{index}.</h3>
       <p>{serviceName}</p>
-      {available && (
-        <div className={styles.ServicesItemImg}>
-          <img
-            src={img}
-            alt="изображение услуги"
-            className={styles.ServicesItemImg}
-          />
-        </div>
-      )}
+      {/* {available && ( */}
+      <div className={styles.ServicesItemImg}>
+        <img
+          src={img}
+          alt="изображение услуги"
+          className={styles.ServicesItemImg}
+        />
+      </div>
+      {/* )} */}
     </div>
   );
 };
 
 export default Services;
-
-//  "guid": "094d5ad7669c41e19a03b103684cff74",
-// "name": "Продвижение в сфере международной электронной торговли"
-//  "guid": "bb198aa6c22340679afff9ee5b67deef",
-// "name": "Ритейл сети"

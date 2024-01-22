@@ -13,6 +13,7 @@ import { exit } from 'src/common/utils/exit';
 import styles from './Header.module.scss';
 import { HeaderLogo } from './header-logo';
 import { useAppSelector } from 'src/hooks/redux';
+import { Auth } from 'src/api/auth';
 
 export const Header: FC = () => {
   const navigate = useNavigate();
@@ -24,13 +25,13 @@ export const Header: FC = () => {
     <div className={styles.HeaderWrapper}>
       <div className={styles.Header}>
         <span className={styles.TitleWrapper}>
-          <HeaderLogo />
+          {window.innerWidth > 1050 ? <HeaderLogo /> : <HeaderLogo mobile />}
         </span>
         <div className={styles.HeaderRefs}>
           <span className={styles.HeaderLinks}>
             {/* <span className={styles.HeaderLinksItem}>медиа</span> */}
 
-            {correntToken ? (
+            {Auth.token ? (
               <Link to={RoutePaths.REQUESTS}>
                 <span
                   className={
@@ -57,7 +58,7 @@ export const Header: FC = () => {
                 Список услуг
               </span>
             </Link>
-            {!correntToken ? (
+            {!Auth.token ? (
               <span
                 onClick={() => {
                   window.location.pathname = '/api/login';
@@ -70,7 +71,7 @@ export const Header: FC = () => {
               ''
             )}
           </span>
-          {correntToken ? (
+          {Auth.token ? (
             <span className={styles.HeaderIcons}>
               {/* <NavItem
                 className={styles.HeaderIconsItem}

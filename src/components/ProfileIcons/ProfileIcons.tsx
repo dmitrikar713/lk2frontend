@@ -22,17 +22,14 @@ export const ProfileIcons: FC<ProfileIconsProps> = ({
           <SettingsIcon />
         </span>
       )}
-      {notifications > 0 && (
-        <div
-          className={styles.ProfileIconsCommonNotifications}
-          onClick={onClick}
-        >
-          <NotificationIcon className={styles.ItemNotificationIcon} />
+      <div className={styles.ProfileIconsCommonNotifications} onClick={onClick}>
+        <NotificationIcon className={styles.ItemNotificationIcon} />
+        {notifications && (
           <div className={styles.ProfileIconsCommonCounter}>
             {notifications}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

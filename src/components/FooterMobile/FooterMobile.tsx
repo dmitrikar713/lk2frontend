@@ -9,6 +9,7 @@ import { Modal } from '../Modal/Modal';
 import { Button, ButtonType } from '../Button/Button';
 
 import styles from './FooterMobile.module.scss';
+import { Auth } from 'src/api/auth';
 
 export const FooterMobile: FC = () => {
   const [isModalShown, setModalShown] = useState<boolean>(false);
@@ -16,25 +17,48 @@ export const FooterMobile: FC = () => {
   return (
     <div className={styles.FooterMobile}>
       <div className={styles.FooterMobileIcons}>
-        <Link to={RoutePaths.REQUESTS}>
-          <div className={styles.FooterMobileIconsItem}>
-            <RequestsIcon />
-            <span>Заявки</span>
-          </div>
-        </Link>
-        <Link to={RoutePaths.PROFILE}>
-          <div className={styles.FooterMobileIconsItem}>
-            <UserIcon />
-            <span>Профиль компании</span>
-          </div>
-        </Link>
-        <div
-          className={styles.FooterMobileIconsItem}
-          onClick={() => setModalShown(true)}
-        >
-          <ExitIcon />
-          <span>Выход</span>
-        </div>
+        {Auth.token ? (
+          <>
+            {' '}
+            <Link to={RoutePaths.REQUESTS}>
+              <div className={styles.FooterMobileIconsItem}>
+                <RequestsIcon />
+                <span>Заявки</span>
+              </div>
+            </Link>
+            <Link to={RoutePaths.PROFILE}>
+              <div className={styles.FooterMobileIconsItem}>
+                <UserIcon />
+                <span>Профиль компании</span>
+              </div>
+            </Link>
+            <div
+              className={styles.FooterMobileIconsItem}
+              onClick={() => setModalShown(true)}
+            >
+              <ExitIcon />
+              <span>Выход</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <Link to={RoutePaths.SERVICES}>
+              <div className={styles.FooterMobileIconsItem}>
+                <RequestsIcon />
+                <span>Список услуг</span>
+              </div>
+            </Link>
+            <div
+              className={styles.FooterMobileIconsItem}
+              onClick={() => {
+                window.location.pathname = '/api/login';
+              }}
+            >
+              <ExitIcon />
+              <span>Войти</span>
+            </div>
+          </>
+        )}
       </div>
       <Modal
         className={styles.FooterMobileModalLogout}

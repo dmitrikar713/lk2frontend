@@ -386,11 +386,6 @@ export const ExistingRequest: FC = () => {
                       },
                     ]}
                   />
-                  <ProfileIcons
-                    barWithSettings
-                    notifications={notifications.length}
-                    onClick={() => navigate(RoutePaths.NOTIFICATIONS)}
-                  />
                 </div>
                 <div className={styles.RequestInfoService}>
                   {request.serviceName}

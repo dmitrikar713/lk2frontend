@@ -1,48 +1,24 @@
-import React, { FC, lazy, Suspense, useEffect, useState } from 'react';
+import React, { FC, lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import { RoutePaths } from './entities/Routes';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Onboarding } from './components/Onboarding/Onboarding';
 import Toast from './components/Toast';
 import ToastContainer from './components/Toast/ToastContainer';
-
 import styles from './Layout.module.scss';
-import { PageStatus } from './components/PageStatus/PageStatus';
-import { StatusCode } from './api/StatusCode';
-// import { NavBar, NavBarProps } from './components/Navbar/NavBar';
-import {
-  ProfileInfo,
-  ProfileSegments,
-} from './components/Cards/ProfileInfo/ProfileInfo';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
-// import { EventsIcon } from './styles/icons/events';
-import CallbackAuth from './pages/Callback/Callback';
-import Profile from './pages/Profile/Profile';
 import { uploadProfileFileSlice } from './pages/Profile/UploadProfileFileSlice';
 import { FooterMobile } from './components/FooterMobile/FooterMobile';
 import { checkToken } from './store/thunks/profile/CheckToken';
 import { callbackSlice } from './pages/Callback/CallbackSlice';
 import { fetchProfile } from './store/thunks/profile/FetchProfile';
-import Testrouter from './pages/Testrouter/Testrouter';
-import TestPage from './pages/TestPage/TestPage';
 import { fetchServices } from './store/thunks/services/FetchServices';
-import { Settings } from './pages/Settings/Settings';
-import { Skeleton } from './components/Skeleton/Skeleton';
+import { Auth } from './api/auth';
+import { routesConfig, routesConfigGuest } from './routeConfigs';
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
-const Requests = lazy(() => import('./pages/Requests/Requests'));
-const DetailsRequest = lazy(
-  () => import('./pages/Requests/Request/details/DetailsRequest')
-);
-const Request = lazy(() => import('./pages/Requests/Request/Request'));
-const Services = lazy(() => import('./pages/Services/Services'));
-const Exports = lazy(() => import('./pages/Exports/Exports'));
-const Service = lazy(() => import('./pages/Services/Service/Service'));
-const Notifications = lazy(() => import('./pages/Notifications/Notifications'));
-// const Settings = lazy(() => import('./pages/Settings/Settings'));
 
 export const Layout: FC = () => {
   const dispatch = useAppDispatch();
@@ -64,181 +40,6 @@ export const Layout: FC = () => {
   //     })),
   // };
 
-  interface RouteConfig {
-    name: string;
-    isIndex?: boolean;
-    path: RoutePaths;
-    title: string;
-    component: JSX.Element;
-    withNavbar?: boolean;
-    inMenu?: boolean;
-    mobileIcon?: JSX.Element;
-    className?: string;
-  }
-
-  const routesConfig: Array<RouteConfig> = [
-    {
-      name: 'profile',
-      isIndex: true,
-      path: RoutePaths.PROFILE,
-      title: 'Профиль компании',
-      component: (
-        <Profile
-          profileCard={
-            <ProfileInfo
-              withLogoUploading
-              segmentsIncluded={[
-                ProfileSegments.Notifications,
-                ProfileSegments.Settings,
-                ProfileSegments.Exports,
-              ]}
-            />
-          }
-        />
-      ),
-    },
-    {
-      name: 'settings',
-      isIndex: true,
-      path: RoutePaths.SETTINGS,
-      title: 'Настройки',
-      component: <Settings />,
-    },
-    {
-      name: 'profile',
-      isIndex: true,
-      path: RoutePaths.REPRESENTATIVE_PROFILE,
-      title: 'Профиль представителя',
-      component: <RepresentativeProfile />,
-    },
-    {
-      name: 'Testrouter',
-      isIndex: true,
-      path: RoutePaths.TESTROUTER,
-      title: 'Профиль представителя',
-      component: <Testrouter />,
-    },
-    {
-      name: 'TestPage',
-      isIndex: true,
-      path: RoutePaths.TEST_PAGE,
-      title: 'Тестовая страница',
-      component: <TestPage />,
-    },
-    {
-      name: 'requests',
-      path: RoutePaths.REQUESTS,
-      title: 'Заявки',
-      component: (
-        <Requests
-          profileCard={
-            <ProfileInfo
-              segmentsIncluded={[
-                ProfileSegments.Notifications,
-                ProfileSegments.Settings,
-              ]}
-            />
-          }
-        />
-      ),
-    },
-    {
-      name: 'details',
-      path: RoutePaths.REQUEST_DETAIL,
-      title: 'Детали заявки',
-      component: <DetailsRequest />,
-    },
-    {
-      name: 'request',
-      path: RoutePaths.REQUEST,
-      title: 'Заявка',
-      component: <Request />,
-    },
-    {
-      name: 'services',
-      path: RoutePaths.SERVICES,
-      title: 'Услуги',
-      component: <Services />,
-    },
-    {
-      name: 'service',
-      path: RoutePaths.SERVICE,
-      title: 'Услуга',
-      component: <Service />,
-    },
-    {
-      name: 'exports',
-      path: RoutePaths.EXPORTS,
-      title: 'Экспортная готовность',
-      component: <Exports />,
-    },
-    {
-      name: 'notifications',
-      path: RoutePaths.NOTIFICATIONS,
-      title: 'Уведомления',
-      component: <Notifications />,
-    },
-    {
-      name: '404',
-      path: RoutePaths.ALL,
-      title: 'Not found page',
-      component: <PageStatus status={StatusCode.NotFound} />,
-    },
-    {
-      name: 'logout',
-      path: RoutePaths.LOGOUT,
-      title: 'logout',
-      component: <PageStatus status={StatusCode.ResetContent} />,
-    },
-    {
-      name: 'callback',
-      path: RoutePaths.CALLBACK,
-      title: 'Auth callback',
-      component: <CallbackAuth />,
-    },
-    {
-      name: 'exit',
-      path: RoutePaths.EXIT,
-      title: 'Выход',
-      component: <CallbackAuth />,
-      className: styles.Exit,
-    },
-  ];
-  const routesConfigGuest: Array<RouteConfig> = [
-    {
-      isIndex: true,
-      name: 'services',
-      path: RoutePaths.BASE,
-      title: 'Услуги',
-      component: <Services />,
-    },
-    {
-      isIndex: true,
-      name: 'services',
-      path: RoutePaths.SERVICES,
-      title: 'Услуги',
-      component: <Services />,
-    },
-    {
-      name: 'service',
-      path: RoutePaths.SERVICE,
-      title: 'Услуга',
-      component: <Service />,
-    },
-    {
-      name: '404',
-      path: RoutePaths.ALL,
-      title: 'Not found page',
-      component: <PageStatus status={StatusCode.NotFound} />,
-    },
-    {
-      name: 'callback',
-      path: RoutePaths.CALLBACK,
-      title: 'Auth callback',
-      component: <CallbackAuth />,
-    },
-  ];
-
   const { loadingError } = useAppSelector(
     (state) => state.uploadProfileFileReducer
   );
@@ -255,6 +56,8 @@ export const Layout: FC = () => {
   }, [loadingError]);
 
   useEffect(() => {
+    document.title = 'МОСКОВСКИЙ ЭКСПОРТНЫЙ ЦЕНТР';
+
     dispatch(callbackSlice.actions.setToken(false));
     if (window.location.pathname !== RoutePaths.LOGOUT) {
       setTimeout(() => dispatch(checkToken()), 2000);
@@ -266,7 +69,7 @@ export const Layout: FC = () => {
     correntToken && dispatch(fetchProfile());
   }, [correntToken]);
 
-  const conditionalConfig = correntToken ? routesConfig : routesConfigGuest;
+  const conditionalConfig = Auth.token ? routesConfig : routesConfigGuest;
 
   return (
     <>
@@ -275,27 +78,39 @@ export const Layout: FC = () => {
       <div className={styles.Layout}>
         <Header />
         <div className={styles.LayoutWrapper}>
-          {loading ? (
-            <Skeleton rows={5} withTitle />
-          ) : (
-            <Suspense fallback={<div />}>
-              <Routes>
-                {conditionalConfig.map(
-                  ({ name, isIndex, path, component, withNavbar }) => (
-                    <Route
-                      key={name}
-                      index={isIndex}
-                      path={path}
-                      element={
-                        component
-                        // withNavbar ? ComponentWithNavbar(component) : component
-                      }
-                    />
-                  )
-                )}
-              </Routes>
-            </Suspense>
-          )}
+          {/* {loading ? (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexFlow: 'column',
+                gap: '1rem',
+              }}
+            >
+              <Skeleton rows={2} />
+              <Skeleton rows={2} />
+              <Skeleton rows={2} />
+              <Skeleton rows={4} />
+            </div>
+          ) : ( */}
+          <Suspense fallback={<div />}>
+            <Routes>
+              {conditionalConfig.map(
+                ({ name, isIndex, path, component, withNavbar }) => (
+                  <Route
+                    key={name}
+                    index={isIndex}
+                    path={path}
+                    element={
+                      component
+                      // withNavbar ? ComponentWithNavbar(component) : component
+                    }
+                  />
+                )
+              )}
+            </Routes>
+          </Suspense>
+          {/* )} */}
         </div>
         {window.innerWidth > 1050 ? <Footer /> : <FooterMobile />}
       </div>

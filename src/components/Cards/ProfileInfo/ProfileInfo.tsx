@@ -85,18 +85,21 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({
               <SettingsIcon />
             </span>
           )}
-          {segmentsIncluded.includes(ProfileSegments.Notifications) &&
-            notifications.length > 0 && (
-              <div
-                className={styles.ProfileIconsNotifications}
-                onClick={() => navigate('/notifications')}
-              >
-                <NotificationIcon className={styles.ItemNotificationIcon} />
-                <div className={styles.ProfileIconsCounter}>
-                  {notifications.length}
-                </div>
+          {segmentsIncluded.includes(ProfileSegments.Notifications) && (
+            <div
+              className={styles.ProfileIconsNotifications}
+              onClick={() => navigate('/notifications')}
+            >
+              <NotificationIcon className={styles.ItemNotificationIcon} />
+              <div className={styles.ProfileIconsCounter}>
+                {
+                  notifications.filter(
+                    (notif) => notif.notificationStatus == 'unread'
+                  ).length
+                }
               </div>
-            )}
+            </div>
+          )}
         </div>
       }
       <div

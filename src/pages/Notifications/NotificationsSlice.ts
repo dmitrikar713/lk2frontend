@@ -8,6 +8,7 @@ export interface Notification {
   date: string;
   smileIcon: string;
   notification: string;
+  notificationStatus: string;
 }
 
 interface NotificationsState {
@@ -33,11 +34,15 @@ export const notificationsSlice = createSlice({
       state,
       action: PayloadAction<Array<Notification>>
     ) {
+      console.log('notificationsLoadSuccess');
+      console.log(action.payload);
       state.isLoading = false;
       state.error = '';
       state.notifications = action.payload;
     },
     notificationsLoadError(state, action: PayloadAction<string>) {
+      console.log('notificationsLoadError');
+      console.log(action.payload);
       state.isLoading = false;
       state.error = action.payload;
     },

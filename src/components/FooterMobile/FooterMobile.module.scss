@@ -10,6 +10,7 @@
   color: $color-text-inversion;
   background-color: $color-background-primary;
   border-radius: 1rem 1rem 1rem 1rem;
+  z-index: 50;
   @include p2-regular;
 
   &Icons {

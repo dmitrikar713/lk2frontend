@@ -255,14 +255,9 @@ export const NewRequest: FC = () => {
               breadcrumbList={[
                 {
                   title: 'Назад в Бизнесмаркет',
-                  path: '/services/',
+                  path: RoutePaths.SERVICES,
                 },
               ]}
-            />
-            <ProfileIcons
-              barWithSettings
-              notifications={notifications.length}
-              onClick={() => navigate('/requests')}
             />
           </div>
           <div className={styles.RequestTopPanelSection}>

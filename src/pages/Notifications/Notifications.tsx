@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Breadcrumbs } from 'src/components/Breadcrumbs/Breadcrumbs';
 import { Skeleton } from 'src/components/Skeleton/Skeleton';
 import { useAppSelector } from 'src/hooks/redux';
@@ -8,6 +8,9 @@ import styles from './Notifications.module.scss';
 import { ClearIcon } from 'src/styles/icons/clear';
 import { readNotifications } from 'src/store/thunks/notifications/ReadNotifications';
 import { useDispatch } from 'react-redux';
+import { RoutePaths } from 'src/entities/Routes';
+import { notificationsSlice } from './NotificationsSlice';
+import { deleteNotifications } from 'src/store/thunks/notifications/DeleteNotifications';
 
 const headerTitles = {
   info: 'Наименование, номер и дата заявки',
@@ -19,6 +22,9 @@ const Notifications: FC = () => {
   const { notifications, isLoading } = useAppSelector(
     (state) => state.notificationsReducer
   );
+  useEffect(() => {
+    dispatch(readNotifications());
+  }, []);
   return (
     <div className={styles.Notifications}>
       {isLoading ? (
@@ -30,12 +36,14 @@ const Notifications: FC = () => {
           <div className={styles.NotificationsHeader}>
             <Breadcrumbs
               withArrowBack
-              breadcrumbList={[{ title: 'Назад к заявкам', path: '/requests' }]}
+              breadcrumbList={[
+                { title: 'Назад к заявкам', path: RoutePaths.SERVICES },
+              ]}
             />
             {notifications.length > 0 && (
               <div
                 className={styles.NotificationsClear}
-                onClick={() => dispatch(readNotifications())}
+                onClick={() => dispatch(deleteNotifications())}
               >
                 <ClearIcon />
                 <span className={styles.NotificationsClearLabel}>

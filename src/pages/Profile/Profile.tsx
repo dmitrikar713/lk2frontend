@@ -128,7 +128,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
       </>
     );
     Toast(body, {
-      type: 'error',
+      type: 'info',
       onClick: () => {
         navigate(`${RoutePaths.REQUESTS}/${notification.number}`);
       },
@@ -526,7 +526,12 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
               rememberState
             >
               {Object.keys(organization)
-                .filter((key) => key !== 'org_id' && key !== 'org_type')
+                .filter(
+                  (key) =>
+                    key !== 'org_id' &&
+                    key !== 'org_type' &&
+                    typeof organization[key] !== 'object' && organization[key]
+                )
                 .map((key) => (
                   <Input
                     key={key}

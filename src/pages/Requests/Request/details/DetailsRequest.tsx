@@ -22,6 +22,7 @@ import {
 import styles from '../new/NewRequest.module.scss';
 import { fetchRequestDetails } from 'src/store/thunks/requests/FetchRequestDetails';
 import { DocumentStatuses } from 'src/entities/Statuses';
+import { RoutePaths } from 'src/entities/Routes';
 
 interface Dictionarie {
   id: React.Key | null | undefined;
@@ -135,14 +136,9 @@ const DetailsRequest: FC = () => {
               breadcrumbList={[
                 {
                   title: 'Назад в Бизнесмаркет',
-                  path: 'https://moscow.business/business-market/',
+                  path: RoutePaths.SERVICES,
                 },
               ]}
-            />
-            <ProfileIcons
-              barWithSettings
-              notifications={notifications.length}
-              onClick={() => navigate('/requests')}
             />
           </div>
           <div className={styles.RequestTopPanelSection}>

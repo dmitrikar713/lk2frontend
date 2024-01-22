@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import { DocumentStatuses } from 'src/entities/Statuses';
 import { Organization, User, DocumentsProfile } from 'src/entities/Subjects';
+import { CompanySettings } from 'src/store/thunks/profile/UpdateSettings';
 
 export interface Profile {
   onboarding: boolean | null;
@@ -52,6 +53,12 @@ const initialState: ProfileState = {
       org_exports_market: '',
       org_exports_amount: '',
       org_inn: '',
+      settings: {
+        statusChanges: true,
+        feedback: true,
+        signAct: true,
+        additionalDocs: true,
+      },
     },
     documents: [],
     exportTestResult: 75,
@@ -97,6 +104,9 @@ export const profileSlice = createSlice({
         ? JSON.parse(JSON.stringify(action.payload))
         : null;
       state.testResults = results;
+    },
+    setSettings(state, action: PayloadAction<CompanySettings>) {
+      state.profile.organization.settings = action.payload;
     },
   },
 });

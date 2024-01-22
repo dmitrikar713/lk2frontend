@@ -11,7 +11,11 @@ export const invokeRppAction =
   (request: RequestAction, message?: string): AppThunk =>
   async (dispatch) => {
     try {
-      await apiClient.post<Request>('/requests/action', request);
+      const actionResponse = await apiClient.post<Request>(
+        '/requests/action',
+        request
+      );
+      console.log(JSON.parse(JSON.stringify(actionResponse, null, 4)));
       const response = await apiClient.get<Request>(
         `/requests?id=${request.requestId}`
       );

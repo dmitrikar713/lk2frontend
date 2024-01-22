@@ -2,6 +2,7 @@ import {
   UploadedDocument,
   UploadedDocuments,
 } from 'src/pages/Requests/Request/RequestSlice';
+import { CompanySettings } from 'src/store/thunks/profile/UpdateSettings';
 
 export interface User {
   user_id: string;
@@ -31,6 +32,7 @@ export interface Company {
   org_exports_market: string;
   org_exports_amount: string;
   org_inn: string;
+  settings: CompanySettings;
 }
 
 export interface IndividualEntrepreneur {
@@ -45,6 +47,7 @@ export interface IndividualEntrepreneur {
   org_site: string;
   org_exports_market: string;
   org_exports_amount: string;
+  settings: CompanySettings;
 }
 
 export interface Documents {
