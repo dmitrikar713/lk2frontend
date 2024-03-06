@@ -13,11 +13,10 @@ export const fetchServiceConfig =
         `/requests/params?guid=${serviceId}`
       );
 
-      const service = services.find(
-        (serv) => serv.IDUslugiIsRpp[0] == serviceId
-      );
+      const service = services
+        .filter((s) => s.IDUslugiIsRpp)
+        .find((serv) => serv.IDUslugiIsRpp[0] == serviceId);
       const fieldIds = service.isrppFieldslDs.map((obj) => obj.IdIsRpp); // айдишники полей услуги, полученные из конфига админки
-
       // РАСКОМЕНТИТЬ
       const fields = await response.data.records.filter((field) =>
         fieldIds.includes(field.parameterInApi)
@@ -53,7 +52,6 @@ export const fetchServiceConfig =
         }),
         {}
       );
-      console.log('fetchserviceconfig');
       dispatch(requestSlice.actions.setFormConfig({ fields, dictionary }));
     } catch (error: any) {
       dispatch(requestSlice.actions.requestLoadError(error.message));

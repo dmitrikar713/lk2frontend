@@ -101,6 +101,18 @@
       @include desktop {
         display: none;
       }
+      &Nonfill {
+        cursor: pointer;
+
+        & svg {
+          width: 2.5rem;
+          height: auto;
+        }
+
+        @include desktop {
+          display: none;
+        }
+      }
     }
 
     &Item {

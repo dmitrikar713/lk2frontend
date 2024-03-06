@@ -6,8 +6,6 @@ export const fetchServices = (): AppThunk => async (dispatch) => {
   try {
     dispatch(servicesSlice.actions.servicesLoad());
     const response = await apiClient.get<Services>('/services/getServices');
-    // console.log('fetchServices response');
-    // console.log(response.data);
     dispatch(servicesSlice.actions.servicesLoadSuccess(response.data));
   } catch (error: any) {
     dispatch(servicesSlice.actions.servicesLoadError(error.message));

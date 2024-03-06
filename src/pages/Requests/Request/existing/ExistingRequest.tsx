@@ -118,6 +118,8 @@ export const ExistingRequest: FC = () => {
     setModalName(name);
   };
   const handleSendDocs = async (actionType: string) => {
+    console.log('handleSendDocs actionType:');
+    console.log(actionType);
     const data = {} as RequestAction;
     let curSubStage: RequestSubstages | undefined;
     data.requestId = String(request.number);
@@ -150,6 +152,8 @@ export const ExistingRequest: FC = () => {
         data[key] = docData;
       }
     });
+    console.log('handleSendDocs data:');
+    console.log(JSON.stringify(data, null, 2));
 
     if (!data.actionId || !data.requestId)
       Toast('Неверные параметры запроса', {
@@ -395,7 +399,7 @@ export const ExistingRequest: FC = () => {
                 </div>
                 <ForwardLink
                   title="Посмотреть заявку"
-                  path={`${RoutePaths.REQUEST_DETAILS}/${request.number}`}
+                  path={`${RoutePaths.REQUEST_DETAILS}/${request.id}`}
                 />
               </div>
             </Card>

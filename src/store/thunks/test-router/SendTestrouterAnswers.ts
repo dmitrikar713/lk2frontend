@@ -1,6 +1,7 @@
 import { apiClient } from 'src/api/client/ApiClient';
 import { AppThunk } from '../../store';
 import { testrouterSlice } from 'src/pages/Testrouter/TestrouterSlice';
+import { profileSlice } from 'src/pages/Profile/ProfileSlice';
 
 export const sendTestrouterAnswers =
   (questions): AppThunk =>
@@ -14,6 +15,12 @@ export const sendTestrouterAnswers =
         '/testrouter/sendAnswers',
         spreadQuestions
       );
+      const responseResults = await apiClient.get('/profile/testresults');
+      console.log('fetchTestResults resp');
+      console.log(response);
+      if (response.data)
+        dispatch(profileSlice.actions.setTestResults(responseResults.data));
+
       // qType: 'bullet',
       // title: q.title,
       // options: q.options.map((o) => o.name),

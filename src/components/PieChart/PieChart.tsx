@@ -25,6 +25,16 @@ export const PieChart: FC<PieChartProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext('2d');
+      if (ctx) {
+        ctx.clearRect(0, 0, size, size);
+        draw(ctx, size, data, colors, lineWidth);
+      }
+    }
+  }, [data]);
+
   return (
     <div>
       <canvas height={size} ref={canvasRef} width={size} />

@@ -140,6 +140,12 @@ export const routesConfig: any = [
     component: <CallbackAuth />,
   },
   {
+    name: 'login',
+    path: RoutePaths.LOGIN,
+    title: 'Auth callback',
+    component: <CallbackAuth />,
+  },
+  {
     name: 'exit',
     path: RoutePaths.EXIT,
     title: 'Выход',
@@ -178,6 +184,12 @@ export const routesConfigGuest: Array<RouteConfig> = [
   {
     name: 'callback',
     path: RoutePaths.CALLBACK,
+    title: 'Auth callback',
+    component: <CallbackAuth />,
+  },
+  {
+    name: 'login',
+    path: RoutePaths.LOGIN,
     title: 'Auth callback',
     component: <CallbackAuth />,
   },

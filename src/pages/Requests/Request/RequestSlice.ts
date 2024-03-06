@@ -155,24 +155,18 @@ export const requestSlice = createSlice({
   initialState,
   reducers: {
     setServiceName(state, action: PayloadAction<string>) {
-      console.log('setServiceName:');
-      console.log(action.payload);
-
       state.request.serviceName = action.payload;
     },
     setServiceId(state, action: PayloadAction<string>) {
       state.request.serviceId = action.payload;
     },
     requestLoad(state) {
-      console.log('requestLoad');
       state.isLoading = true;
     },
     requestLoaded(state) {
-      console.log('requestLoaded');
       state.isLoading = false;
     },
     requestLoadSuccess(state, action: PayloadAction<Request>) {
-      console.log('requestLoadSuccess');
       state.isLoading = false;
       state.error = '';
       state.request = action.payload;
@@ -212,8 +206,12 @@ export const requestSlice = createSlice({
     setFileConfirm(state, action: PayloadAction<Blob>) {
       state.fileConfirm = action.payload;
     },
-    setPrintedVersionWithStamp(state, action: PayloadAction<Blob>) {
-      state.printedVersionWithStamp = action.payload;
+    setPrintedVersionWithStamp(
+      state,
+      action: PayloadAction<{ file: string; fieldId: string }>
+    ) {
+      state.request.uploadedDocuments[action.payload.fieldId].file =
+        action.payload.file;
     },
   },
 });

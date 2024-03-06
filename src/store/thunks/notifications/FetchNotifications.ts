@@ -11,8 +11,6 @@ export const fetchNotifications = (): AppThunk => async (dispatch) => {
   try {
     dispatch(notificationsSlice.actions.notificationsLoad());
     const response = await apiClient.get<Array<Notification>>('/notifications');
-    console.log('fetchNotifications response.data');
-    console.log(response.data);
     dispatch(
       notificationsSlice.actions.notificationsLoadSuccess(response.data)
     );

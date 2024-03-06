@@ -97,9 +97,6 @@ export const profileSlice = createSlice({
       state.profile.documents = action.payload;
     },
     setTestResults(state, action) {
-      console.log('setTestResults action.payload');
-      console.log(action.payload);
-
       const results = action.payload
         ? JSON.parse(JSON.stringify(action.payload))
         : null;

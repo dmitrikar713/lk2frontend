@@ -23,11 +23,7 @@ export const servicesSlice = createSlice({
       state.isLoading = true;
     },
     servicesLoadSuccess(state, action: PayloadAction<any>) {
-      // console.log('servicesLoadSuccess pay.act');
-      // console.log(action.payload);
       state.error = '';
-      // console.log('arr:');
-      // console.log(action.payload);
       state.services = action.payload;
       state.isLoading = false;
     },

@@ -20,7 +20,7 @@ const Services: FC = () => {
 
   useEffect(() => {
     dispatch(fetchServices());
-    if (!Auth.token && !authShown) {
+    if (!correntToken && !authShown) {
       setAuthShown(true);
     }
   }, []);

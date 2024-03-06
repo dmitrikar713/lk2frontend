@@ -14,6 +14,7 @@ export enum RoutePaths {
   EVENTS = '/events',
   NOTIFICATIONS = '/notifications',
   SETTINGS = '/settings',
+  LOGIN = '/login',
   CALLBACK = '/callback',
   EXIT = '/exit',
   LOGOUT = '/logout',

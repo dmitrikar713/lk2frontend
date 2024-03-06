@@ -6,18 +6,17 @@ import { Auth } from 'src/api/auth';
 
 export const checkToken = (): AppThunk => async (dispatch) => {
   try {
-    console.log('checkToken');
-    // dispatch(callbackSlice.actions.setLoading(true));
     const response = await apiClient.get('/auth/checktoken');
-    console.log(response);
     if (!response.data) {
-      console.log('checkToken thunk !response.data');
       dispatch(callbackSlice.actions.goBack(window.location.pathname));
       dispatch(callbackSlice.actions.setToken(false));
-      Auth.clear();
-      // Auth.authorize();
+      dispatch(callbackSlice.actions.setLoading(false));
+      // window.location.pathname = '/';
+      // window.location.pathname = '/api/login';
+      // window.location.href = process.env.APP_LOGOUT_URL;
     } else {
       dispatch(callbackSlice.actions.setToken(true));
+      dispatch(callbackSlice.actions.setLoading(false));
     }
   } catch (error: any) {
     dispatch(profileSlice.actions.profileLoadError(error.message));

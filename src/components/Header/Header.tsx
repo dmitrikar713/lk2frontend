@@ -13,7 +13,6 @@ import { exit } from 'src/common/utils/exit';
 import styles from './Header.module.scss';
 import { HeaderLogo } from './header-logo';
 import { useAppSelector } from 'src/hooks/redux';
-import { Auth } from 'src/api/auth';
 
 export const Header: FC = () => {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ export const Header: FC = () => {
           <span className={styles.HeaderLinks}>
             {/* <span className={styles.HeaderLinksItem}>медиа</span> */}
 
-            {Auth.token ? (
+            {correntToken ? (
               <Link to={RoutePaths.REQUESTS}>
                 <span
                   className={
@@ -58,7 +57,7 @@ export const Header: FC = () => {
                 Список услуг
               </span>
             </Link>
-            {!Auth.token ? (
+            {!correntToken ? (
               <span
                 onClick={() => {
                   window.location.pathname = '/api/login';
@@ -71,7 +70,7 @@ export const Header: FC = () => {
               ''
             )}
           </span>
-          {Auth.token ? (
+          {correntToken ? (
             <span className={styles.HeaderIcons}>
               {/* <NavItem
                 className={styles.HeaderIconsItem}
@@ -107,8 +106,27 @@ export const Header: FC = () => {
             ''
           )}
         </div>
-        <span className={styles.HeaderIconsMobile}>
-          <SettingsIcon />
+
+        {correntToken ? (
+          <span
+            className={styles.HeaderIconsMobile}
+            onClick={() => {
+              navigate(RoutePaths.SETTINGS);
+            }}
+          >
+            <SettingsIcon />
+          </span>
+        ) : (
+          ''
+        )}
+
+        <span
+          className={styles.HeaderIconsMobileNonfill}
+          onClick={() => {
+            navigate(RoutePaths.SERVICES);
+          }}
+        >
+          <ShopIcon />
         </span>
       </div>
       <Modal

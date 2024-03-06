@@ -12,7 +12,7 @@ export const createRequest =
       console.log('createRequest request:');
       const result = await apiClient.post<Request>('/requests', request);
       if (result.status === 201) {
-        dispatch(removeAllDraft());
+        dispatch(removeAllDraft()); // todo rescomentit
         dispatch(requestSlice.actions.setDefaultState());
         Toast('Заявка отправлена', {
           type: 'success',

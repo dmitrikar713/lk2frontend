@@ -25,8 +25,8 @@ export class Auth {
     window.location.pathname = `/api/login`;
   };
 
-  static logOut = (url: string): void => {
-    window.location.href = url;
+  static logOut = (): void => {
+    window.location.href = String(process.env.APP_LOGOUT_URL);
   };
 
   static checkToken(token: string | null, exp: number | null): boolean {

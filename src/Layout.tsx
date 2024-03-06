@@ -16,6 +16,8 @@ import { fetchProfile } from './store/thunks/profile/FetchProfile';
 import { fetchServices } from './store/thunks/services/FetchServices';
 import { Auth } from './api/auth';
 import { routesConfig, routesConfigGuest } from './routeConfigs';
+import { Skeleton } from './components/Skeleton/Skeleton';
+import { feedbackSlice } from './pages/Requests/Request/new/modals/Feedback/FeedbackSlice';
 const RepresentativeProfile = lazy(
   () => import('./pages/Profile/Representative/RepresentativeProfile')
 );
@@ -56,6 +58,9 @@ export const Layout: FC = () => {
   }, [loadingError]);
 
   useEffect(() => {
+    dispatch(callbackSlice.actions.setLoading(true));
+    dispatch(feedbackSlice.actions.setSending(false));
+    dispatch(feedbackSlice.actions.feedbackHide(false)); // todo refactor
     document.title = 'МОСКОВСКИЙ ЭКСПОРТНЫЙ ЦЕНТР';
 
     dispatch(callbackSlice.actions.setToken(false));
@@ -69,7 +74,7 @@ export const Layout: FC = () => {
     correntToken && dispatch(fetchProfile());
   }, [correntToken]);
 
-  const conditionalConfig = Auth.token ? routesConfig : routesConfigGuest;
+  const conditionalConfig = correntToken ? routesConfig : routesConfigGuest;
 
   return (
     <>
@@ -94,21 +99,36 @@ export const Layout: FC = () => {
             </div>
           ) : ( */}
           <Suspense fallback={<div />}>
-            <Routes>
-              {conditionalConfig.map(
-                ({ name, isIndex, path, component, withNavbar }) => (
-                  <Route
-                    key={name}
-                    index={isIndex}
-                    path={path}
-                    element={
-                      component
-                      // withNavbar ? ComponentWithNavbar(component) : component
-                    }
-                  />
-                )
-              )}
-            </Routes>
+            {loading ? (
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexFlow: 'column',
+                  gap: '30px',
+                }}
+              >
+                <Skeleton rows={2} withLogo={true} />
+                <Skeleton rows={2} />
+                <Skeleton rows={2} />
+              </div>
+            ) : (
+              <Routes>
+                {conditionalConfig.map(
+                  ({ name, isIndex, path, component, withNavbar }) => (
+                    <Route
+                      key={name}
+                      index={isIndex}
+                      path={path}
+                      element={
+                        component
+                        // withNavbar ? ComponentWithNavbar(component) : component
+                      }
+                    />
+                  )
+                )}
+              </Routes>
+            )}
           </Suspense>
           {/* )} */}
         </div>

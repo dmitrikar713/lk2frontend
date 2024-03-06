@@ -10,14 +10,16 @@ import { Button, ButtonType } from '../Button/Button';
 
 import styles from './FooterMobile.module.scss';
 import { Auth } from 'src/api/auth';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const FooterMobile: FC = () => {
   const [isModalShown, setModalShown] = useState<boolean>(false);
+  const { correntToken } = useAppSelector((state) => state.callbackReducer);
 
   return (
     <div className={styles.FooterMobile}>
       <div className={styles.FooterMobileIcons}>
-        {Auth.token ? (
+        {correntToken ? (
           <>
             {' '}
             <Link to={RoutePaths.REQUESTS}>

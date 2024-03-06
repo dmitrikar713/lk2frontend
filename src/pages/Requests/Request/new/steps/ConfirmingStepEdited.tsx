@@ -75,8 +75,6 @@ export const ConfirmingStep: FC<ConfirmingStepProps> = ({
         services.find((serv) => {
           if (serv.IDUslugiIsRpp) {
             if (serv.IDUslugiIsRpp.length !== 0) {
-              console.log('serv.IDUslugiIsRpp');
-              console.log(serv.IDUslugiIsRpp);
               return serv.IDUslugiIsRpp[0] == request.serviceId;
             }
           }
@@ -92,8 +90,6 @@ export const ConfirmingStep: FC<ConfirmingStepProps> = ({
         services.find((serv) => {
           if (serv.IDUslugiIsRpp) {
             if (serv.IDUslugiIsRpp.length !== 0) {
-              console.log('serv.IDUslugiIsRpp');
-              console.log(serv.IDUslugiIsRpp);
               return serv.IDUslugiIsRpp[0] == request.serviceId;
             }
           }

@@ -19,7 +19,7 @@ const CallbackAuth = (): ReactElement => {
   useEffect(() => {
     if (correntToken) {
       if (pageBack) {
-        if (pageBack == '/callback') {
+        if (pageBack == '/login') {
           setTimeout(() => navigate('/'));
         } else setTimeout(() => navigate(pageBack));
       } else setTimeout(() => navigate('/'));

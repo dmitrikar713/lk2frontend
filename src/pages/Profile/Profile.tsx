@@ -76,6 +76,7 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
   const { profile, isLoading, testResults } = useAppSelector(
     (state) => state.profileReducer
   );
+
   const { services } = useAppSelector((state) => state.servicesReducer);
   const { user, organization } = profile;
 
@@ -275,7 +276,17 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
           if (!usedNotifications.includes(notification.number.toString())) {
             usedNotifications.push(notification.number);
             storage.setItem('notifications', JSON.stringify(usedNotifications));
-            sendNotification(notification);
+            if (
+              profile.organization.settings.statusChanges ||
+              (profile.organization.settings.additionalDocs &&
+                notification.notification === 'Дополнительный запрос') ||
+              (profile.organization.settings.feedback &&
+                notification.notification === 'Услуга Оказана') ||
+              (profile.organization.settings.signAct &&
+                notification.notification === 'Акт направлен заявителю')
+            ) {
+              sendNotification(notification);
+            }
           }
         });
       }
@@ -530,7 +541,8 @@ const Profile: FC<ProfileProps> = ({ profileCard }) => {
                   (key) =>
                     key !== 'org_id' &&
                     key !== 'org_type' &&
-                    typeof organization[key] !== 'object' && organization[key]
+                    typeof organization[key] !== 'object' &&
+                    organization[key]
                 )
                 .map((key) => (
                   <Input

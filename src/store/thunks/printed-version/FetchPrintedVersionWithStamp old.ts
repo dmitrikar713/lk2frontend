@@ -1,36 +1,33 @@
 import { apiClient } from 'src/api/client/ApiClient';
-import { setDocumentProfile } from 'src/common/utils/setDocumentProfile';
-import { PrintableData } from 'src/entities/Subjects';
 import { uploadProfileFileSlice } from 'src/pages/Profile/UploadProfileFileSlice';
 import { requestSlice } from 'src/pages/Requests/Request/RequestSlice';
 import { AppThunk } from '../../store';
+import { fileToBase64 } from 'src/common/utils/fileToBase64';
 
-export const fetchPrintedVersion =
-  (
-    url: string,
-    printableData: any,
-    // printableData: PrintableData,
-    idFile: string,
-    filename: string,
-    docxTemplateUrl: string
-  ): AppThunk =>
+export const fetchPrintedVersionWithStamp =
+  (printableData: any, docxTemplateUrl: string, fieldId: string): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(requestSlice.actions.requestLoad());
+      console.log(JSON.stringify(printableData, null, 4));
+      console.log(docxTemplateUrl);
       const response = await apiClient.post<Blob>(
-        url,
+        '/request/stamp',
         { requestData: printableData, docxTemplateUrl },
         {
           responseType: 'arraybuffer',
         }
       );
-      console.log('fetchPrintedVersion');
-      console.log(idFile);
+      console.log('fetchPrintedVersionWithStamp');
       console.log(response.data);
+      const filee: any = await fileToBase64(
+        new File([response.data], 'Печатная форма заявки PDF')
+      );
       dispatch(
-        requestSlice.actions.setDocument(
-          await setDocumentProfile(idFile, new File([response.data], filename))
-        )
+        requestSlice.actions.setPrintedVersionWithStamp({
+          file: filee,
+          fieldId: fieldId,
+        })
       );
       dispatch(requestSlice.actions.requestLoaded());
     } catch (error: any) {

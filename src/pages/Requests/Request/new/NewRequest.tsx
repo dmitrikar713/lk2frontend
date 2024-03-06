@@ -24,9 +24,10 @@ import { PrinterIcon } from 'src/styles/icons/printer';
 import { ProfileIcons } from 'src/components/ProfileIcons/ProfileIcons';
 import { getCerts, getSigner } from 'src/common/utils/blitz';
 import { printFile } from 'src/common/utils/printFile';
-import { fetchPrintedVersionWithStamp } from 'src/store/thunks/printed-version/FetchPrintedVersionWithStamp';
 import { signError, SignError } from 'src/common/utils/signError';
 import { fetchServices } from 'src/store/thunks/services/FetchServices';
+import { fetchPrintedVersion } from 'src/store/thunks/printed-version/FetchPrintedVersion';
+import { fetchPrintedVersionWithStamp } from 'src/store/thunks/printed-version/FetchPrintedVersionWithStamp old';
 
 enum StepButton {
   Fill = 'Далее',
@@ -55,11 +56,11 @@ export const NewRequest: FC = () => {
   const [certs, setCerts] = useState<Array<any>>([]);
   const [certsShown, setCertsShown] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-
+  const {
+    formConfig: { fields },
+  } = useAppSelector((state) => state.requestReducer.request);
   async function handleSign() {
     setButtonDisabled(true);
-    console.log('handleSign');
-    console.log(uploadedDocuments);
 
     const allDocumentsUploaded = Object.values(uploadedDocuments).reduce(
       (acc: boolean, next: UploadedDocument) => (!next.file ? false : acc),
@@ -172,7 +173,6 @@ export const NewRequest: FC = () => {
     }
   }
   async function fetchFieldsAndName() {
-    // console.log('fetchFieldsAndName');
     await dispatch(fetchServiceConfig(serviceId, services));
     await dispatch(fetchServices());
     await dispatch(
@@ -186,32 +186,72 @@ export const NewRequest: FC = () => {
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    currentStep === 3 &&
-      dispatch(
-        fetchPrintedVersionWithStamp(
-          {
-            fields: {
-              inn: organization.org_inn,
-              LastName: user.user_last_name,
-              FirstName: user.user_first_name,
-              MiddleName: user.user_middle_name,
-              Phone: user.user_phone,
-              guid: serviceId,
-              ...formData,
-            },
-            certs: { ...certs[0].info },
-          },
-          services.find((serv) => {
-            if (serv.IDUslugiIsRpp) {
-              if (serv.IDUslugiIsRpp.length !== 0) {
-                console.log('serv.IDUslugiIsRpp');
-                console.log(serv.IDUslugiIsRpp);
-                return serv.IDUslugiIsRpp[0] == request.serviceId;
-              }
-            }
-          }).ApplicationTemplate
-        ) // TODO DOCX
-      );
+
+    let pdfTitleId = '';
+    let xmlTitleId = '';
+
+    fields.map((field) => {
+      if (field.name === 'Печатная форма заявки PDF') {
+        pdfTitleId = field.parameterInApi;
+      }
+      if (field.name === 'Печатная форма заявки XML') {
+        xmlTitleId = field.parameterInApi;
+      }
+    });
+
+    // currentStep === 3 &&
+    //   dispatch(
+    //     fetchPrintedVersionWithStamp(
+    //       '/request/stamp',
+    //       {
+    //         fields: {
+    //           inn: organization.org_inn,
+    //           LastName: user.user_last_name,
+    //           FirstName: user.user_first_name,
+    //           MiddleName: user.user_middle_name,
+    //           Phone: user.user_phone,
+    //           guid: serviceId,
+    //           ...formData,
+    //         },
+    //         certs: { ...certs[0].info },
+    //       },
+    //       pdfTitleId,
+    //       'pdfPrintForm.pdf',
+    //       services.find((serv) => {
+    //         if (serv.IDUslugiIsRpp) {
+    //           if (serv.IDUslugiIsRpp.length !== 0) {
+    //             return serv.IDUslugiIsRpp[0] == request.serviceId;
+    //           }
+    //         }
+    //       }).ApplicationTemplate
+    //     )
+    //   );
+
+    // currentStep === 3 &&
+    //   dispatch(
+    //     fetchPrintedVersionWithStamp(
+    //       {
+    //         fields: {
+    //           inn: organization.org_inn,
+    //           LastName: user.user_last_name,
+    //           FirstName: user.user_first_name,
+    //           MiddleName: user.user_middle_name,
+    //           Phone: user.user_phone,
+    //           guid: serviceId,
+    //           ...formData,
+    //         },
+    //         certs: { ...certs[0].info },
+    //       },
+    //       services.find((serv) => {
+    //         if (serv.IDUslugiIsRpp) {
+    //           if (serv.IDUslugiIsRpp.length !== 0) {
+    //             return serv.IDUslugiIsRpp[0] == request.serviceId;
+    //           }
+    //         }
+    //       }).ApplicationTemplate,
+    //       pdfTitleId
+    //     ) // TODO DOCX
+    //   );
   }, [currentStep]);
 
   const steps = [

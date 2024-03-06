@@ -25,7 +25,14 @@ const persistConfig = {
   key: 'MEC-lk',
   version: 1,
   storage,
-  blacklist: ['requestReducer'],
+  blacklist: [
+    'requestReducer',
+    'feedbackReducer',
+    'notificationsReducer',
+    'profileReducer',
+    'exportsReducer',
+    'TestrouterReducer',
+  ],
 };
 
 const rootReducer = combineReducers({

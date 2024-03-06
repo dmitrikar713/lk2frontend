@@ -8,7 +8,6 @@ import { fetchService } from 'src/store/thunks/services/FetchService';
 import { MoneybagIcon, RoubleIcon, TimeIcon } from './icons';
 import { useLocation } from 'react-router';
 import { fetchServices } from 'src/store/thunks/services/FetchServices';
-import { Auth } from 'src/api/auth';
 import { Modal } from 'src/components/Modal/Modal';
 const parse = require('html-react-parser');
 
@@ -25,6 +24,7 @@ const Service: FC = () => {
   const service = services.find((serv) => serv.IDUslugiIsRpp == serviceId);
   // const service = services.find((serv) => serv.ID === '1460');
   // console.log(service);
+  const { correntToken } = useAppSelector((state) => state.callbackReducer);
 
   const { name, infoList, stages } = useAppSelector(
     (state) => state.serviceReducer.service
@@ -34,7 +34,7 @@ const Service: FC = () => {
     if (service.LinkNaFormuProducta) {
       window.open(service.LinkNaFormuProducta, '_blank', 'noreferrer');
     } else {
-      if (Auth.token) {
+      if (correntToken) {
         dispatch(requestSlice.actions.setServiceId(serviceId));
         navigate('/requests/add');
       } else {
@@ -84,7 +84,7 @@ const Service: FC = () => {
           </div>
         </Modal>
         <div className={styles.HeroText}>
-          {service.NAME && <h2>{service.NAME}</h2>}
+          {service.KratkoeNazvanie && <h2>{service.KratkoeNazvanie}</h2>}
           {service.KratkoyeOpisaniyeUslugiMassiv
             .KratkoyeOpisaniyeUslugiZagolovok && (
             <p style={styles.HeroTextSubtitle}>
